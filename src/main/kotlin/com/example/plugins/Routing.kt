@@ -1,6 +1,6 @@
 package com.example.plugins
 
-import com.example.models.FoodCategory
+import com.example.models.Category
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.statuspages.*
@@ -15,9 +15,9 @@ fun Application.configureRouting() {
     }
     routing {
         get("/") {
-            var category = FoodCategory.Dairy.Milk.CowMilk
+            var category = Category.Food.Dairy.Milk.CowMilk
 
-            if(category is FoodCategory.Dairy.Milk){
+            if(category is Category.Food.Dairy.Milk){
                 call.respondText("true!")
             }else{
                 call.respondText("false!")

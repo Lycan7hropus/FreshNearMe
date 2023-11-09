@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 data class Offer(
     val id: String,
     var name: String,
-    var category: FoodCategory,
+    var category: Category,
     var price: Double,
     var phoneNumber: String,
     var description: String,
