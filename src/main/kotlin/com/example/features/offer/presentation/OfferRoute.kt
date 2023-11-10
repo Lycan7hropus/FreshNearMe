@@ -2,31 +2,44 @@ package com.example.features.offer.presentation
 
 import com.example.features.offer.data.OfferRepository
 import com.example.features.offer.domain.CreateOfferUseCase
-import com.example.features.offer.domain.GetAllOffersUseCase
+import com.example.features.offer.domain.GetOffersUseCase
 import com.example.features.offer.domain.GetOfferByIdUseCase
 import com.example.features.offer.domain.UpdateOfferUseCase
 import com.example.features.offer.presentation.dto.OfferDto
-import com.example.features.offer.presentation.dto.OffersDto
+import com.example.models.Coordinates
 import com.example.models.Offer
 import com.example.utils.exceptions.OfferCreationException
+import com.mongodb.client.model.Indexes
+import com.mongodb.client.model.geojson.Point
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.serializer
+import org.koin.java.KoinJavaComponent
 import org.koin.ktor.ext.inject
+import org.koin.mp.KoinPlatform.getKoin
+import org.litote.kmongo.coroutine.CoroutineCollection
+import org.slf4j.LoggerFactory
 
 fun Route.offerRoutes() {
-    val offerRepository: OfferRepository by inject()
     val createOfferUseCase: CreateOfferUseCase by inject()
-    val getAllOffersUseCase: GetAllOffersUseCase by inject()
+    val getAllOffersUseCase: GetOffersUseCase by inject()
     val getOfferByIdUseCase: GetOfferByIdUseCase by inject()
     val updateOfferUseCase: UpdateOfferUseCase by inject()
 
     // Route for getting a list of all offers
     get("/offers") {
-        val result = getAllOffersUseCase()
+        val category = call.request.queryParameters["category"]
+        val coordinates = call.request.queryParameters["coordinates"]?.toCoordinates()
+        val distance = call.request.queryParameters["distance"]?.toDoubleOrNull()
+
+        val result = getAllOffersUseCase.invoke(category, distance, coordinates)
 
         result.fold(
             onSuccess = { offers ->
@@ -91,4 +104,16 @@ fun Route.offerRoutes() {
         )
     }
 
+}
+
+fun String.toCoordinates(): Coordinates? {
+    val parts = this.split(',')
+    if (parts.size == 2) {
+        val latitude = parts[0].toDoubleOrNull()
+        val longitude = parts[1].toDoubleOrNull()
+        if (latitude != null && longitude != null) {
+            return Coordinates(latitude, longitude)
+        }
+    }
+    return null
 }

@@ -2,12 +2,18 @@ package com.example.plugins
 
 import com.example.database.DatabaseProvider
 import com.example.features.offer.presentation.offerRoutes
+import com.example.models.Offer
+import com.mongodb.client.model.Indexes
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.coroutines.runBlocking
+import org.koin.java.KoinJavaComponent
 import org.koin.ktor.ext.inject
+import org.litote.kmongo.coroutine.CoroutineCollection
+import org.slf4j.LoggerFactory
 
 fun Application.configureRouting() {
     install(StatusPages) {

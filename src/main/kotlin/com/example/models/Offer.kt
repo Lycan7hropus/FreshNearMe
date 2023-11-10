@@ -1,5 +1,4 @@
 package com.example.models
-import com.example.models.geolocation.GeoJsonPoint
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId
@@ -16,7 +15,7 @@ data class Offer(
     var imageUrl: String?,
     val postedTime: LocalDateTime,
     val sellerId: String,
-    var geoLocation: GeoJsonPoint,
+    val geoPoint: GeoPoint,
     var isActive: Boolean = true
 ) {
     init {

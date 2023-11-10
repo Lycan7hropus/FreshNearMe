@@ -1,8 +1,8 @@
 package com.example.features.offer.presentation.dto
 
 import com.example.models.Offer
-import com.example.models.SimpleLocation
-import com.example.models.geolocation.GeoJsonPoint
+import com.example.models.Coordinates
+import com.example.models.GeoPoint
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -17,9 +17,9 @@ class OfferDto(
     var price: Double,
     var phoneNumber: String,
     var description: String,
-    var imageUrl: String?, //BaseEncodedImage
+    var imageUrl: String?,
     val sellerId: String,
-    var simpleLocation: SimpleLocation
+    var coordinates: Coordinates
 ) {
     constructor(offer: Offer) : this(
         id = offer.id,
@@ -30,7 +30,7 @@ class OfferDto(
         description = offer.description,
         imageUrl = offer.imageUrl,
         sellerId = offer.sellerId,
-        simpleLocation = SimpleLocation(offer.geoLocation.coordinates.get(0),offer.geoLocation.coordinates.get(1))
+        coordinates = Coordinates(longitude = offer.geoPoint.coordinates[0], latitude = offer.geoPoint.coordinates[1])
     )
 
     fun toDomainModel(): Offer {
@@ -46,8 +46,9 @@ class OfferDto(
             imageUrl = imageUrl,
             postedTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()), // Or use the appropriate time zone
             sellerId = sellerId,
-            geoLocation = GeoJsonPoint(coordinates = listOf(simpleLocation.longitude, simpleLocation.latitude)),
+            geoPoint = GeoPoint(coordinates = listOf(coordinates.longitude, coordinates.latitude)),
             isActive = true // Assuming a new offer is always active initially
         )
     }
 }
+

@@ -4,7 +4,7 @@ data class User(
     val id: String,
     val username: String,
     val email: String,
-    val address: SimpleLocation,
+    val address: Coordinates,
     val passwordHash: String,
     val contactInfo: String,
     val postedOffers: List<String>,

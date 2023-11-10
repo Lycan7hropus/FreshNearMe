@@ -1,5 +1,6 @@
 package com.example.models
 
+import com.mongodb.client.model.geojson.Point
 import kotlinx.serialization.Serializable
 @Serializable
 data class DetailedLocation(
@@ -23,17 +24,22 @@ data class AddressComponent(
 )
 @Serializable
 data class Geometry(
-    val location: SimpleLocation,
+    val location: Coordinates,
     val locationType: String,
     val viewport: Viewport
 )
 @Serializable
 data class Viewport(
-    val northeast: SimpleLocation,
-    val southwest: SimpleLocation
+    val northeast: Coordinates,
+    val southwest: Coordinates
 )
 @Serializable
-data class SimpleLocation(
-    val longitude: Double,
-    val latitude: Double
+data class Coordinates(
+    val latitude: Double,
+    val longitude: Double
+)
+@Serializable
+data class GeoPoint(
+    val type: String = "Point",
+    val coordinates: List<Double>
 )
