@@ -1,11 +1,13 @@
 package com.example.plugins
 
-import com.example.models.Category
+import com.example.database.DatabaseProvider
+import com.example.features.offer.presentation.offerRoutes
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import org.koin.ktor.ext.inject
 
 fun Application.configureRouting() {
     install(StatusPages) {
@@ -15,17 +17,18 @@ fun Application.configureRouting() {
     }
     routing {
         get("/") {
-            var category = Category.Food.Dairy.Milk.CowMilk
 
-            if(category is Category.Food.Dairy.Milk){
-                call.respondText("true!")
-            }else{
-                call.respondText("false!")
-            }
+        }
+
+        val databaseProvider: DatabaseProvider by inject()
+        cleanDbRoute(databaseProvider)
+
+        get("/test") {
+            call.respondText("test!")
         }
         // Route for user registration
         post("/register") {
-            // Handle user registration logic here
+            call.respondText("register!")
         }
 
         // Route for user login
@@ -33,25 +36,14 @@ fun Application.configureRouting() {
             // Handle user login logic here
         }
 
-        // Route for adding an offer
-        post("/offers") {
-            // Handle adding a new offer here
-        }
 
-        // Route for getting a list of all offers
-        get("/offers") {
-            // Handle fetching all offers here
-        }
-
-        // Route for getting a single offer by ID
-        get("/offers/{id}") {
-            // Handle fetching a single offer by ID here
-        }
 
         // Route for getting a list of offers posted by a specific user
         get("/user/{userId}/offers") {
             // Handle fetching offers for a specific user here
         }
+
+        offerRoutes()
 
         // Route for getting a user's wishlist
         get("/user/{userId}/wishlist") {

@@ -25,9 +25,4 @@ fun Application.module() {
     configureSerialization()
     configureSecurity()
     configureRouting()
-
-    // Use the DatabaseProvider to access the database
-    val databaseProvider: DatabaseProvider by inject()
-    val database = databaseProvider.database
-
 }

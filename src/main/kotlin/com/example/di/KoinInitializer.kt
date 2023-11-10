@@ -7,6 +7,6 @@ import org.koin.logger.slf4jLogger
 fun Application.initKoin() {
     install(Koin) {
         slf4jLogger()
-        modules(listOf(appModule, databaseModule))
+        modules(listOf(appModule, databaseModule, offerModule))
     }
 }

@@ -43,6 +43,9 @@ tasks.withType<Detekt>().configureEach {
 }
 
 dependencies {
+    //date and time
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
+
     //konform
     implementation("io.konform:konform:0.4.0")
 

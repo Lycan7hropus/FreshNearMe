@@ -1,30 +1,31 @@
 package com.example.models
-import java.time.LocalDateTime
+import com.example.models.geolocation.GeoJsonPoint
+import kotlinx.datetime.LocalDateTime
+import kotlinx.serialization.Serializable
+import org.bson.codecs.pojo.annotations.BsonId
 
-
+@Serializable
 data class Offer(
+    @BsonId
     val id: String,
     var name: String,
-    var category: Category,
+    var category: String,
     var price: Double,
     var phoneNumber: String,
     var description: String,
     var imageUrl: String?,
     val postedTime: LocalDateTime,
     val sellerId: String,
-    var simpleLocation: SimpleLocation,
+    var geoLocation: GeoJsonPoint,
     var isActive: Boolean = true
 ) {
-    fun deactivate() {
-        isActive = false
+    init {
+        require(name.isNotBlank()) { "Offer name cannot be blank." }
+        require(category.isNotBlank()) { "Category cannot be blank." }
+        require(price >= 0) { "Price cannot be negative." }
+        require(phoneNumber.isNotBlank()) { "Phone number cannot be blank." }
+        require(description.isNotBlank()) { "Description cannot be blank." }
+        require(sellerId.isNotBlank()) { "Seller ID cannot be blank." }
+        // Add more validations as needed
     }
-
-    fun updatePrice(newPrice: Double) {
-        if (newPrice >= 0) {
-            price = newPrice
-        } else {
-            throw IllegalArgumentException("Price cannot be negative.")
-        }
-    }
-
 }
