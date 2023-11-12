@@ -13,7 +13,7 @@ class CreateOfferUseCase(private val offerRepository: OfferRepository, private v
                 ?: throw IllegalArgumentException("Niepoprawna kategoria")
 
             val offer = offerDto.toDomainModel(category)
-            val createdOffer = offerRepository.createOffer(offer)
+            val createdOffer = offerRepository.saveOffer(offer)
 
             if (createdOffer != null) {
                 Result.success(createdOffer)

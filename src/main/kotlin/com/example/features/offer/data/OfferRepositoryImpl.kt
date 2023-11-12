@@ -18,7 +18,7 @@ class OfferRepositoryImpl(private val offersCollection: CoroutineCollection<Offe
 
         // Add category filter if category is not null
         category?.path?.let {
-            filters.add(Filters.regex(Category::path.name, "^${Regex.escape(it)}"))
+            filters.add(Filters.regex(Offer::category.name+"."+Category::path.name, "^${Regex.escape(it)}"))
         }
 
         // Add location filter if geoPoint and distance are not null
@@ -47,7 +47,7 @@ class OfferRepositoryImpl(private val offersCollection: CoroutineCollection<Offe
         }
     }
 
-    override suspend fun createOffer(offer: Offer): Offer? {
+    override suspend fun saveOffer(offer: Offer): Offer? {
         // Insert the new offer into the database collection
         return try {
             offersCollection.insertOne(offer)
@@ -65,5 +65,9 @@ class OfferRepositoryImpl(private val offersCollection: CoroutineCollection<Offe
         } else {
             null // Return null if the update didn't match any document
         }
+    }
+
+    override suspend fun deleteOffer(offerId: String): Boolean {
+        TODO("Not yet implemented")
     }
 }

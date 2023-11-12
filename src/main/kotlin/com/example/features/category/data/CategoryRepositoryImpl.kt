@@ -5,13 +5,17 @@ import com.example.models.Category
 import org.litote.kmongo.coroutine.CoroutineCollection
 
 class CategoryRepositoryImpl(private val categoryCollection: CoroutineCollection<Category>) : CategoryRepository {
-    override suspend fun createCategory(category: Category): Category {
+    override suspend fun saveCategory(category: Category): Category {
         categoryCollection.insertOne(category)
         return category
     }
 
     override suspend fun getCategoryById(id: String): Category? {
         return categoryCollection.findOneById(id)
+    }
+
+    override suspend fun getCategoryPathById(id: String): String? {
+        return categoryCollection.findOneById(id)?.path
     }
 
     override suspend fun getAllCategories(): List<Category> {
@@ -28,7 +32,9 @@ class CategoryRepositoryImpl(private val categoryCollection: CoroutineCollection
     }
 
     override suspend fun deleteCategory(id: String): Boolean {
-        val deleteResult = categoryCollection.deleteOneById(id)
-        return deleteResult.wasAcknowledged() && deleteResult.deletedCount > 0
+//        val deleteResult = categoryCollection.deleteOneById(id)
+//        return deleteResult.wasAcknowledged() && deleteResult.deletedCount > 0
+        //TODO
+        return false
     }
 }

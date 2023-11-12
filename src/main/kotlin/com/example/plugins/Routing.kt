@@ -1,6 +1,7 @@
 package com.example.plugins
 
 import com.example.database.DatabaseProvider
+import com.example.features.offer.presentation.categoryRoutes
 import com.example.features.offer.presentation.offerRoutes
 import com.example.models.Offer
 import com.mongodb.client.model.Indexes
@@ -50,6 +51,7 @@ fun Application.configureRouting() {
         }
 
         offerRoutes()
+        categoryRoutes()
 
         // Route for getting a user's wishlist
         get("/user/{userId}/wishlist") {
