@@ -1,8 +1,7 @@
-package com.example.features.offer.domain
+package com.example.features.offer.domain.usecases
 
-import com.example.features.offer.data.OfferRepository
+import com.example.features.offer.domain.OfferRepository
 import com.example.features.offer.presentation.dto.OfferDto
-import com.example.models.Offer
 import io.ktor.server.plugins.*
 
 class GetOfferByIdUseCase(private val offerRepository: OfferRepository) {

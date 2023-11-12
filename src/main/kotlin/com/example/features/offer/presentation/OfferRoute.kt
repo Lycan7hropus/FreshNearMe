@@ -1,31 +1,19 @@
 package com.example.features.offer.presentation
 
-import com.example.features.offer.data.OfferRepository
-import com.example.features.offer.domain.CreateOfferUseCase
-import com.example.features.offer.domain.GetOffersUseCase
-import com.example.features.offer.domain.GetOfferByIdUseCase
-import com.example.features.offer.domain.UpdateOfferUseCase
+import com.example.features.offer.domain.usecases.CreateOfferUseCase
+import com.example.features.offer.domain.usecases.GetOffersUseCase
+import com.example.features.offer.domain.usecases.GetOfferByIdUseCase
+import com.example.features.offer.domain.usecases.UpdateOfferUseCase
 import com.example.features.offer.presentation.dto.OfferDto
 import com.example.models.Coordinates
-import com.example.models.Offer
 import com.example.utils.exceptions.OfferCreationException
-import com.mongodb.client.model.Indexes
-import com.mongodb.client.model.geojson.Point
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.InternalSerializationApi
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.serializer
-import org.koin.java.KoinJavaComponent
 import org.koin.ktor.ext.inject
-import org.koin.mp.KoinPlatform.getKoin
-import org.litote.kmongo.coroutine.CoroutineCollection
-import org.slf4j.LoggerFactory
 
 fun Route.offerRoutes() {
     val createOfferUseCase: CreateOfferUseCase by inject()

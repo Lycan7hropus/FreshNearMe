@@ -1,15 +1,18 @@
-package com.example.features.offer.domain
+package com.example.features.offer.domain.usecases
 
-import com.example.features.offer.data.OfferRepository
+import com.example.features.offer.domain.CategoryProvider
+import com.example.features.offer.domain.OfferRepository
 import com.example.features.offer.presentation.dto.OfferDto
 import com.example.models.Offer
 import com.example.utils.exceptions.OfferCreationException
-import com.example.utils.exceptions.ValidationException
 
-class CreateOfferUseCase(private val offerRepository: OfferRepository) {
+class CreateOfferUseCase(private val offerRepository: OfferRepository, private val categoryProvider: CategoryProvider) {
     suspend operator fun invoke(offerDto: OfferDto): Result<Offer> {
         return try {
-            val offer = offerDto.toDomainModel()
+            val category = categoryProvider.getCategoryById(offerDto.categoryId)
+                ?: throw IllegalArgumentException("Niepoprawna kategoria")
+
+            val offer = offerDto.toDomainModel(category)
             val createdOffer = offerRepository.createOffer(offer)
 
             if (createdOffer != null) {

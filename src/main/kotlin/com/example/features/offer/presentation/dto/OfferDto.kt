@@ -1,5 +1,6 @@
 package com.example.features.offer.presentation.dto
 
+import com.example.models.Category
 import com.example.models.Offer
 import com.example.models.Coordinates
 import com.example.models.GeoPoint
@@ -13,7 +14,7 @@ import java.util.UUID
 class OfferDto(
     var id: String?,
     var name: String,
-    var category: String,
+    var categoryId: String,
     var price: Double,
     var phoneNumber: String,
     var description: String,
@@ -24,7 +25,7 @@ class OfferDto(
     constructor(offer: Offer) : this(
         id = offer.id,
         name = offer.name,
-        category = offer.category,
+        categoryId = offer.category.id,
         price = offer.price,
         phoneNumber = offer.phoneNumber,
         description = offer.description,
@@ -33,7 +34,7 @@ class OfferDto(
         coordinates = Coordinates(longitude = offer.geoPoint.coordinates[0], latitude = offer.geoPoint.coordinates[1])
     )
 
-    fun toDomainModel(): Offer {
+    fun toDomainModel(category: Category): Offer {
         // Here we generate a random ID and use the current time for the postedTime.
         // Adjust according to your application's requirements.
         return Offer(

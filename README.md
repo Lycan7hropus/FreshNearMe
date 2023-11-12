@@ -34,3 +34,6 @@ This project is a Ktor-based server application that provides a service for post
     - Fields: `id`, `name`, `category`, `price`, `geoLocation`, etc.
     - Index: Geospatial index on `geoLocation`.
  basic guide to getting started with the project. You can expand it with more detailed instructions, configurations, and descriptions as needed.
+
+## Sources
+ - https://mongodb-documentation.readthedocs.io/en/latest/use-cases/category-hierarchy.html#gsc.tab=0

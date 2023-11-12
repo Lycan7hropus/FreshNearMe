@@ -1,5 +1,7 @@
 package com.example.features.offer.data
 
+import com.example.features.offer.domain.OfferRepository
+import com.example.models.Category
 import com.example.models.Coordinates
 import com.example.models.Offer
 import com.mongodb.client.model.Filters
@@ -7,16 +9,16 @@ import com.mongodb.client.model.geojson.Point
 import com.mongodb.client.model.geojson.Position
 import org.bson.conversions.Bson
 import org.litote.kmongo.coroutine.CoroutineCollection
+import org.litote.kmongo.path
 
 class OfferRepositoryImpl(private val offersCollection: CoroutineCollection<Offer>) : OfferRepository {
-    override suspend fun getOffers(category: String?, distance: Double?, coordinates: Coordinates?): List<Offer> {
+    override suspend fun getOffers(category: Category?, distance: Double?, coordinates: Coordinates?): List<Offer> {
         val filters = mutableListOf<Bson>()
         val point = coordinates?.let { Point(Position(it.longitude, it.latitude)) }
 
-
         // Add category filter if category is not null
-        category?.let {
-            filters.add(Filters.eq(Offer::category.name, it))
+        category?.path?.let {
+            filters.add(Filters.regex(Category::path.name, "^${Regex.escape(it)}"))
         }
 
         // Add location filter if geoPoint and distance are not null
