@@ -16,7 +16,5 @@ class MongoDatabaseProvider(private val clientName: String) : DatabaseProvider {
 
     override val database: CoroutineDatabase
         get() = mongoClient.getDatabase(initializeName)
-
-
 }
 

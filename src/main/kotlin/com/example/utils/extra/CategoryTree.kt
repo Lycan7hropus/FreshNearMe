@@ -1,4 +1,4 @@
-package com.example.features.category.extra
+package com.example.utils.extra
 
 import com.example.models.Category
 

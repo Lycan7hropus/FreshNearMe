@@ -18,5 +18,4 @@ class GetOfferByIdUseCase(private val offerRepository: OfferRepository) {
             Result.failure(e)
         }
     }
-
 }

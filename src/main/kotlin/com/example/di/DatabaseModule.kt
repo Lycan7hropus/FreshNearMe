@@ -34,19 +34,4 @@ val databaseModule = module {
         }
         offerCollection
     }
-    single<OfferRepository> { OfferRepositoryImpl(get(named("OfferCollection"))) }
-    single<CategoryRepository> { CategoryRepositoryImpl(get(named("CategoryCollection"))) }
-
-
-
-    single<CategoryProvider> { CategoryACL(get()) }
-    single { CreateOfferUseCase(get(),get()) }
-    single { GetOffersUseCase(get(),get()) }
-    single { GetOfferByIdUseCase(get()) }
-    single { UpdateOfferUseCase(get(),get()) }
-    single { CreateCategoryUseCase(get()) }
-    single { DeleteCategoryUseCase(get()) }
-    single { GetAllCategoriesUseCase(get()) }
-    single { GetCategoryByIdUseCase() }
-    single { UpdateCategoryUseCase() }
 }

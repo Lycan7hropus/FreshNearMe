@@ -13,9 +13,17 @@ import com.example.utils.CategoryACL
 import com.mongodb.client.model.Indexes
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.litote.kmongo.coroutine.CoroutineCollection
 
 val offerModule = module {
+    single<OfferRepository> { OfferRepositoryImpl(get(named("OfferCollection"))) }
 
+    single { CreateOfferUseCase(get(),get()) }
+    single { GetOffersUseCase(get(),get()) }
+    single { GetOfferByIdUseCase(get()) }
+    single { UpdateOfferUseCase(get(),get()) }
+
+    single<CategoryProvider> { CategoryACL(get()) }
 }

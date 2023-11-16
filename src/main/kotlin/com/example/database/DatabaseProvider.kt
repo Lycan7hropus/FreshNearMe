@@ -12,5 +12,4 @@ interface DatabaseProvider {
     val mongoClient: CoroutineClient
 
     val database: CoroutineDatabase
-
 }

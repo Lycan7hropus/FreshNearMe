@@ -15,11 +15,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
 
-fun Route.offerRoutes() {
-    val createOfferUseCase: CreateOfferUseCase by inject()
-    val getAllOffersUseCase: GetOffersUseCase by inject()
-    val getOfferByIdUseCase: GetOfferByIdUseCase by inject()
-    val updateOfferUseCase: UpdateOfferUseCase by inject()
+fun Route.offerRoutes(createOfferUseCase: CreateOfferUseCase ,getAllOffersUseCase: GetOffersUseCase, getOfferByIdUseCase: GetOfferByIdUseCase, updateOfferUseCase: UpdateOfferUseCase ) {
 
     // Route for getting a list of all offers
     get("/offers") {
@@ -38,6 +34,8 @@ fun Route.offerRoutes() {
             }
         )
     }
+
+
     // Route for adding an offer
     post("/offers") {
         val newOfferDto = call.receive<OfferDto>()

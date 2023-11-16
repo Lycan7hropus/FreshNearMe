@@ -43,6 +43,10 @@ tasks.withType<Detekt>().configureEach {
 }
 
 dependencies {
+    //ouath
+    implementation("io.ktor:ktor-server-auth:$ktor_version")
+    implementation("io.ktor:ktor-client-apache:$ktor_version")
+
     //date and time
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
 
