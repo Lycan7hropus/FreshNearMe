@@ -27,6 +27,9 @@ val databaseModule = module {
     single<CoroutineCollection<Category>>(named("CategoryCollection")) {
         get<DatabaseProvider>().database.getCollection("categories")
     }
+    single<CoroutineCollection<Category>>(named("UserCollection")) {
+        get<DatabaseProvider>().database.getCollection("users")
+    }
     single<CoroutineCollection<Offer>>(named("OfferCollection")) {
         val offerCollection: CoroutineCollection<Offer> = get<DatabaseProvider>().database.getCollection("offers")
         GlobalScope.launch {
