@@ -3,6 +3,8 @@ package com.example.features.user.presentation
 import com.example.features.user.domain.models.User
 import com.example.features.user.presentation.models.UserRequest
 import com.example.features.user.domain.usecases.*
+import com.example.utils.respondError
+import com.example.utils.respondSuccess
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -15,9 +17,9 @@ fun Route.userRoutes(getUserOffersUseCase: GetUserOffersUseCase, getUserUseCase:
         try {
             val userId = call.parameters["userId"] ?: return@get call.respondText("Missing or malformed userId", status = HttpStatusCode.BadRequest)
             val user = getUserUseCase.invoke(userId)
-            call.respond(user)
+            call.respondSuccess(data = user)
         }catch (e: Exception){
-            call.respondText(e.message ?: "An error occurred", status = HttpStatusCode.BadRequest)
+            call.respondError(exception = e)
         }
     }
 
@@ -27,9 +29,9 @@ fun Route.userRoutes(getUserOffersUseCase: GetUserOffersUseCase, getUserUseCase:
         try {
             val userId = call.parameters["userId"] ?: return@get call.respondText("Missing or malformed userId", status = HttpStatusCode.BadRequest)
             val wishListResponse = getUserWishlistUseCase.invoke(userId)
-            call.respond(wishListResponse)
+            call.respondSuccess(data = wishListResponse)
         } catch (e: Exception) {
-            call.respondText(e.message ?: "An error occurred", status = HttpStatusCode.BadRequest)
+            call.respondError(exception = e)
         }
     }
 
@@ -39,9 +41,9 @@ fun Route.userRoutes(getUserOffersUseCase: GetUserOffersUseCase, getUserUseCase:
         try {
             val userId = call.parameters["userId"] ?: return@get call.respondText("Missing or malformed userId", status = HttpStatusCode.BadRequest)
             val offersResponse = getUserOffersUseCase.invoke(userId)
-            call.respond(offersResponse)
+            call.respondSuccess(data = offersResponse)
         } catch (e: Exception) {
-            call.respondText(e.message ?: "An error occurred", status = HttpStatusCode.BadRequest)
+            call.respondError(exception = e)
         }
     }
 
@@ -61,10 +63,14 @@ fun Route.userRoutes(getUserOffersUseCase: GetUserOffersUseCase, getUserUseCase:
     post("/user") {
         try {
             val userInfo = call.receive<UserRequest>()
-            val success = saveUserUseCase.invoke(userInfo)
-            call.respond(success)
-        }catch (e: Exception){
-            call.respondText(e.message ?: "An error occurred", status = HttpStatusCode.BadRequest)
+            val user = saveUserUseCase.invoke(userInfo)
+            call.respondSuccess(code = HttpStatusCode.Created, data = user)
+        } catch (e: Exception) {
+            call.respondError(exception = e)
         }
     }
+
+
+
 }
+

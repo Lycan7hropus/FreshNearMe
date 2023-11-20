@@ -10,7 +10,9 @@ import com.example.features.offer.presentation.categoryRoutes
 import com.example.features.offer.presentation.offerRoutes
 import com.example.features.user.domain.UserDataRepository
 import com.example.features.user.presentation.models.UserRequest
+import io.ktor.client.*
 import io.ktor.client.call.*
+import io.ktor.client.engine.apache.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -29,62 +31,28 @@ fun Application.configureRouting() {
         }
     }
 
-    // Middleware do autoryzacji
-    intercept(ApplicationCallPipeline.Features) {
-        val token = call.request.headers[HttpHeaders.Authorization]?.removePrefix("Bearer ")
-        if (token == null) {
-            call.respond(HttpStatusCode.Unauthorized, "No token provided")
-            finish() // Zakończ przetwarzanie żądania
-        } else {
-            // Tutaj można dodać logikę weryfikacji tokena
-        }
-    }
 
     routing {
+        authenticate("auth-bearer") {
+            get("/getUserInfo") {
+                // Pobieranie tokenu z nagłówka autoryzacji
+                val token = call.request.headers[HttpHeaders.Authorization]?.removePrefix("Bearer ")
 
-        authenticate("auth-oauth-google") {
-            get("/login") {
-                // Redirects to Google authorization page automatically
-            }
-            val userRepository: UserDataRepository by inject()
-            get("/callback") {
-                val principal: OAuthAccessTokenResponse.OAuth2? = call.authentication.principal()
-                val token = principal?.accessToken.toString()
-
-                // Pobranie danych użytkownika
-                val userInfoJson: String = applicationHttpClient.get("https://www.googleapis.com/oauth2/v2/userinfo") {
-                    headers { append(HttpHeaders.Authorization, "Bearer $token") }
-                }.body()
-
-
-
-                // Konwersja JSON na obiekt User
-                val userInfo = Json.decodeFromString<UserRequest>(userInfoJson)
-
-                // Sprawdzenie, czy użytkownik istnieje w bazie danych
-                val existingUser = userRepository.getUser(userInfo.id)
-                if (existingUser == null) {
-                    // Zapisanie nowego użytkownika, jeśli nie istnieje
-                    userRepository.saveUser(userInfo)
+                if (token != null) {
+                    val userInfo: String = HttpClient(Apache).get("https://www.googleapis.com/oauth2/v2/userinfo") {
+                        headers { append(HttpHeaders.Authorization, "Bearer $token") }
+                    }.body()
+                    call.respondText("This is your userInfo: $userInfo")
                 } else {
-                    // Aktualizacja istniejącego użytkownika
-                    userRepository.updateUserInfo(userInfo)
+                    call.respond(HttpStatusCode.Unauthorized, "No token provided")
                 }
-
-                call.respondRedirect("/hello?token=$token")
             }
-
         }
 
-        get("/hello") {
-            val token = call.request.queryParameters["token"]
-            if (token != null) {
-                val userInfo: String = applicationHttpClient.get("https://www.googleapis.com/oauth2/v2/userinfo") {
-                    headers { append(HttpHeaders.Authorization, "Bearer $token") }
-                }.body()
-                call.respondText("This is your userInfo: $userInfo")
-            } else {
-                call.respond(HttpStatusCode.Unauthorized, "No token provided")
+        authenticate("auth-bearer") {
+            get("/protected-route") {
+                val user = call.principal<UserIdPrincipal>() ?: error("Brak uwierzytelnienia")
+                call.respondText("Hello, ${user.name}!")
             }
         }
 
@@ -103,3 +71,24 @@ fun Application.configureRouting() {
     }
 
 }
+fun Route.withRole(role: String, build: Route.() -> Unit) {
+    authenticate("auth-oauth-google") {
+        val routeWithRole = createRouteFromPath("")
+        routeWithRole.apply(build)
+        routeWithRole.intercept(ApplicationCallPipeline.Call) {
+            val principal = call.principal<UserIdPrincipal>() ?: error("No principal")
+            val userRole = getUserRoleFromDatabase(principal.name) // Pobierz rolę użytkownika z MongoDB
+
+            if (userRole != role) {
+                call.respond(HttpStatusCode.Forbidden, "Access denied")
+                finish()
+            }
+        }
+    }
+}
+
+suspend fun getUserRoleFromDatabase(userId: String): String {
+    // Logika do pobrania roli użytkownika z MongoDB
+    return "ADMIN" // Przykładowa wartość
+}
+

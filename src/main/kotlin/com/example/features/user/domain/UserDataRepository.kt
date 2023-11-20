@@ -10,5 +10,5 @@ interface UserDataRepository {
     suspend fun getUserOffers(userId: String): List<Offer>
     suspend fun updateUser(user: User): Boolean
     suspend fun updateUserInfo(userInfo: UserRequest): Boolean
-    suspend fun saveUser(userInfo: UserRequest): Boolean
+    suspend fun saveUser(userInfo: UserRequest): User
 }
