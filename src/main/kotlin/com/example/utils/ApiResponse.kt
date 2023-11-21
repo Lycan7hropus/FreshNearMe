@@ -1,21 +1,26 @@
 package com.example.utils
 
+import com.example.utils.exceptions.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.response.*
+import jdk.jshell.spi.ExecutionControl.InternalException
+import kotlinx.serialization.Serializable
 import java.util.concurrent.TimeoutException
 import javax.naming.AuthenticationException
 
+@Serializable
 sealed class ApiResponse<out T> {
+    @Serializable
     data class Success<T>(val data: T) : ApiResponse<T>()
+    @Serializable
     data class Error(val error: ApiError) : ApiResponse<Nothing>()
 }
-
+@Serializable
 data class ApiError(
     val type: String,
-    val message: String,
-    val details: String? = null
+    val message: String?
 )
 
 data class ExceptionResponse(
@@ -33,56 +38,83 @@ suspend fun ApplicationCall.respondError(exception: Exception, code: HttpStatusC
     val response = ApiResponse.Error(apiError)
     this.respond(code ?: status, response)
 }
-
 fun handleException(e: Exception): ExceptionResponse {
     return when (e) {
         is IllegalArgumentException -> ExceptionResponse(
             status = HttpStatusCode.BadRequest,
             error = ApiError(
                 type = "validation-error",
-                message = "Invalid arguments",
-                details = e.message
+                message = e.message
             )
         )
         is AuthenticationException -> ExceptionResponse(
             status = HttpStatusCode.Unauthorized,
             error = ApiError(
                 type = "authentication-error",
-                message = "Authentication failed",
-                details = e.message
+                message = e.message
             )
         )
         is AccessDeniedException -> ExceptionResponse(
             status = HttpStatusCode.Forbidden,
             error = ApiError(
                 type = "access-denied",
-                message = "Access denied",
-                details = e.message
+                message = e.message
             )
         )
         is NotFoundException -> ExceptionResponse(
             status = HttpStatusCode.NotFound,
             error = ApiError(
                 type = "not-found",
-                message = "Resource not found",
-                details = e.message
+                message = e.message
             )
         )
         is TimeoutException -> ExceptionResponse(
             status = HttpStatusCode.RequestTimeout,
             error = ApiError(
                 type = "timeout",
-                message = "Request timed out",
-                details = e.message
+                message = e.message
             )
         )
-        // Tutaj możesz dodać więcej niestandardowych wyjątków lub obsłużyć inne standardowe wyjątki
-        else -> ExceptionResponse(
+        is OfferCreationException -> ExceptionResponse(
+            status = HttpStatusCode.BadRequest,
+            error = ApiError(
+                type = "offer-creation-error",
+                message = e.message
+            )
+        )
+        is ValidationException -> ExceptionResponse(
+            status = HttpStatusCode.UnprocessableEntity,
+            error = ApiError(
+                type = "validation-error",
+                message = e.message
+            )
+        )
+        is UserSavingException -> ExceptionResponse(
+            status = HttpStatusCode.InternalServerError,
+            error = ApiError(
+                type = "user-saving-error",
+                message = e.message
+            )
+        )
+        is UserAlreadyExistsException -> ExceptionResponse(
+            status = HttpStatusCode.Conflict,
+            error = ApiError(
+                type = "user-already-exists",
+                message = e.message
+            )
+        )
+        is InternalErrorException -> ExceptionResponse(
             status = HttpStatusCode.InternalServerError,
             error = ApiError(
                 type = "internal-error",
-                message = "Internal server error",
-                details = e.message ?: "Unknown error"
+                message = e.message
+            )
+        )
+        else -> ExceptionResponse(
+            status = HttpStatusCode.InternalServerError,
+            error = ApiError(
+                type = "undefined-exception",
+                message = e.message ?: "Unknown error"
             )
         )
     }

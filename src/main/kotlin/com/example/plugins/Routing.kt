@@ -8,8 +8,8 @@ import com.example.features.offer.domain.usecases.GetOffersUseCase
 import com.example.features.offer.domain.usecases.UpdateOfferUseCase
 import com.example.features.offer.presentation.categoryRoutes
 import com.example.features.offer.presentation.offerRoutes
-import com.example.features.user.domain.UserDataRepository
-import com.example.features.user.presentation.models.UserRequest
+import com.example.features.user.domain.usecases.*
+import com.example.features.user.presentation.userRoutes
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.apache.*
@@ -17,22 +17,18 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
-import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.routing.get
-import kotlinx.serialization.json.Json
 import org.koin.ktor.ext.inject
 
 fun Application.configureRouting() {
-    install(StatusPages) {
-        exception<Throwable> { call, cause ->
-            call.respondText(text = "500: $cause" , status = HttpStatusCode.InternalServerError)
-        }
-    }
 
+    configureStatusPages()
 
     routing {
+
+
         authenticate("auth-bearer") {
             get("/getUserInfo") {
                 // Pobieranie tokenu z nagłówka autoryzacji
@@ -67,7 +63,12 @@ fun Application.configureRouting() {
         val createCategoryUseCase: CreateCategoryUseCase by inject()
         categoryRoutes(categoryRepository, createCategoryUseCase)
 
-
+        val getUserOffersUseCase: GetUserOffersUseCase by inject()
+        val getUserUseCase: GetUserUseCase by inject()
+        val getUserWishListUseCase: GetUserWishListUseCase by inject()
+        val saveUserUseCase: SaveUserUseCase by inject()
+        val updateUserUseCase: UpdateUserUseCase by inject()
+        userRoutes(getUserOffersUseCase,getUserUseCase,getUserWishListUseCase,saveUserUseCase,updateUserUseCase)
     }
 
 }
