@@ -43,10 +43,3 @@ This Kotlin-based web application serves as an advanced platform for posting and
     - `MongoDatabaseProvider` orchestrates database connections and interactions, ensuring efficient data management.
     - Modular database configurations are managed through files like `DatabaseModule.kt`, enhancing scalability and maintainability.
 
-### Sample Endpoints
-
-- **User Registration**: `POST /users/register` - for user sign-up.
-- **User Login**: `POST /users/login` - for user authentication.
-- **Create Offer**: `POST /offers/create` - to post a new offer.
-- **Get All Offers**: `GET /offers` - to retrieve all offers.
-- **Update User Profile**: `PUT /users/{id}` - for updating user profiles.
