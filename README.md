@@ -1,13 +1,13 @@
 
 ## Detailed Project Overview
 
-This Kotlin-based web application serves as an advanced platform for posting and managing offers. It allows users to create, manage, and interact with a wide range of offers, while also providing functionalities for user authentication and profile management. The application is a testament to modern software development in Kotlin, leveraging advanced programming techniques and architectural patterns.
+This Kotlin-based web application serves as an advanced platform for posting and managing offers. It allows users to create, manage, and interact with a wide range of offers, while also providing functionalities for user authentication and profile management.
 
 ### Core Technologies and Frameworks
 
 - **Kotlin**: Primary programming language
 - **Ktor**: Asynchronous web framework used for building servers and clients in connected systems.
-- **MongoDB**: NoSQL database, providing flexible data models and scalability.
+- **MongoDB**: For flexible and scalable data storage.
 - **Google OAuth**: For secure authentication, integrating Google's reliable sign-in systems.
 - **Koin**: Lightweight dependency injection framework.
 
@@ -42,3 +42,11 @@ This Kotlin-based web application serves as an advanced platform for posting and
 5. **Database Integration and Management**:
     - `MongoDatabaseProvider` orchestrates database connections and interactions, ensuring efficient data management.
     - Modular database configurations are managed through files like `DatabaseModule.kt`, enhancing scalability and maintainability.
+
+### Sample Endpoints
+
+- **User Registration**: `POST /users/register` - for user sign-up.
+- **User Login**: `POST /users/login` - for user authentication.
+- **Create Offer**: `POST /offers/create` - to post a new offer.
+- **Get All Offers**: `GET /offers` - to retrieve all offers.
+- **Update User Profile**: `PUT /users/{id}` - for updating user profiles.
