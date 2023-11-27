@@ -1,9 +1,8 @@
 package com.example.features.user.presentation.models
 
-import com.example.models.Offer
+import com.example.features.offer.domain.Offer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-
 
 
 @Serializable
@@ -13,6 +12,7 @@ data class BasicUserDTO(
     @SerialName("given_name") val givenName: String,
     val picture: String,
 )
+
 @Serializable
 data class DetailedUserDTO(
     val id: String,

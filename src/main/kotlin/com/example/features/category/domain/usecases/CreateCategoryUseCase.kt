@@ -1,10 +1,9 @@
 package com.example.features.category.domain.usecases
 
+import com.example.features.category.domain.Category
 import com.example.features.category.domain.CategoryFactory
 import com.example.features.category.domain.CategoryRepository
 import com.example.features.category.presentation.dto.CategoryDTO
-import com.example.models.Category
-import com.example.utils.exceptions.OfferCreationException
 
 class CreateCategoryUseCase(private val categoryRepository: CategoryRepository) {
     suspend operator fun invoke(categoryDto: CategoryDTO): Result<Category> {

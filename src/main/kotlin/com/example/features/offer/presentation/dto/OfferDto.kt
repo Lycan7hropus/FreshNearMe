@@ -1,14 +1,14 @@
 package com.example.features.offer.presentation.dto
 
-import com.example.models.Category
-import com.example.models.Offer
+import com.example.features.category.domain.Category
+import com.example.features.offer.domain.Offer
 import com.example.models.Coordinates
 import com.example.models.GeoPoint
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
-import java.util.UUID
+import java.util.*
 
 @Serializable
 class OfferDto(
@@ -45,7 +45,8 @@ class OfferDto(
             phoneNumber = phoneNumber,
             description = description,
             imageUrl = imageUrl,
-            postedTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()), // Or use the appropriate time zone
+            postedTime = Clock.System.now()
+                .toLocalDateTime(TimeZone.currentSystemDefault()), // Or use the appropriate time zone
             sellerId = sellerId,
             geoPoint = GeoPoint(coordinates = listOf(coordinates.longitude, coordinates.latitude)),
             isActive = true // Assuming a new offer is always active initially

@@ -1,11 +1,9 @@
 package com.example.plugins
 
-import com.example.utils.exceptions.InternalErrorException
-import com.example.utils.exceptions.ResourceAccessDenied
+import com.example.utils.InternalErrorException
 import com.example.utils.respondError
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.*
 import io.ktor.server.plugins.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
@@ -18,9 +16,11 @@ fun Application.configureStatusPages() {
                 is Error -> {
                     call.respondError(InternalErrorException("A critical error occurred"))
                 }
+
                 is Exception -> {
                     call.respondError(throwable)
                 }
+
                 else -> {
                     call.respondError(Exception("Undefined exception"))
                 }

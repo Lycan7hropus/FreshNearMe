@@ -1,10 +1,10 @@
 package com.example.features.offer.domain.usecases
 
 import com.example.features.offer.domain.CategoryProvider
+import com.example.features.offer.domain.Offer
 import com.example.features.offer.domain.OfferRepository
 import com.example.features.offer.presentation.dto.OfferDto
-import com.example.models.Offer
-import com.example.utils.exceptions.OfferCreationException
+import com.example.utils.OfferCreationException
 
 class CreateOfferUseCase(private val offerRepository: OfferRepository, private val categoryProvider: CategoryProvider) {
     suspend operator fun invoke(offerDto: OfferDto): Result<Offer> {
@@ -20,7 +20,7 @@ class CreateOfferUseCase(private val offerRepository: OfferRepository, private v
             } else {
                 Result.failure(OfferCreationException("Offer could not be created"))
             }
-        } catch (e: IllegalArgumentException ) {
+        } catch (e: IllegalArgumentException) {
             // This catch block will handle validation exceptions thrown by the Offer class
             Result.failure(e)
         }

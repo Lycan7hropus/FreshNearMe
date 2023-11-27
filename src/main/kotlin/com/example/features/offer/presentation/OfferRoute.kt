@@ -1,21 +1,25 @@
 package com.example.features.offer.presentation
 
 import com.example.features.offer.domain.usecases.CreateOfferUseCase
-import com.example.features.offer.domain.usecases.GetOffersUseCase
 import com.example.features.offer.domain.usecases.GetOfferByIdUseCase
+import com.example.features.offer.domain.usecases.GetOffersUseCase
 import com.example.features.offer.domain.usecases.UpdateOfferUseCase
 import com.example.features.offer.presentation.dto.OfferDto
 import com.example.models.Coordinates
-import com.example.utils.exceptions.OfferCreationException
+import com.example.utils.OfferCreationException
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.koin.ktor.ext.inject
 
-fun Route.offerRoutes(createOfferUseCase: CreateOfferUseCase ,getAllOffersUseCase: GetOffersUseCase, getOfferByIdUseCase: GetOfferByIdUseCase, updateOfferUseCase: UpdateOfferUseCase ) {
+fun Route.offerRoutes(
+    createOfferUseCase: CreateOfferUseCase,
+    getAllOffersUseCase: GetOffersUseCase,
+    getOfferByIdUseCase: GetOfferByIdUseCase,
+    updateOfferUseCase: UpdateOfferUseCase
+) {
 
     // Route for getting a list of all offers
     get("/offers") {
@@ -47,8 +51,16 @@ fun Route.offerRoutes(createOfferUseCase: CreateOfferUseCase ,getAllOffersUseCas
             },
             onFailure = { exception ->
                 when (exception) {
-                    is IllegalArgumentException -> call.respond(HttpStatusCode.BadRequest, exception.message ?: "Invalid offer data")
-                    is OfferCreationException -> call.respond(HttpStatusCode.InternalServerError, exception.message ?: "Could not create offer")
+                    is IllegalArgumentException -> call.respond(
+                        HttpStatusCode.BadRequest,
+                        exception.message ?: "Invalid offer data"
+                    )
+
+                    is OfferCreationException -> call.respond(
+                        HttpStatusCode.InternalServerError,
+                        exception.message ?: "Could not create offer"
+                    )
+
                     else -> call.respond(HttpStatusCode.InternalServerError, "An unexpected error occurred")
                 }
             }
@@ -65,7 +77,11 @@ fun Route.offerRoutes(createOfferUseCase: CreateOfferUseCase ,getAllOffersUseCas
             },
             onFailure = { exception ->
                 when (exception) {
-                    is NotFoundException -> call.respond(HttpStatusCode.NotFound, exception.message ?: "Offer not found")
+                    is NotFoundException -> call.respond(
+                        HttpStatusCode.NotFound,
+                        exception.message ?: "Offer not found"
+                    )
+
                     else -> call.respond(HttpStatusCode.InternalServerError, "An unexpected error occurred")
                 }
             }
@@ -83,8 +99,15 @@ fun Route.offerRoutes(createOfferUseCase: CreateOfferUseCase ,getAllOffersUseCas
             },
             onFailure = { exception ->
                 when (exception) {
-                    is IllegalArgumentException -> call.respond(HttpStatusCode.BadRequest, exception.message ?: "Invalid offer data")
-                    else -> call.respond(HttpStatusCode.InternalServerError, exception.message ?: "An unexpected error occurred")
+                    is IllegalArgumentException -> call.respond(
+                        HttpStatusCode.BadRequest,
+                        exception.message ?: "Invalid offer data"
+                    )
+
+                    else -> call.respond(
+                        HttpStatusCode.InternalServerError,
+                        exception.message ?: "An unexpected error occurred"
+                    )
                 }
             }
         )

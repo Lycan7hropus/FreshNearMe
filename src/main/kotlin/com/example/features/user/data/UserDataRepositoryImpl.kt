@@ -1,11 +1,11 @@
 package com.example.features.user.data
 
 import com.example.features.authentication.domain.model.UserGoogleInfo
+import com.example.features.offer.domain.Offer
 import com.example.features.user.domain.UserDataRepository
 import com.example.features.user.domain.models.User
-import com.example.models.Offer
-import com.example.utils.exceptions.UserAlreadyExistsException
-import com.example.utils.exceptions.UserSavingException
+import com.example.utils.UserAlreadyExistsException
+import com.example.utils.UserSavingException
 import com.mongodb.MongoWriteException
 import org.litote.kmongo.coroutine.CoroutineCollection
 import org.litote.kmongo.eq
@@ -15,7 +15,8 @@ import org.litote.kmongo.setTo
 class UserDataRepositoryImpl(private val usersCollection: CoroutineCollection<User>) : UserDataRepository {
 
     override suspend fun getUser(userId: String): User {
-        return usersCollection.findOne(User::id eq userId) ?: throw IllegalArgumentException("User with ID $userId not found.")
+        return usersCollection.findOne(User::id eq userId)
+            ?: throw IllegalArgumentException("User with ID $userId not found.")
     }
 
     override suspend fun getUserWishList(userId: String): List<Offer> {
@@ -51,7 +52,8 @@ class UserDataRepositoryImpl(private val usersCollection: CoroutineCollection<Us
     }
 
     override suspend fun findUserByGoogleId(googleId: String): User {
-        return usersCollection.findOne("{ 'googleInfo.id': '$googleId' }") ?: throw IllegalArgumentException("There is no any user associated with this google account")
+        return usersCollection.findOne("{ 'googleInfo.id': '$googleId' }")
+            ?: throw IllegalArgumentException("There is no any user associated with this google account")
     }
 
 
@@ -71,5 +73,9 @@ class UserDataRepositoryImpl(private val usersCollection: CoroutineCollection<Us
         }
 
         return user
+    }
+
+    override suspend fun updateUserOffers(userId: String, offers: List<Offer>): List<Offer> {
+        TODO("Not yet implemented")
     }
 }

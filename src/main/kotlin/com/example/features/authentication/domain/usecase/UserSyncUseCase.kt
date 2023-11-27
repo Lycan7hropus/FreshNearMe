@@ -11,7 +11,11 @@ class UserSyncUseCase(
 ) {
     suspend fun invoke(userId: String, token: String): User {
         val userGoogleInfo = googleUserInfoService.getUserInfo(token)
-        val existingUser = userForAuthService.getUserById(userId)
+        val existingUser: User? = try {
+            userForAuthService.getUserById(userId)
+        } catch (e: Exception) {
+            null
+        }
 
         return if (existingUser != null) {
             userForAuthService.updateUser(userGoogleInfo)

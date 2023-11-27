@@ -1,10 +1,7 @@
 package com.example.utils
 
-import com.example.utils.exceptions.*
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.plugins.*
-import io.ktor.server.response.*
 import kotlinx.serialization.Serializable
 import java.util.concurrent.TimeoutException
 import javax.naming.AuthenticationException
@@ -13,9 +10,11 @@ import javax.naming.AuthenticationException
 sealed class ApiResponse<out T> {
     @Serializable
     data class Success<T>(val data: T) : ApiResponse<T>()
+
     @Serializable
     data class Error(val error: ApiError) : ApiResponse<Nothing>()
 }
+
 @Serializable
 data class ApiError(
     val type: String,
@@ -27,16 +26,6 @@ data class ExceptionResponse(
     val error: ApiError
 )
 
-suspend fun <T> ApplicationCall.respondSuccess( data: T, code: HttpStatusCode = HttpStatusCode.OK,) {
-    val response = ApiResponse.Success(data)
-    this.respond(code, response)
-}
-
-suspend fun ApplicationCall.respondError(exception: Exception, code: HttpStatusCode? = null) {
-    val (status, apiError) = handleException(exception)
-    val response = ApiResponse.Error(apiError)
-    this.respond(code ?: status, response)
-}
 fun handleException(e: Exception): ExceptionResponse {
     return when (e) {
         is IllegalArgumentException -> ExceptionResponse(
@@ -46,6 +35,7 @@ fun handleException(e: Exception): ExceptionResponse {
                 message = e.message
             )
         )
+
         is AuthenticationException -> ExceptionResponse(
             status = HttpStatusCode.Unauthorized,
             error = ApiError(
@@ -53,6 +43,7 @@ fun handleException(e: Exception): ExceptionResponse {
                 message = e.message
             )
         )
+
         is ResourceAccessDenied -> ExceptionResponse(
             status = HttpStatusCode.Forbidden,
             error = ApiError(
@@ -60,6 +51,7 @@ fun handleException(e: Exception): ExceptionResponse {
                 message = e.message
             )
         )
+
         is NotFoundException -> ExceptionResponse(
             status = HttpStatusCode.NotFound,
             error = ApiError(
@@ -67,6 +59,7 @@ fun handleException(e: Exception): ExceptionResponse {
                 message = e.message
             )
         )
+
         is TimeoutException -> ExceptionResponse(
             status = HttpStatusCode.RequestTimeout,
             error = ApiError(
@@ -74,6 +67,7 @@ fun handleException(e: Exception): ExceptionResponse {
                 message = e.message
             )
         )
+
         is OfferCreationException -> ExceptionResponse(
             status = HttpStatusCode.BadRequest,
             error = ApiError(
@@ -81,6 +75,7 @@ fun handleException(e: Exception): ExceptionResponse {
                 message = e.message
             )
         )
+
         is ValidationException -> ExceptionResponse(
             status = HttpStatusCode.UnprocessableEntity,
             error = ApiError(
@@ -88,6 +83,7 @@ fun handleException(e: Exception): ExceptionResponse {
                 message = e.message
             )
         )
+
         is UserSavingException -> ExceptionResponse(
             status = HttpStatusCode.InternalServerError,
             error = ApiError(
@@ -95,6 +91,7 @@ fun handleException(e: Exception): ExceptionResponse {
                 message = e.message
             )
         )
+
         is UserAlreadyExistsException -> ExceptionResponse(
             status = HttpStatusCode.Conflict,
             error = ApiError(
@@ -102,6 +99,7 @@ fun handleException(e: Exception): ExceptionResponse {
                 message = e.message
             )
         )
+
         is InternalErrorException -> ExceptionResponse(
             status = HttpStatusCode.InternalServerError,
             error = ApiError(
@@ -109,6 +107,7 @@ fun handleException(e: Exception): ExceptionResponse {
                 message = e.message
             )
         )
+
         else -> ExceptionResponse(
             status = HttpStatusCode.InternalServerError,
             error = ApiError(

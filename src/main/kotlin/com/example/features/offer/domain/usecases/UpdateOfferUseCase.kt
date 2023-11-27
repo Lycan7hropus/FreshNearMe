@@ -1,9 +1,9 @@
 package com.example.features.offer.domain.usecases
 
 import com.example.features.offer.domain.CategoryProvider
+import com.example.features.offer.domain.Offer
 import com.example.features.offer.domain.OfferRepository
 import com.example.features.offer.presentation.dto.OfferDto
-import com.example.models.Offer
 
 class UpdateOfferUseCase(private val offerRepository: OfferRepository, private val categoryProvider: CategoryProvider) {
     suspend operator fun invoke(offerId: String, offerDto: OfferDto): Result<Offer> {
@@ -11,7 +11,7 @@ class UpdateOfferUseCase(private val offerRepository: OfferRepository, private v
             val category = categoryProvider.getCategoryById(offerDto.categoryId)
                 ?: throw IllegalArgumentException("Niepoprawna kategoria")
 
-            val offer =  offerDto.toDomainModel(category).copy(id = offerId)
+            val offer = offerDto.toDomainModel(category).copy(id = offerId)
             val result = offerRepository.updateOffer(offer)
             if (result != null) {
                 Result.success(result)

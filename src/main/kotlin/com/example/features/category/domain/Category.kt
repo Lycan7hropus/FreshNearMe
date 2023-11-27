@@ -1,7 +1,8 @@
-package com.example.models
+package com.example.features.category.domain
 
 import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId
+
 @Serializable
 data class Category(
     @BsonId

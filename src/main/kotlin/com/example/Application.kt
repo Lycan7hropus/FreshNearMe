@@ -1,7 +1,9 @@
 package com.example
 
 import com.example.di.initKoin
-import com.example.plugins.*
+import com.example.plugins.configureRouting
+import com.example.plugins.configureSecurity
+import com.example.plugins.configureSerialization
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {

@@ -1,4 +1,4 @@
-package com.example.utils.exceptions
+package com.example.utils
 
 class OfferCreationException(message: String) : Exception(message)
 class ValidationException(message: String) : Exception(message)

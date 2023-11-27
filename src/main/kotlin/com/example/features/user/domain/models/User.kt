@@ -1,13 +1,13 @@
 package com.example.features.user.domain.models
 
 import com.example.features.authentication.domain.model.UserGoogleInfo
+import com.example.features.offer.domain.Offer
 import com.example.features.user.presentation.models.BasicUserDTO
 import com.example.features.user.presentation.models.DetailedUserDTO
-import com.example.models.Offer
 import com.example.utils.Role
 import kotlinx.serialization.SerialName
 import org.bson.codecs.pojo.annotations.BsonId
-import java.util.UUID
+import java.util.*
 
 data class User(
     @BsonId
@@ -16,7 +16,7 @@ data class User(
     @SerialName("wish_list") val wishlist: List<Offer>,
     @SerialName("posted_offers") val postedOffers: List<Offer>,
     val googleInfo: UserGoogleInfo
-){
+) {
     fun getUserWithUpdatedInfo(userInfo: UserGoogleInfo): User {
         return this.copy(googleInfo = googleInfo)
     }

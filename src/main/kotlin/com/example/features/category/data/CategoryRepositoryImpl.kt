@@ -1,7 +1,7 @@
 package com.example.features.category.data
 
+import com.example.features.category.domain.Category
 import com.example.features.category.domain.CategoryRepository
-import com.example.models.Category
 import org.litote.kmongo.coroutine.CoroutineCollection
 
 class CategoryRepositoryImpl(private val categoryCollection: CoroutineCollection<Category>) : CategoryRepository {

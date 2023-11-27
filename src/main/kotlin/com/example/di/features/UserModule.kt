@@ -10,9 +10,9 @@ import org.koin.dsl.module
 val userModule = module {
     single<UserDataRepository> { UserDataRepositoryImpl(get(named("UserCollection"))) }
 
-    single { UserOffersUseCase(get()) }
-    single { GetUserUseCase(get()) }
-    single { GetUserWishListUseCase(get()) }
+    single { GetUserOffersUseCase(get()) }
+    single { GetUserInfoUseCase(get()) }
+    single { UserWishlistUseCase(get()) }
     single { SaveUserUseCase(get()) }
-    single { UpdateUserUseCase(get()) }
+    single { UpdateUserDataUseCase(get()) }
 }

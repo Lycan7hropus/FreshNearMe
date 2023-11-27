@@ -1,5 +1,6 @@
 package com.example.di
 
+import com.example.di.features.authModule
 import com.example.di.features.categoryModule
 import com.example.di.features.offerModule
 import com.example.di.features.userModule
@@ -10,6 +11,6 @@ import org.koin.logger.slf4jLogger
 fun Application.initKoin() {
     install(Koin) {
         slf4jLogger()
-        modules(listOf(appModule,databaseModule, categoryModule, offerModule, userModule))
+        modules(listOf(appModule, databaseModule, categoryModule, offerModule, userModule, authModule))
     }
 }

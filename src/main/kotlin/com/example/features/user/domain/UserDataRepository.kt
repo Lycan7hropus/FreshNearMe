@@ -1,8 +1,8 @@
 package com.example.features.user.domain
 
 import com.example.features.authentication.domain.model.UserGoogleInfo
+import com.example.features.offer.domain.Offer
 import com.example.features.user.domain.models.User
-import com.example.models.Offer
 
 interface UserDataRepository {
     suspend fun getUser(userId: String): User
@@ -14,4 +14,5 @@ interface UserDataRepository {
 
     suspend fun findUserByGoogleId(googleId: String): User
     suspend fun saveUser(user: User): User
+    suspend fun updateUserOffers(userId: String, offers: List<Offer>): List<Offer>
 }

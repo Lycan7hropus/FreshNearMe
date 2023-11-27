@@ -1,4 +1,7 @@
-package com.example.models
+package com.example.features.offer.domain
+
+import com.example.features.category.domain.Category
+import com.example.models.GeoPoint
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId

@@ -1,7 +1,6 @@
 package com.example.features.category.domain
 
 import com.example.features.category.presentation.dto.CategoryDTO
-import com.example.models.Category
 import java.util.*
 
 class CategoryFactory(private val categoryRepository: CategoryRepository) {

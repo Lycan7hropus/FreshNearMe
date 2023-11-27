@@ -1,8 +1,7 @@
 package com.example.features.offer.domain
 
-import com.example.models.Category
+import com.example.features.category.domain.Category
 import com.example.models.Coordinates
-import com.example.models.Offer
 
 interface OfferRepository {
     suspend fun getOffers(category: Category?, distance: Double?, coordinates: Coordinates?): List<Offer>

@@ -2,7 +2,6 @@ package com.example.plugins
 
 import com.example.features.user.domain.UserDataRepository
 import io.ktor.client.*
-import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -30,11 +29,15 @@ fun Application.configureSecurity() {
     }
 }
 
-class GoogleAuthenticationService(private val httpClient: HttpClient, private val userDataRepository: UserDataRepository){
+class GoogleAuthenticationService(
+    private val httpClient: HttpClient,
+    private val userDataRepository: UserDataRepository
+) {
 
-    suspend fun getUserId(googleId: String):String{
+    suspend fun getUserId(googleId: String): String {
         return userDataRepository.findUserByGoogleId(googleId).id
     }
+
     suspend fun verifyGoogleToken(accessToken: String): String {
         val response: HttpResponse = httpClient.get("https://www.googleapis.com/oauth2/v1/tokeninfo") {
             parameter("access_token", accessToken)
@@ -50,6 +53,7 @@ class GoogleAuthenticationService(private val httpClient: HttpClient, private va
                     throw AuthenticationException("Invalid token: audience mismatch or token expired")
                 }
             }
+
             else -> {
                 val errorResponse = Json.decodeFromString<GoogleTokenError>(responseBody)
                 throw AuthenticationException("Authentication failed because: ${errorResponse.error}")

@@ -9,7 +9,7 @@ class GetOffersUseCase(private val offerRepository: OfferRepository, private val
     suspend operator fun invoke(
         categoryId: kotlin.String? = null,
         distance: kotlin.Double? = null,
-        coordinates: Coordinates?  = null
+        coordinates: Coordinates? = null
     ): Result<OffersDto> {
         return try {
             val category = categoryId?.let { categoryProvider.getCategoryById(it) }
