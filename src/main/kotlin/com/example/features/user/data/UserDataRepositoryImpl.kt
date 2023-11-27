@@ -3,14 +3,14 @@ package com.example.features.user.data
 import com.example.features.authentication.domain.model.UserGoogleInfo
 import com.example.features.user.domain.UserDataRepository
 import com.example.features.user.domain.models.User
-import com.example.features.user.presentation.models.UserRequest
 import com.example.models.Offer
 import com.example.utils.exceptions.UserAlreadyExistsException
 import com.example.utils.exceptions.UserSavingException
 import com.mongodb.MongoWriteException
-import com.mongodb.client.model.Filters
 import org.litote.kmongo.coroutine.CoroutineCollection
 import org.litote.kmongo.eq
+import org.litote.kmongo.set
+import org.litote.kmongo.setTo
 
 class UserDataRepositoryImpl(private val usersCollection: CoroutineCollection<User>) : UserDataRepository {
 
@@ -22,6 +22,18 @@ class UserDataRepositoryImpl(private val usersCollection: CoroutineCollection<Us
         val user = getUser(userId)
         return user.wishlist
     }
+
+    override suspend fun updateUserWishlist(userId: String, list: List<Offer>): List<Offer> {
+        val updateResult = usersCollection.updateOne(User::id eq userId, set(User::wishlist setTo list))
+
+        if (updateResult.matchedCount.toInt() == 0) {
+            throw Exception("User not found")
+        }
+
+        return list
+    }
+
+
     override suspend fun getUserOffers(userId: String): List<Offer> {
         val user = getUser(userId)
         return user.postedOffers

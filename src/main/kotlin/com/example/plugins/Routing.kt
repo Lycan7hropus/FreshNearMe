@@ -64,12 +64,12 @@ fun Application.configureRouting() {
         val createCategoryUseCase: CreateCategoryUseCase by inject()
         categoryRoutes(categoryRepository, createCategoryUseCase)
 
-        val getUserOffersUseCase: GetUserOffersUseCase by inject()
+        val getUserOffersUseCase: UserOffersUseCase by inject()
         val getUserUseCase: GetUserUseCase by inject()
-        val getUserWishListUseCase: GetUserWishListUseCase by inject()
+        val userWishlistUseCase: UserWishlistUseCase by inject()
         val saveUserUseCase: SaveUserUseCase by inject()
         val updateUserUseCase: UpdateUserUseCase by inject()
-        userRoutes(getUserOffersUseCase,getUserUseCase,getUserWishListUseCase,saveUserUseCase,updateUserUseCase)
+        userRoutes(getUserOffersUseCase,getUserUseCase,userWishlistUseCase,saveUserUseCase,updateUserUseCase)
     }
 
 }
