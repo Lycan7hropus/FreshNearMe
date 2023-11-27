@@ -1,39 +1,44 @@
-# Project Readme: GeoLocation-Based Offer Service
 
-## Overview
+## Detailed Project Overview
 
-This project is a Ktor-based server application that provides a service for posting and searching for offers based on geolocation and category filtering. It uses MongoDB for data persistence.
+This Kotlin-based web application serves as an advanced platform for posting and managing offers. It allows users to create, manage, and interact with a wide range of offers, while also providing functionalities for user authentication and profile management. The application is a testament to modern software development in Kotlin, leveraging advanced programming techniques and architectural patterns.
 
-## Features
+### Core Technologies and Frameworks
 
-- **Offer Posting**: Users can post offers with details such as name, category, price, and location.
-- **Geospatial Queries**: Offers can be searched based on proximity to a given location and within a specified distance range.
-- **Category Filtering**: Offers can be filtered by categories, which are scalable and can have nested sub-categories.
+- **Kotlin**: Primary programming language
+- **Ktor**: Asynchronous web framework used for building servers and clients in connected systems.
+- **MongoDB**: NoSQL database, providing flexible data models and scalability.
+- **Google OAuth**: For secure authentication, integrating Google's reliable sign-in systems.
+- **Koin**: Lightweight dependency injection framework.
 
-## Technology Stack
+### Architectural Patterns and Key Design Choices
 
-- **Backend Framework**: Ktor (Kotlin-based)
-- **Database**: MongoDB with geospatial indexing capabilities
-- **Serialization**: kotlinx.serialization for data serialization
-- **Dependency Injection**: Koin for managing dependencies
+- **Clean Architecture**: The application adheres to the principles of Clean Architecture, ensuring the separation of concerns and independence of different layers like data, domain, and presentation.
+- **Repository Pattern**: This pattern is evident in classes like `CategoryRepositoryImpl` and `OfferRepositoryImpl`, providing a clean abstraction layer over data access mechanisms.
+- **Factory Pattern**: Used in classes like `CategoryFactory`, simplifying object creation and enhancing flexibility.
+- **Use Case/Interactor Pattern**: Each business logic operation is encapsulated in a use case (e.g., `CreateCategoryUseCase`, `GetUserOffersUseCase`), promoting a clean separation of concerns and making the code more readable and testable.
 
+### Detailed Breakdown of Functionalities
 
-## Examples of API Endpoints
+1. **User Features**:
+    - `UserRoute.kt` establishes endpoints for user-related actions.
+    - `UserDataRepositoryImpl` implements data handling operations, interfacing with the database.
+    - Use cases like `SaveUserUseCase` and `UpdateUserDataUseCase` encapsulate specific user-related operations.
 
-1. **Post an Offer**
-    - `POST /offers`
-    - Body: Offer details including location.
+2. **Offer Features**:
+    - `OfferRoute.kt` sets up routes for managing offers.
+    - `OfferRepositoryImpl` deals with offer data storage and retrieval.
+    - Use cases such as `CreateOfferUseCase` and `UpdateOfferUseCase` handle individual aspects of offer management.
 
-2. **Get All Offers**
-    - `GET /offers`
-    - Query Parameters: `category`, `distance`, `coordinates`.
+3. **Category Features**:
+    - `CategoryRoute.kt` manages endpoints for category operations.
+    - `CategoryService` and `CategoryRepository` provide business logic and data access functionalities.
+    - Use cases like `CreateCategoryUseCase` and `DeleteCategoryUseCase` focus on specific category operations.
 
-## Database Schema
+4. **Authentication and Security**:
+    - `AuthRoute.kt` and `GoogleUserInfoServiceImpl` work together to provide secure authentication mechanisms.
+    - Integration with Google OAuth ensures a reliable and secure sign-in process.
 
-- **Offer Collection**
-    - Fields: `id`, `name`, `category`, `price`, `geoLocation`, etc.
-    - Index: Geospatial index on `geoLocation`.
- basic guide to getting started with the project. You can expand it with more detailed instructions, configurations, and descriptions as needed.
-
-## Sources
- - https://mongodb-documentation.readthedocs.io/en/latest/use-cases/category-hierarchy.html#gsc.tab=0
+5. **Database Integration and Management**:
+    - `MongoDatabaseProvider` orchestrates database connections and interactions, ensuring efficient data management.
+    - Modular database configurations are managed through files like `DatabaseModule.kt`, enhancing scalability and maintainability.
