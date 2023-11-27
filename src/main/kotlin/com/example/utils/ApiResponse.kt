@@ -5,7 +5,6 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.response.*
-import jdk.jshell.spi.ExecutionControl.InternalException
 import kotlinx.serialization.Serializable
 import java.util.concurrent.TimeoutException
 import javax.naming.AuthenticationException
@@ -54,7 +53,7 @@ fun handleException(e: Exception): ExceptionResponse {
                 message = e.message
             )
         )
-        is AccessDeniedException -> ExceptionResponse(
+        is ResourceAccessDenied -> ExceptionResponse(
             status = HttpStatusCode.Forbidden,
             error = ApiError(
                 type = "access-denied",

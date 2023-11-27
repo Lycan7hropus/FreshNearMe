@@ -10,6 +10,7 @@ import com.example.features.offer.presentation.categoryRoutes
 import com.example.features.offer.presentation.offerRoutes
 import com.example.features.user.domain.usecases.*
 import com.example.features.user.presentation.userRoutes
+import com.example.utils.extra.getBearerToken
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.apache.*
@@ -32,7 +33,7 @@ fun Application.configureRouting() {
         authenticate("auth-bearer") {
             get("/getUserInfo") {
                 // Pobieranie tokenu z nagłówka autoryzacji
-                val token = call.request.headers[HttpHeaders.Authorization]?.removePrefix("Bearer ")
+                val token = call.getBearerToken()
 
                 if (token != null) {
                     val userInfo: String = HttpClient(Apache).get("https://www.googleapis.com/oauth2/v2/userinfo") {
@@ -72,6 +73,9 @@ fun Application.configureRouting() {
     }
 
 }
+
+
+
 fun Route.withRole(role: String, build: Route.() -> Unit) {
     authenticate("auth-oauth-google") {
         val routeWithRole = createRouteFromPath("")

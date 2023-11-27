@@ -1,10 +1,7 @@
 package com.example.features.user.presentation.models
+import com.example.models.Offer
 
 data class UserRequest (
-    val id: String,
-    val name: String,
-    val given_name: String,
-    val family_name: String,
-    val picture: String,
-    val locale: String
+    val wishlist: List<Offer>,
+    val postedOffers: List<Offer>
 )

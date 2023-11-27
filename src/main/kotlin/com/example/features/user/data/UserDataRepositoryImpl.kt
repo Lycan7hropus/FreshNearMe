@@ -1,5 +1,6 @@
 package com.example.features.user.data
 
+import com.example.features.authentication.domain.model.UserGoogleInfo
 import com.example.features.user.domain.UserDataRepository
 import com.example.features.user.domain.models.User
 import com.example.features.user.presentation.models.UserRequest
@@ -31,14 +32,18 @@ class UserDataRepositoryImpl(private val usersCollection: CoroutineCollection<Us
         return result.modifiedCount > 0
     }
 
-    override suspend fun updateUserInfo(userInfo: UserRequest): Boolean {
-//        val user = getUser(userInfo.id) ?: return false
-//        user.updateInfo(userInfo)
-        return false
+    override suspend fun updateUserInfo(userInfo: UserGoogleInfo): User {
+        val user = findUserByGoogleId(userInfo.id)
+        val updatedUser = user.getUserWithUpdatedInfo(userInfo)
+        return saveUser(updatedUser)
     }
 
-    override suspend fun saveUser(userInfo: UserRequest): User {
-        val user = User(userInfo = userInfo)
+    override suspend fun findUserByGoogleId(googleId: String): User {
+        return usersCollection.findOne("{ 'googleInfo.id': '$googleId' }") ?: throw IllegalArgumentException("There is no any user associated with this google account")
+    }
+
+
+    override suspend fun saveUser(user: User): User {
 
         try {
             val result = usersCollection.insertOne(user)
@@ -47,7 +52,7 @@ class UserDataRepositoryImpl(private val usersCollection: CoroutineCollection<Us
             }
         } catch (e: MongoWriteException) {
             if (e.error.code == 11000) { // duplicate
-                throw UserAlreadyExistsException("User with ID ${userInfo.id} already exists.")
+                throw UserAlreadyExistsException("User with ID ${user.id} already exists.")
             } else {
                 throw e
             }

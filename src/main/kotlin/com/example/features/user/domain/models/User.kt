@@ -1,22 +1,24 @@
 package com.example.features.user.domain.models
 
-import com.example.features.user.presentation.models.UserRequest
+import com.example.features.authentication.domain.model.UserGoogleInfo
 import com.example.models.Offer
 import com.example.utils.Role
+import kotlinx.serialization.SerialName
 import org.bson.codecs.pojo.annotations.BsonId
+import java.util.UUID
 
 data class User(
     @BsonId
-    val id: String,
+    val id: String = UUID.randomUUID().toString(),
     val role: Role,
-    val wishlist: List<Offer>,
-    val postedOffers: List<Offer>
-) {
-    constructor(userInfo: UserRequest) : this(
-        id = userInfo.id,
-        role = Role.USER,
-        wishlist = listOf(),
-        postedOffers = listOf()
-    )
+    @SerialName("wish_list") val wishlist: List<Offer>,
+    @SerialName("posted_offers") val postedOffers: List<Offer>,
+    val googleInfo: UserGoogleInfo
+){
+    fun getUserWithUpdatedInfo(userInfo: UserGoogleInfo): User {
+        return this.copy(googleInfo = googleInfo)
+    }
 
+    constructor(googleInfo: UserGoogleInfo)
+            : this(UUID.randomUUID().toString(), Role.USER, emptyList(), emptyList(), googleInfo)
 }
