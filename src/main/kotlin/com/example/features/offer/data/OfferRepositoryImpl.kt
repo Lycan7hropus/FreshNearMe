@@ -4,9 +4,12 @@ import com.example.features.category.domain.Category
 import com.example.features.offer.domain.Offer
 import com.example.features.offer.domain.OfferRepository
 import com.example.models.Coordinates
+import com.example.utils.DatabaseOperationException
+import com.example.utils.OfferCreationException
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.geojson.Point
 import com.mongodb.client.model.geojson.Position
+import io.ktor.server.plugins.*
 import org.bson.conversions.Bson
 import org.litote.kmongo.coroutine.CoroutineCollection
 
@@ -37,32 +40,28 @@ class OfferRepositoryImpl(private val offersCollection: CoroutineCollection<Offe
         }
     }
 
-    override suspend fun getOfferById(offerId: String): Offer? {
-        return try {
-            offersCollection.findOneById(offerId)
-        } catch (e: Exception) {
-            // Handle any database exceptions
-            null
-        }
+    override suspend fun getOfferById(offerId: String): Offer {
+        return offersCollection.findOneById(offerId) ?: throw NotFoundException("Offer with id $offerId not found")
     }
 
-    override suspend fun saveOffer(offer: Offer): Offer? {
-        // Insert the new offer into the database collection
+
+    override suspend fun saveOffer(offer: Offer): Offer {
         return try {
             offersCollection.insertOne(offer)
-            offer // Return the offer with the ID assigned by the database
+            offer
         } catch (e: Exception) {
-            // Handle any database exceptions and return null if the operation fails
-            null
+            throw OfferCreationException("Nie udało się utworzyć oferty: ${e.message}")
         }
     }
 
-    override suspend fun updateOffer(offer: Offer): Offer? {
+
+    override suspend fun updateOffer(offer: Offer): Offer {
         val updateResult = offersCollection.updateOneById(offer.id, offer)
         return if (updateResult.wasAcknowledged() && updateResult.matchedCount > 0) {
             offer // Return the updated offer
         } else {
-            null // Return null if the update didn't match any document
+            throw DatabaseOperationException("Database operation failed for offer with id ${offer.id}")
+
         }
     }
 

@@ -1,9 +1,9 @@
 package com.example.features.user.domain.models
 
-import com.example.features.authentication.domain.model.UserGoogleInfo
+import com.example.features.authentication.domain.model.GoogleUserInfo
 import com.example.features.offer.domain.Offer
-import com.example.features.user.presentation.models.BasicUserDTO
-import com.example.features.user.presentation.models.DetailedUserDTO
+import com.example.features.user.presentation.models.BasicUserDto
+import com.example.features.user.presentation.models.DetailedUserDto
 import com.example.utils.Role
 import kotlinx.serialization.SerialName
 import org.bson.codecs.pojo.annotations.BsonId
@@ -15,14 +15,14 @@ data class User(
     val role: Role,
     @SerialName("wish_list") val wishlist: List<Offer>,
     @SerialName("posted_offers") val postedOffers: List<Offer>,
-    val googleInfo: UserGoogleInfo
+    val googleInfo: GoogleUserInfo
 ) {
-    fun getUserWithUpdatedInfo(userInfo: UserGoogleInfo): User {
+    fun getUserWithUpdatedInfo(userInfo: GoogleUserInfo): User {
         return this.copy(googleInfo = googleInfo)
     }
 
-    fun toBasicDTO(): BasicUserDTO {
-        return BasicUserDTO(
+    fun toBasicDTO(): BasicUserDto {
+        return BasicUserDto(
             id = id,
             givenName = googleInfo.givenName,
             picture = googleInfo.picture,
@@ -30,8 +30,8 @@ data class User(
         )
     }
 
-    fun toDetailedDTO(): DetailedUserDTO {
-        return DetailedUserDTO(
+    fun toDetailedDTO(): DetailedUserDto {
+        return DetailedUserDto(
             id = id,
             familyName = googleInfo.familyName,
             givenName = googleInfo.givenName,
@@ -43,6 +43,6 @@ data class User(
         )
     }
 
-    constructor(googleInfo: UserGoogleInfo)
+    constructor(googleInfo: GoogleUserInfo)
             : this(UUID.randomUUID().toString(), Role.USER, emptyList(), emptyList(), googleInfo)
 }

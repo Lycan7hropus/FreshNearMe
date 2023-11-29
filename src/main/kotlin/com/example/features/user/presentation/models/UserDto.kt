@@ -4,9 +4,8 @@ import com.example.features.offer.domain.Offer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-
 @Serializable
-data class BasicUserDTO(
+data class BasicUserDto(
     val id: String,
     @SerialName("posted_offers") val postedOffers: List<Offer>,
     @SerialName("given_name") val givenName: String,
@@ -14,7 +13,7 @@ data class BasicUserDTO(
 )
 
 @Serializable
-data class DetailedUserDTO(
+data class DetailedUserDto(
     val id: String,
     @SerialName("wish_list") val wishlist: List<Offer>,
     @SerialName("posted_offers") val postedOffers: List<Offer>,

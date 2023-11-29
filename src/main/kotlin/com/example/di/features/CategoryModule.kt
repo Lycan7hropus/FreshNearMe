@@ -11,7 +11,7 @@ val categoryModule = module {
 
     single { CreateCategoryUseCase(get()) }
     single { DeleteCategoryUseCase(get()) }
-    single { GetAllCategoriesUseCase(get()) }
-    single { GetCategoryByIdUseCase() }
+    single { GetCategoriesUseCase(get()) }
+    single { GetCategoryUseCase(get()) }
     single { UpdateCategoryUseCase() }
 }

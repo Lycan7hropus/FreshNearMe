@@ -1,11 +1,11 @@
 package com.example.features.user.presentation
 
 import com.example.features.user.domain.usecases.*
-import com.example.features.user.presentation.models.BasicUserDTO
-import com.example.features.user.presentation.models.DetailedUserDTO
-import com.example.features.user.presentation.models.WishlistDTO
-import com.example.utils.getUserId
-import com.example.utils.respondSuccess
+import com.example.features.user.presentation.models.BasicUserDto
+import com.example.features.user.presentation.models.DetailedUserDto
+import com.example.features.user.presentation.models.WishlistDto
+import com.example.utils.extensionFunctions.getUserId
+import com.example.utils.extensionFunctions.respondSuccess
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.plugins.*
@@ -23,7 +23,7 @@ fun Route.userRoutes(
     route("/user") {
         get("/{userId}") {
             val userId = call.parameters["userId"] ?: throw MissingRequestParameterException("userId")
-            val user: BasicUserDTO = getUserInfoUseCase.getBasicInfo(userId)
+            val user: BasicUserDto = getUserInfoUseCase.getBasicInfo(userId)
             call.respondSuccess(data = user)
         }
 
@@ -37,7 +37,7 @@ fun Route.userRoutes(
         authenticate("auth-bearer") {
             get("/my_info") {
                 val userId = call.getUserId()
-                val user: DetailedUserDTO = getUserInfoUseCase.getDetailedInfo(userId)
+                val user: DetailedUserDto = getUserInfoUseCase.getDetailedInfo(userId)
                 call.respondSuccess(data = user)
             }
 
@@ -48,7 +48,7 @@ fun Route.userRoutes(
             }
 
             put("/wishlist") {
-                val wishlistDTO = call.receive<WishlistDTO>()
+                val wishlistDTO = call.receive<WishlistDto>()
                 val userId = call.getUserId()
                 val user = userWishlistUseCase.put(userId, wishlistDTO)
                 call.respondSuccess(data = user)

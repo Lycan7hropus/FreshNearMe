@@ -1,26 +1,26 @@
 package com.example.features.authentication.domain.usecase
 
-import com.example.features.authentication.domain.GoogleUserInfoService
-import com.example.features.user.domain.UserForAuthService
+import com.example.features.authentication.domain.GoogleAuthService
+import com.example.features.user.domain.UserService
 import com.example.features.user.domain.models.User
 
 
 class UserSyncUseCase(
-    private val userForAuthService: UserForAuthService,
-    private val googleUserInfoService: GoogleUserInfoService
+    private val userService: UserService,
+    private val googleUserInfoService: GoogleAuthService
 ) {
-    suspend fun invoke(userId: String, token: String): User {
+    suspend operator fun invoke(userId: String, token: String): User {
         val userGoogleInfo = googleUserInfoService.getUserInfo(token)
         val existingUser: User? = try {
-            userForAuthService.getUserById(userId)
+            userService.getUserById(userId)
         } catch (e: Exception) {
             null
         }
 
         return if (existingUser != null) {
-            userForAuthService.updateUser(userGoogleInfo)
+            userService.updateUser(userGoogleInfo)
         } else {
-            userForAuthService.saveUser(userGoogleInfo)
+            userService.saveUser(userGoogleInfo)
         }
     }
 }

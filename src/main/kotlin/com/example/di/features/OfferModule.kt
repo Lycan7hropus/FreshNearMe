@@ -1,8 +1,8 @@
 package com.example.di.features
 
-import com.example.features.category.domain.CategoryService
+import com.example.features.category.domain.CategoryServiceImpl
 import com.example.features.offer.data.OfferRepositoryImpl
-import com.example.features.offer.domain.CategoryProvider
+import com.example.features.offer.domain.CategoryService
 import com.example.features.offer.domain.OfferRepository
 import com.example.features.offer.domain.usecases.CreateOfferUseCase
 import com.example.features.offer.domain.usecases.GetOfferByIdUseCase
@@ -19,5 +19,5 @@ val offerModule = module {
     single { GetOfferByIdUseCase(get()) }
     single { UpdateOfferUseCase(get(), get()) }
 
-    single<CategoryProvider> { CategoryService(get()) }
+    single<CategoryService> { CategoryServiceImpl(get()) }
 }

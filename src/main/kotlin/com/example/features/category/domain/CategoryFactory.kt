@@ -1,10 +1,10 @@
 package com.example.features.category.domain
 
-import com.example.features.category.presentation.dto.CategoryDTO
+import com.example.features.category.presentation.dto.CategoryDto
 import java.util.*
 
 class CategoryFactory(private val categoryRepository: CategoryRepository) {
-    suspend fun createCategoryFromDTO(categoryDTO: CategoryDTO): Category {
+    suspend fun createCategoryFromDTO(categoryDTO: CategoryDto): Category {
         val parentPath = categoryDTO.parentId?.let {
             categoryRepository.getCategoryById(it)?.path ?: ""
         } ?: ""

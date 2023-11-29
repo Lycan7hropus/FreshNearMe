@@ -6,12 +6,13 @@ import com.example.features.offer.domain.usecases.GetOffersUseCase
 import com.example.features.offer.domain.usecases.UpdateOfferUseCase
 import com.example.features.offer.presentation.dto.OfferDto
 import com.example.models.Coordinates
-import com.example.utils.OfferCreationException
-import io.ktor.http.*
+import com.example.utils.extensionFunctions.getUserId
+import com.example.utils.extensionFunctions.respondSuccess
+import com.example.utils.extensionFunctions.toCoordinates
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Route.offerRoutes(
@@ -20,109 +21,44 @@ fun Route.offerRoutes(
     getOfferByIdUseCase: GetOfferByIdUseCase,
     updateOfferUseCase: UpdateOfferUseCase
 ) {
-
     // Route for getting a list of all offers
-    get("/offers") {
-        val category = call.request.queryParameters["category"]
-        val coordinates = call.request.queryParameters["coordinates"]?.toCoordinates()
-        val distance = call.request.queryParameters["distance"]?.toDoubleOrNull()
+    route("/offers"){
+        get() {
+            val category = call.request.queryParameters["category"]
+            val coordinates = call.request.queryParameters["coordinates"]?.toCoordinates()
+            val distance = call.request.queryParameters["distance"]?.toDoubleOrNull()
 
-        val result = getAllOffersUseCase.invoke(category, distance, coordinates)
+            val offersDto = getAllOffersUseCase(category, distance, coordinates)
+            call.respondSuccess(offersDto)
+        }
 
-        result.fold(
-            onSuccess = { offers ->
-                call.respond(HttpStatusCode.OK, offers)
-            },
-            onFailure = { exception ->
-                call.respond(HttpStatusCode.InternalServerError, exception.message ?: "Error fetching offers")
+        // Route for getting a single offer by ID
+        get("/{id}") {
+            val id = call.parameters["id"] ?: throw MissingRequestParameterException("offer id")
+            val offerDto = getOfferByIdUseCase(id)
+            call.respondSuccess(offerDto)
+        }
+
+        // Route for adding an offer
+        authenticate("auth-bearer") {
+            post() {
+                val newOfferDto = call.receive<OfferDto>()
+                val userId = call.getUserId()
+
+                val createdOffer = createOfferUseCase(newOfferDto, userId)
+                call.respondSuccess(createdOffer)
             }
-        )
-    }
 
+            put("/{id}") {
+                val offerId = call.parameters["id"] ?: throw MissingRequestParameterException("offer id")
+                val offerToUpdateDto = call.receive<OfferDto>()
+                val userId = call.getUserId()
 
-    // Route for adding an offer
-    post("/offers") {
-        val newOfferDto = call.receive<OfferDto>()
-        val result = createOfferUseCase(newOfferDto)
+                val offer = updateOfferUseCase(offerId, userId, offerToUpdateDto)
 
-        result.fold(
-            onSuccess = { createdOffer ->
-                call.respond(HttpStatusCode.Created, createdOffer)
-            },
-            onFailure = { exception ->
-                when (exception) {
-                    is IllegalArgumentException -> call.respond(
-                        HttpStatusCode.BadRequest,
-                        exception.message ?: "Invalid offer data"
-                    )
-
-                    is OfferCreationException -> call.respond(
-                        HttpStatusCode.InternalServerError,
-                        exception.message ?: "Could not create offer"
-                    )
-
-                    else -> call.respond(HttpStatusCode.InternalServerError, "An unexpected error occurred")
-                }
+                call.respondSuccess(offer)
             }
-        )
-    }
-
-    // Route for getting a single offer by ID
-    get("/offers/{id}") {
-        val id = call.parameters["id"] ?: return@get call.respond(HttpStatusCode.BadRequest, "Missing offer ID")
-        val result = getOfferByIdUseCase(id)
-        result.fold(
-            onSuccess = { offerDto ->
-                call.respond(HttpStatusCode.Created, offerDto)
-            },
-            onFailure = { exception ->
-                when (exception) {
-                    is NotFoundException -> call.respond(
-                        HttpStatusCode.NotFound,
-                        exception.message ?: "Offer not found"
-                    )
-
-                    else -> call.respond(HttpStatusCode.InternalServerError, "An unexpected error occurred")
-                }
-            }
-        )
-    }
-
-    put("/offers/{id}") {
-        val offerId = call.parameters["id"] ?: return@put call.respond(HttpStatusCode.BadRequest, "Missing offer ID")
-        val offerToUpdateDto = call.receive<OfferDto>()
-
-        val result = updateOfferUseCase(offerId, offerToUpdateDto)
-        result.fold(
-            onSuccess = { updatedOffer ->
-                call.respond(HttpStatusCode.OK, updatedOffer) // Use OK status
-            },
-            onFailure = { exception ->
-                when (exception) {
-                    is IllegalArgumentException -> call.respond(
-                        HttpStatusCode.BadRequest,
-                        exception.message ?: "Invalid offer data"
-                    )
-
-                    else -> call.respond(
-                        HttpStatusCode.InternalServerError,
-                        exception.message ?: "An unexpected error occurred"
-                    )
-                }
-            }
-        )
-    }
-
-}
-
-fun String.toCoordinates(): Coordinates? {
-    val parts = this.split(',')
-    if (parts.size == 2) {
-        val latitude = parts[0].toDoubleOrNull()
-        val longitude = parts[1].toDoubleOrNull()
-        if (latitude != null && longitude != null) {
-            return Coordinates(latitude, longitude)
         }
     }
-    return null
 }
+

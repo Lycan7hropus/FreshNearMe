@@ -1,7 +1,7 @@
 package com.example.plugins
 
 import com.example.utils.InternalErrorException
-import com.example.utils.respondError
+import com.example.utils.extensionFunctions.respondError
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*

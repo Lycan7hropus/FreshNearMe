@@ -1,5 +1,9 @@
-package com.example.utils
+package com.example.utils.extensionFunctions
 
+import com.example.models.UserPrincipal
+import com.example.utils.ApiResponse
+import com.example.utils.Role
+import com.example.utils.handleException
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -12,7 +16,11 @@ fun ApplicationCall.getBearerToken(): String {
 }
 
 fun ApplicationCall.getUserId(): String {
-    return this.principal<UserIdPrincipal>()?.name ?: throw AuthenticationException("Authentication went wrong")
+    return this.principal<UserPrincipal>()?.userId ?: throw AuthenticationException("Authentication went wrong")
+}
+
+fun ApplicationCall.getUserRole(): Role {
+    return this.principal<UserPrincipal>()?.role ?: throw AuthenticationException("Authentication went wrong")
 }
 
 suspend fun <T> ApplicationCall.respondSuccess(data: T, code: HttpStatusCode = HttpStatusCode.OK) {

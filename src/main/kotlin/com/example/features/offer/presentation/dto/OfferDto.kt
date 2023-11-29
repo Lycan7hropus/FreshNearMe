@@ -19,7 +19,6 @@ class OfferDto(
     var phoneNumber: String,
     var description: String,
     var imageUrl: String?,
-    val sellerId: String,
     var coordinates: Coordinates
 ) {
     constructor(offer: Offer) : this(
@@ -30,11 +29,10 @@ class OfferDto(
         phoneNumber = offer.phoneNumber,
         description = offer.description,
         imageUrl = offer.imageUrl,
-        sellerId = offer.sellerId,
         coordinates = Coordinates(longitude = offer.geoPoint.coordinates[0], latitude = offer.geoPoint.coordinates[1])
     )
 
-    fun toDomainModel(category: Category): Offer {
+    fun toDomainModel(category: Category, sellerId: String): Offer {
         // Here we generate a random ID and use the current time for the postedTime.
         // Adjust according to your application's requirements.
         return Offer(

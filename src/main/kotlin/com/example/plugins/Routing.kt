@@ -1,21 +1,25 @@
 package com.example.plugins
 
-import com.example.features.category.domain.CategoryRepository
 import com.example.features.category.domain.usecases.CreateCategoryUseCase
+import com.example.features.category.domain.usecases.GetCategoriesUseCase
+import com.example.features.category.domain.usecases.GetCategoryUseCase
 import com.example.features.offer.domain.usecases.CreateOfferUseCase
 import com.example.features.offer.domain.usecases.GetOfferByIdUseCase
 import com.example.features.offer.domain.usecases.GetOffersUseCase
 import com.example.features.offer.domain.usecases.UpdateOfferUseCase
 import com.example.features.offer.presentation.categoryRoutes
 import com.example.features.offer.presentation.offerRoutes
+import com.example.features.user.domain.UserService
 import com.example.features.user.domain.usecases.*
 import com.example.features.user.presentation.userRoutes
+import com.example.utils.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
+import java.nio.file.AccessDeniedException
 
 fun Application.configureRouting() {
 
@@ -33,11 +37,13 @@ fun Application.configureRouting() {
             updateOfferUseCase
         )
 
-        val categoryRepository: CategoryRepository by inject()
         val createCategoryUseCase: CreateCategoryUseCase by inject()
+        val getCategoryUseCase: GetCategoryUseCase by inject()
+        val getCategoriesUseCase: GetCategoriesUseCase by inject()
         categoryRoutes(
-            categoryRepository,
-            createCategoryUseCase
+            createCategoryUseCase,
+            getCategoryUseCase,
+            getCategoriesUseCase
         )
 
 
@@ -58,24 +64,3 @@ fun Application.configureRouting() {
 }
 
 
-//TODO
-fun Route.withRole(role: String, build: Route.() -> Unit) {
-    authenticate("auth-oauth-google") {
-        val routeWithRole = createRouteFromPath("")
-        routeWithRole.apply(build)
-        routeWithRole.intercept(ApplicationCallPipeline.Call) {
-            val principal = call.principal<UserIdPrincipal>() ?: error("No principal")
-            val userRole = getUserRoleFromDatabase(principal.name) // Pobierz rolę użytkownika z MongoDB
-
-            if (userRole != role) {
-                call.respond(HttpStatusCode.Forbidden, "Access denied")
-                finish()
-            }
-        }
-    }
-}
-
-suspend fun getUserRoleFromDatabase(userId: String): String {
-    // Logika do pobrania roli użytkownika z MongoDB
-    return "ADMIN" // Przykładowa wartość
-}

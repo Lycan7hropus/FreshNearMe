@@ -1,9 +1,10 @@
 package com.example.features.user.data
 
-import com.example.features.authentication.domain.model.UserGoogleInfo
+import com.example.features.authentication.domain.model.GoogleUserInfo
 import com.example.features.offer.domain.Offer
 import com.example.features.user.domain.UserDataRepository
 import com.example.features.user.domain.models.User
+import com.example.utils.Role
 import com.example.utils.UserAlreadyExistsException
 import com.example.utils.UserSavingException
 import com.mongodb.MongoWriteException
@@ -45,7 +46,7 @@ class UserDataRepositoryImpl(private val usersCollection: CoroutineCollection<Us
         return result.modifiedCount > 0
     }
 
-    override suspend fun updateUserInfo(userInfo: UserGoogleInfo): User {
+    override suspend fun updateUserInfo(userInfo: GoogleUserInfo): User {
         val user = findUserByGoogleId(userInfo.id)
         val updatedUser = user.getUserWithUpdatedInfo(userInfo)
         return saveUser(updatedUser)
@@ -73,6 +74,10 @@ class UserDataRepositoryImpl(private val usersCollection: CoroutineCollection<Us
         }
 
         return user
+    }
+
+    override suspend fun getRole(userId: String): Role {
+        TODO("Not yet implemented")
     }
 
     override suspend fun updateUserOffers(userId: String, offers: List<Offer>): List<Offer> {
