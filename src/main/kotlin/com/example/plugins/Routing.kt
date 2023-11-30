@@ -9,21 +9,16 @@ import com.example.features.offer.domain.usecases.GetOffersUseCase
 import com.example.features.offer.domain.usecases.UpdateOfferUseCase
 import com.example.features.offer.presentation.categoryRoutes
 import com.example.features.offer.presentation.offerRoutes
-import com.example.features.user.domain.UserService
 import com.example.features.user.domain.usecases.*
 import com.example.features.user.presentation.userRoutes
-import com.example.utils.*
+import com.example.utils.extensionFunctions.respondSuccess
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.serialization.Serializable
 import org.koin.ktor.ext.inject
-import java.nio.file.AccessDeniedException
 
 fun Application.configureRouting() {
-
-    configureStatusPages()
 
     routing {
         val createOfferUseCase: CreateOfferUseCase by inject()
@@ -59,8 +54,10 @@ fun Application.configureRouting() {
             saveUserUseCase,
             updateUserDataUseCase
         )
+
+        get("/hello_world"){
+
+            call.respondSuccess("Hello world", HttpStatusCode.OK)
+        }
     }
-
 }
-
-

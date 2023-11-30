@@ -43,10 +43,13 @@ tasks.withType<Detekt>().configureEach {
 }
 
 dependencies {
+    //GSON
+    implementation("io.ktor:ktor-serialization-gson:$ktor_version")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
+
     //ouath
     implementation("io.ktor:ktor-server-auth:$ktor_version")
     implementation("io.ktor:ktor-client-apache:$ktor_version")
-
 
     //date and time
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
