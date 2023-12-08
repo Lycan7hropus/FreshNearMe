@@ -3,7 +3,8 @@ import io.gitlab.arturbosch.detekt.Detekt
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
-val koin_ktor: String = "3.5.1"
+val kotest_version: String = "5.8.0"
+val koin_ktor: String = "3.5.0"
 
 plugins {
     kotlin("jvm") version "1.9.20"
@@ -42,7 +43,13 @@ tasks.withType<Detekt>().configureEach {
     }
 }
 
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+}
+
 dependencies {
+
+
     //GSON
     implementation("io.ktor:ktor-serialization-gson:$ktor_version")
     implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
@@ -64,6 +71,7 @@ dependencies {
 
     // Koin for Ktor
     implementation ("io.insert-koin:koin-ktor:$koin_ktor")
+
     // SLF4J Logger
     implementation ("io.insert-koin:koin-logger-slf4j:$koin_ktor")
 
@@ -76,9 +84,31 @@ dependencies {
     implementation("io.ktor:ktor-server-auth-jwt-jvm")
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("ch.qos.logback:logback-classic:$logback_version")
-    implementation("org.testng:testng:7.1.0")
-    implementation("org.testng:testng:7.1.0")
-    implementation("org.testng:testng:7.1.0")
+    implementation("org.testng:testng:7.7.0")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+
+    //kotest
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotest_version")
+    testImplementation ("io.kotest:kotest-runner-junit5:$kotest_version")
+    testImplementation ("io.kotest:kotest-assertions-core:$kotest_version")
+    testImplementation ("io.kotest:kotest-property:$kotest_version")
+//    testImplementation("io.kotest.extensions:kotest-extensions-koin:1.3.0")
+
+
+    // Koin Test features
+//    testImplementation ("org.koin:koin-test:$koin_ktor")
+    testImplementation ("io.insert-koin:koin-test:$koin_ktor")
+//    // Koin for JUnit 4
+//    testImplementation ("io.insert-koin:koin-test-junit4:$koin_ktor")
+//    // Koin for JUnit 5
+//    testImplementation ("io.insert-koin:koin-test-junit5:$koin_ktor")
+
+    //mockk
+    testImplementation("io.mockk:mockk:1.13.8")
+
+    //faker
+    testImplementation ("net.datafaker:datafaker:2.0.2")
+
+    //wyrzuc dependency z testami i koin i dodaj na nowo
 }

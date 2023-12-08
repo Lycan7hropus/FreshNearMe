@@ -9,19 +9,19 @@ import javax.naming.AuthenticationException
 @Serializable
 sealed class ApiResponse<out T> {
     @Serializable
-    data class Success<T>(val data: T) : ApiResponse<T>()
+    public data class Success<T>(val data: T) : ApiResponse<T>()
 
     @Serializable
-    data class Error(val error: ApiError) : ApiResponse<Nothing>()
+    public data class Error(val error: ApiError) : ApiResponse<Nothing>()
 }
 
 @Serializable
-data class ApiError(
+public data class ApiError(
     val type: String,
     val message: String?
 )
 
-data class ExceptionResponse(
+public data class ExceptionResponse(
     val status: HttpStatusCode,
     val error: ApiError
 )
@@ -64,6 +64,13 @@ fun handleException(e: Exception): ExceptionResponse {
             status = HttpStatusCode.RequestTimeout,
             error = ApiError(
                 type = "timeout",
+                message = e.message
+            )
+        )
+    is MissingRequestParameterException -> ExceptionResponse(
+            status = HttpStatusCode.BadRequest,
+            error = ApiError(
+                type = "missing-parameter",
                 message = e.message
             )
         )

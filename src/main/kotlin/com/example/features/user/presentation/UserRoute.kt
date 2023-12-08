@@ -11,13 +11,15 @@ import io.ktor.server.auth.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
+import org.koin.ktor.ext.get
+import org.koin.ktor.ext.getKoin
 
 fun Route.userRoutes(
-    getUserOffersUseCase: GetUserOffersUseCase,
-    getUserInfoUseCase: GetUserInfoUseCase,
-    userWishlistUseCase: UserWishlistUseCase,
-    saveUserUseCase: SaveUserUseCase,
-    updateUserDataUseCase: UpdateUserDataUseCase
+    getUserOffersUseCase: GetUserOffersUseCase = getKoin().get(),
+    getUserInfoUseCase: GetUserInfoUseCase = getKoin().get(),
+    userWishlistUseCase: UserWishlistUseCase = getKoin().get(),
+    saveUserUseCase: SaveUserUseCase = getKoin().get(),
+    updateUserDataUseCase: UpdateUserDataUseCase = getKoin().get()
 ) {
 
     route("/user") {

@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class GoogleTokenInfo(
+public data class GoogleTokenInfo(
     @SerialName("issued_to") val issuedTo: String,
     @SerialName("audience") val audience: String,
     @SerialName("user_id") val userId: String,
@@ -16,7 +16,7 @@ data class GoogleTokenInfo(
 
 
 @Serializable
-data class GoogleTokenError(
+public data class GoogleTokenError(
     val error: String,
     @SerialName("error_description") val errorDescription: String
 )

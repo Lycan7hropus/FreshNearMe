@@ -2,7 +2,7 @@ package com.example.features.authentication.domain.model
 
 import kotlinx.serialization.SerialName
 
-data class GoogleUserInfo(
+public data class GoogleUserInfo(
     @SerialName("google_id") val id: String,
     val name: String,
     @SerialName("given_name") val givenName: String,

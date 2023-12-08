@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class BasicUserDto(
+public data class BasicUserDto(
     val id: String,
     @SerialName("posted_offers") val postedOffers: List<Offer>,
     @SerialName("given_name") val givenName: String,
@@ -13,7 +13,7 @@ data class BasicUserDto(
 )
 
 @Serializable
-data class DetailedUserDto(
+public data class DetailedUserDto(
     val id: String,
     @SerialName("wish_list") val wishlist: List<Offer>,
     @SerialName("posted_offers") val postedOffers: List<Offer>,

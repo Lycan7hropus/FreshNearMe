@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId
 
 @Serializable
-data class Offer(
+public data class Offer(
     @BsonId
     val id: String,
     var name: String,
