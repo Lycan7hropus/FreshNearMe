@@ -15,11 +15,11 @@ import org.koin.ktor.ext.get
 import org.koin.ktor.ext.getKoin
 
 fun Route.userRoutes(
-    getUserOffersUseCase: GetUserOffersUseCase = getKoin().get(),
-    getUserInfoUseCase: GetUserInfoUseCase = getKoin().get(),
-    userWishlistUseCase: UserWishlistUseCase = getKoin().get(),
-    saveUserUseCase: SaveUserUseCase = getKoin().get(),
-    updateUserDataUseCase: UpdateUserDataUseCase = getKoin().get()
+    getUserOffersUseCase: GetUserOffersUseCase = get(),
+    getUserInfoUseCase: GetUserInfoUseCase = get(),
+    userWishlistUseCase: UserWishlistUseCase = get(),
+    saveUserUseCase: SaveUserUseCase = get(),
+    updateUserDataUseCase: UpdateUserDataUseCase = get()
 ) {
 
     route("/user") {

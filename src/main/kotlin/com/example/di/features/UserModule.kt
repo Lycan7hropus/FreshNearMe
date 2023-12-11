@@ -16,3 +16,4 @@ val userModule = module {
     single { SaveUserUseCase(get()) }
     single { UpdateUserDataUseCase(get()) }
 }
+

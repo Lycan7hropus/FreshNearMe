@@ -11,8 +11,14 @@ import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
+import org.koin.ktor.ext.get
+import org.koin.ktor.ext.getKoin
 
-fun Route.categoryRoutes(createCategoryUseCase: CreateCategoryUseCase, getCategoryUseCase: GetCategoryUseCase, getCategoriesUseCase: GetCategoriesUseCase) {
+fun Route.categoryRoutes(
+    createCategoryUseCase: CreateCategoryUseCase = get(),
+    getCategoryUseCase: GetCategoryUseCase= get(),
+    getCategoriesUseCase: GetCategoriesUseCase = get(),
+) {
 
     route("/categories"){
         withRole(Role.ADMIN){
@@ -27,7 +33,8 @@ fun Route.categoryRoutes(createCategoryUseCase: CreateCategoryUseCase, getCatego
                 //TODO
             }
         }
-        get() {
+
+        get("") {
             val category = getCategoriesUseCase()
             call.respondSuccess(category)
         }

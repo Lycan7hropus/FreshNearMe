@@ -32,28 +32,8 @@ fun Application.configureRouting() {
             updateOfferUseCase
         )
 
-        val createCategoryUseCase: CreateCategoryUseCase by inject()
-        val getCategoryUseCase: GetCategoryUseCase by inject()
-        val getCategoriesUseCase: GetCategoriesUseCase by inject()
-        categoryRoutes(
-            createCategoryUseCase,
-            getCategoryUseCase,
-            getCategoriesUseCase
-        )
-
-
-        val getUserOffersUseCase: GetUserOffersUseCase by inject()
-        val getUserInfoUseCase: GetUserInfoUseCase by inject()
-        val userWishlistUseCase: UserWishlistUseCase by inject()
-        val saveUserUseCase: SaveUserUseCase by inject()
-        val updateUserDataUseCase: UpdateUserDataUseCase by inject()
-        userRoutes(
-            getUserOffersUseCase,
-            getUserInfoUseCase,
-            userWishlistUseCase,
-            saveUserUseCase,
-            updateUserDataUseCase
-        )
+        categoryRoutes()
+        userRoutes()
 
         get("/hello_world"){
 

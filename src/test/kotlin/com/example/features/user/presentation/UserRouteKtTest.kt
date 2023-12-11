@@ -1,93 +1,77 @@
 package com.example.features.user.presentation
 
+import com.example.features.user.domain.UserDataRepository
 import com.example.features.user.domain.usecases.*
-import com.example.features.user.presentation.models.BasicUserDto
-import com.example.plugins.configureRouting
-import com.example.services.MockOfferService
 import com.example.services.MockUserDtoService
-import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.shouldBe
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import io.mockk.*
-import io.ktor.server.routing.*
-import io.ktor.server.application.*
 import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.routing.*
 import io.ktor.server.testing.*
+import io.mockk.coEvery
+import io.mockk.mockk
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.core.context.GlobalContext.stopKoin
 import org.koin.dsl.module
-import org.koin.ktor.ext.getKoin
+import org.koin.test.KoinTest
+import org.koin.test.inject
 
-class UserRoutesTest : FunSpec(){
+class UserRoutesTest: KoinTest {
 
-     var getUserOffersUseCase: GetUserOffersUseCase = mockk()
-     var getUserInfoUseCase: GetUserInfoUseCase  = mockk()
-     var userWishlistUseCase: UserWishlistUseCase  = mockk()
-     var saveUserUseCase: SaveUserUseCase  = mockk()
-     var updateUserDataUseCase: UpdateUserDataUseCase = mockk()
-
-    private val mockUserDtoService = MockUserDtoService()
-    private val fakeUser = mockUserDtoService.randomBasicUserDto()
-
-//    private val testModule = module {
-//        single { getUserOffersUseCase }
-//        single { getUserInfoUseCase }
-//        single { userWishlistUseCase }
-//        single { saveUserUseCase }
-//        single { updateUserDataUseCase }
-//    }
-    init {
+    private val getUserInfoUseCase: GetUserInfoUseCase by inject()
+    val fakeUser = MockUserDtoService().randomBasicUserDto()
+    val userId = fakeUser.id
 
 
-        test("GET /{userId} should return BasicUserDto") {
-            testApplication {
-                application {
-//                    configureRouting()
-//                    startKoin {
-//                        modules(testModule)
-//                    }
-                    var getUserOffersUseCase: GetUserOffersUseCase = mockk()
-                    var getUserInfoUseCase: GetUserInfoUseCase  = mockk()
-                    var userWishlistUseCase: UserWishlistUseCase  = mockk()
-                    var saveUserUseCase: SaveUserUseCase  = mockk()
-                    var updateUserDataUseCase: UpdateUserDataUseCase = mockk()
+    val userTestModule = module {
+        // Mocking the UserDataRepository
+        single<UserDataRepository> { mockk(relaxed = true) }
 
-                    coEvery {
-                        getUserInfoUseCase.getBasicInfo(fakeUser.id)
-                    } returns fakeUser
+        // Mocking each use case with MockK
+        single { mockk<GetUserOffersUseCase>(relaxed = true) }
+        single { mockk<GetUserInfoUseCase>(relaxed = true) }
+        single { mockk<UserWishlistUseCase>(relaxed = true) }
+        single { mockk<SaveUserUseCase>(relaxed = true) }
+        single { mockk<UpdateUserDataUseCase>(relaxed = true) }
+    }
+
+    @BeforeEach
+    fun setUp() {
+        stopKoin() // Ensure no previous Koin instance is running
+        startKoin {
+            modules(userTestModule) // Load your test module here
+        }
+        coEvery { getUserInfoUseCase.getBasicInfo(any()) } returns fakeUser
+    }
+
+    @AfterEach
+    fun tearDown() {
+        stopKoin() // Zatrzymaj Koin po każdym teście
+    }
 
 
-                    routing {
-                        userRoutes(getUserOffersUseCase,getUserInfoUseCase,userWishlistUseCase,saveUserUseCase,updateUserDataUseCase)
-                        //userRoutes()
-                        //userRoutes(getKoin().get(),getKoin().get(),getKoin().get(), getKoin().get(),  getKoin().get())
-                        //userRoutes(getKoin().inject<GetUserOffersUseCase>().value,getKoin().inject<GetUserInfoUseCase>().value,getKoin().inject<UserWishlistUseCase>().value, getKoin().inject<SaveUserUseCase>().value, getKoin().inject<UpdateUserDataUseCase>().value)
-                    }
-                }
-                val response = client.get("/user/${fakeUser.id}")
-                println(response.bodyAsText())
-                response.status shouldBe HttpStatusCode.OK
-
-            }
+    @Test
+    fun `GET user by userId returns user info`() = testApplication {
+        application {
+            configureRouting()  // Make sure to include this
         }
 
-        afterTest {
-
-            clearMocks(
-                getUserOffersUseCase,
-                getUserInfoUseCase,
-                userWishlistUseCase,
-                saveUserUseCase,
-                updateUserDataUseCase,
-            )
-            stopKoin()
+        this.client.get("/user/$userId").apply {
+            assertEquals(HttpStatusCode.OK, status)
+            val responseBody = bodyAsText()
+            assertNotNull(responseBody)
         }
-        afterSpec {
-            coVerify() {
-                getUserInfoUseCase.getBasicInfo(fakeUser.id)
-            }
-            stopKoin()
+    }
+
+    private fun Application.configureRouting() {
+        this.routing {
+            userRoutes(getUserInfoUseCase = getUserInfoUseCase)
         }
     }
 }
