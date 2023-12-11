@@ -43,8 +43,7 @@ class OfferDto(
             phoneNumber = phoneNumber,
             description = description,
             imageUrl = imageUrl,
-            postedTime = Clock.System.now()
-                .toLocalDateTime(TimeZone.currentSystemDefault()), // Or use the appropriate time zone
+            postedTime = Clock.System.now().epochSeconds, // Or use the appropriate time zone
             sellerId = sellerId,
             geoPoint = GeoPoint(coordinates = listOf(coordinates.longitude, coordinates.latitude)),
             isActive = true // Assuming a new offer is always active initially

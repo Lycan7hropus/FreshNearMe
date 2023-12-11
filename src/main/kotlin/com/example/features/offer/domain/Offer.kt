@@ -16,7 +16,7 @@ public data class Offer(
     var phoneNumber: String,
     var description: String,
     var imageUrl: String?,
-    val postedTime: LocalDateTime,
+    val postedTime: Long,
     val sellerId: String,
     val geoPoint: GeoPoint,
     var isActive: Boolean = true

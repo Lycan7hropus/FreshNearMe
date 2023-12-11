@@ -4,7 +4,7 @@ val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
 val kotest_version: String = "5.8.0"
-val koin_ktor: String = "3.5.0"
+val koin_ktor: String = "3.5.2-RC1"
 
 plugins {
     kotlin("jvm") version "1.9.20"

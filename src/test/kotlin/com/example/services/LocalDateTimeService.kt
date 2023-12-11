@@ -17,4 +17,13 @@ class LocalDateTimeService {
 
         return LocalDateTime(year, month, dayOfMonth, hour, minute, second)
     }
+
+    fun randomEpoch(startYear: Int  = 2020, endYear: Int  = 2024): Long {
+        require(startYear <= endYear) { "Start value must be less than or equal to end value" }
+        return Random.nextLong(yearToEpoch(startYear), yearToEpoch(endYear) + 1)
+    }
+
+    private fun yearToEpoch(year: Int): Long {
+        return year * 31536000L // Przybliżona liczba sekund w roku (nie uwzględnia lat przestępnych)
+    }
 }

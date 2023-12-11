@@ -23,7 +23,7 @@ class MockOfferService {
             phoneNumber = faker.phoneNumber().phoneNumber(),
             description = "${beer.name()} is a ${beer.style()} beer, made with ${beer.yeast()} yests",
             imageUrl = null,
-            postedTime = localDateTimeService.randomLocalDateTime(),
+            postedTime = localDateTimeService.randomEpoch(),
             sellerId = sellerId,
             geoPoint = randomGeoPointService.randomGeoPointNearWarsaw(),
             isActive = Random.nextBoolean()

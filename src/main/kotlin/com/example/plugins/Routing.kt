@@ -18,7 +18,7 @@ import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
 import org.koin.ktor.ext.inject
 
-fun Application.configureRouting() {
+fun Application.configure() {
 
     routing {
         val createOfferUseCase: CreateOfferUseCase by inject()

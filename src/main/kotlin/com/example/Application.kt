@@ -1,7 +1,7 @@
 package com.example
 
 import com.example.di.initKoin
-import com.example.plugins.configureRouting
+import com.example.plugins.configure
 import com.example.plugins.configureSecurity
 import com.example.plugins.configureSerialization
 import com.example.plugins.configureStatusPages
@@ -16,5 +16,5 @@ fun Application.module() {
     configureSecurity()
     configureSerialization()
     configureStatusPages()
-    configureRouting()
+    configure()
 }
