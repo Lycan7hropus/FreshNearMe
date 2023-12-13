@@ -8,8 +8,9 @@ import com.example.utils.extensionFunctions.respondSuccess
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.routing.*
+import org.koin.ktor.ext.getKoin
 
-fun Route.authRoutes(userSyncUseCase: UserSyncUseCase) {
+fun Route.authRoutes(userSyncUseCase: UserSyncUseCase = getKoin().get()) {
     route("/auth"){
         authenticate("auth-bearer") {
             post("/sync") {

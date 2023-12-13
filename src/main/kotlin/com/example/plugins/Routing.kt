@@ -1,5 +1,6 @@
 package com.example.plugins
 
+import com.example.features.authentication.presentation.authRoutes
 import com.example.features.offer.domain.usecases.CreateOfferUseCase
 import com.example.features.offer.domain.usecases.GetOfferByIdUseCase
 import com.example.features.offer.domain.usecases.GetOffersUseCase
@@ -28,6 +29,7 @@ fun Application.configureRouting() {
 
         categoryRoutes()
         userRoutes()
+        authRoutes()
 
         get("/hello_world"){
 

@@ -8,12 +8,10 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.koin.ktor.ext.getKoin
 import org.koin.ktor.ext.inject
 
-fun Application.configureSecurity() {
-    val googleAuthenticationService: GoogleAuthService by inject()
-    val userService: UserService by inject()
-
+fun Application.configureSecurity(googleAuthenticationService: GoogleAuthService = getKoin().get(), userService: UserService = getKoin().get()) {
     install(Authentication) {
         bearer("auth-bearer") {
             realm = "Access to the '/' path"

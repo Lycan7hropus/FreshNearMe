@@ -36,29 +36,32 @@ fun Route.userRoutes(
             call.respondSuccess(data = offersResponse)
         }
 
-        get("/my_info") {
-            val userId = call.getUserId()
-            val user: DetailedUserDto = getUserInfoUseCase.getDetailedInfo(userId)
-            call.respondSuccess(data = user)
-        }
+        authenticate("auth-bearer") {
+            get("/my_info") {
+                val userId = call.getUserId()
+                val user: DetailedUserDto = getUserInfoUseCase.getDetailedInfo(userId)
+                call.respondSuccess(data = user)
+            }
 
-        get("/wishlist") {
-            val userId = call.getUserId()
-            val wishListResponse = userWishlistUseCase.get(userId)
-            call.respondSuccess(data = wishListResponse)
-        }
+            get("/wishlist") {
+                val userId = call.getUserId()
+                val wishListResponse = userWishlistUseCase.get(userId)
+                call.respondSuccess(data = wishListResponse)
+            }
 
-        put("/wishlist") {
-            val wishlistDTO = call.receive<WishlistDto>()
-            val userId = call.getUserId()
-            val user = userWishlistUseCase.put(userId, wishlistDTO)
-            call.respondSuccess(data = user)
-        }
+            put("/wishlist") {
+                val wishlistDTO = call.receive<WishlistDto>()
+                val userId = call.getUserId()
+                val user = userWishlistUseCase.put(userId, wishlistDTO)
+                call.respondSuccess(data = user)
+            }
 
-        put("/offers") {
-            val userId = call.getUserId()
-            val postedOffersDTO = getUserOffersUseCase.invoke(userId)
-            call.respondSuccess(data = postedOffersDTO)
+            put("/offers") {
+                val userId = call.getUserId()
+                val postedOffersDTO = getUserOffersUseCase.invoke(userId)
+                call.respondSuccess(data = postedOffersDTO)
+            }
+
         }
     }
 

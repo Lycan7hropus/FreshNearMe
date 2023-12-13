@@ -1,12 +1,11 @@
 package com.example.services
 
-import com.example.features.category.domain.Category
 import com.example.features.offer.domain.Offer
 import net.datafaker.Faker
 import java.util.*
 import kotlin.random.Random
 
-class MockOfferService {
+class FakeOfferService {
 
     val localDateTimeService = LocalDateTimeService()
     val randomGeoPointService = GeoPointService()

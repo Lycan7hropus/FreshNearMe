@@ -59,7 +59,6 @@ class UserDataRepositoryImpl(private val usersCollection: CoroutineCollection<Us
 
 
     override suspend fun saveUser(user: User): User {
-
         try {
             val result = usersCollection.insertOne(user)
             if (!result.wasAcknowledged()) {
