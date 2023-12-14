@@ -16,17 +16,7 @@ import org.koin.ktor.ext.inject
 
 fun Application.configureRouting() {
     routing {
-        val createOfferUseCase: CreateOfferUseCase by inject()
-        val getAllOffersUseCase: GetOffersUseCase by inject()
-        val getOfferByIdUseCase: GetOfferByIdUseCase by inject()
-        val updateOfferUseCase: UpdateOfferUseCase by inject()
-        offerRoutes(
-            createOfferUseCase,
-            getAllOffersUseCase,
-            getOfferByIdUseCase,
-            updateOfferUseCase
-        )
-
+        offerRoutes()
         categoryRoutes()
         userRoutes()
         authRoutes()

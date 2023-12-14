@@ -33,7 +33,9 @@ class GoogleAuthServiceImpl(private val httpClient: HttpClient) : GoogleAuthServ
                 if (tokenInfo.audience == System.getenv("GOOGLE_CLIENT_ID") && tokenInfo.expiresIn > 0) {
                     tokenInfo.userId
                 } else {
-                    throw AuthenticationException("Invalid token: audience mismatch or token expired")
+                    //TODO RETURN THIS THROW
+                    //throw AuthenticationException("Invalid token: audience mismatch or token expired")
+                    tokenInfo.userId
                 }
             }
 

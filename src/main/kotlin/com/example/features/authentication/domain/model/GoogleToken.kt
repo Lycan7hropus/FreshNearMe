@@ -11,6 +11,8 @@ public data class GoogleTokenInfo(
     @SerialName("user_id") val userId: String,
     @SerialName("scope") val scope: String,
     @SerialName("expires_in") val expiresIn: Int,
+    val email: String?,
+    val verified_email: Boolean?,
     @SerialName("access_type") val accessType: String
 )
 

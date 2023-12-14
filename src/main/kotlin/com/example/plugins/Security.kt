@@ -22,6 +22,7 @@ fun Application.configureSecurity(googleAuthenticationService: GoogleAuthService
                 UserPrincipal(userId, userRole)
             }
         }
+
     }
 }
 

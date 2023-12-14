@@ -14,12 +14,13 @@ import io.ktor.server.auth.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
+import org.koin.ktor.ext.getKoin
 
 fun Route.offerRoutes(
-    createOfferUseCase: CreateOfferUseCase,
-    getAllOffersUseCase: GetOffersUseCase,
-    getOfferByIdUseCase: GetOfferByIdUseCase,
-    updateOfferUseCase: UpdateOfferUseCase
+    createOfferUseCase: CreateOfferUseCase = getKoin().get(),
+    getAllOffersUseCase: GetOffersUseCase = getKoin().get(),
+    getOfferByIdUseCase: GetOfferByIdUseCase = getKoin().get(),
+    updateOfferUseCase: UpdateOfferUseCase = getKoin().get()
 ) {
     // Route for getting a list of all offers
     route("/offers"){

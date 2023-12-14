@@ -19,7 +19,20 @@ fun Route.authRoutes(userSyncUseCase: UserSyncUseCase = getKoin().get()) {
                 val result = userSyncUseCase(userId, token)
                 call.respondSuccess(result)
             }
+        }
 
+        post("/login") {
+            val userId = call.getUserId()
+            val token = call.getBearerToken()
+            val result = userSyncUseCase(userId, token)
+            call.respondSuccess(result)
+        }
+
+        post("/register") {
+            val userId = call.getUserId()
+            val token = call.getBearerToken()
+            val result = userSyncUseCase(userId, token)
+            call.respondSuccess(result)
         }
     }
 }
