@@ -11,15 +11,15 @@ import kotlinx.serialization.Serializable
 import java.util.*
 
 @Serializable
-class OfferDto(
-    var id: String?,
-    var name: String,
-    var categoryId: String,
-    var price: Double,
-    var phoneNumber: String,
-    var description: String,
-    var imageUrl: String?,
-    var coordinates: Coordinates
+data class OfferDto(
+    val id: String?,
+    val name: String,
+    val categoryId: String,
+    val price: Double,
+    val phoneNumber: String,
+    val description: String,
+    val imageUrl: String?,
+    val coordinates: Coordinates
 ) {
     constructor(offer: Offer) : this(
         id = offer.id,
