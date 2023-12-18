@@ -1,8 +1,6 @@
 package com.example.models
 
 import kotlinx.serialization.Serializable
-
-
 @Serializable
 data class Coordinates(
     val latitude: Double,
