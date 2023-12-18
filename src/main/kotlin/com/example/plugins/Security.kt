@@ -4,6 +4,7 @@ import com.auth0.jwk.UrlJwkProvider
 import com.auth0.jwt.interfaces.Payload
 import com.example.models.JwtUserPrincipal
 import com.example.utils.Role
+import com.example.utils.extensionFunctions.toJwtUserPrincipal
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
@@ -37,29 +38,3 @@ fun Application.configureSecurity() {
 }
 
 
-private fun JWTCredential.toJwtUserPrincipal(): JwtUserPrincipal? {
-    return if (isValidToken()) {
-        payload.toJwtUserPrincipal()
-    } else null
-}
-
-private fun JWTCredential.isValidToken() = expiresAt?.after(Date()) == true
-
-private fun Payload.toJwtUserPrincipal() = JwtUserPrincipal(
-    exp = expiresAt?.time,
-    roles = getRoles(),
-    email = getClaim("email").asString(),
-    familyName = getClaim("family_name").asString(),
-    givenName = getClaim("given_name").asString(),
-    preferredUsername = getClaim("preferred_username").asString(),
-    name = getClaim("name").asString(),
-    emailVerified = getClaim("email_verified").asBoolean(),
-    sid = getClaim("sid").asString()
-)
-
-private fun Payload.getRoles(): List<Role> {
-    val rolesList = getClaim("realm_access").asMap()["roles"] as? List<String> ?: return emptyList()
-    return rolesList.mapNotNull { roleName ->
-        Role.fromRoleStr(roleName)
-    }
-}
