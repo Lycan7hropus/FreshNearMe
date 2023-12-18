@@ -1,5 +1,6 @@
 package com.example.utils.extensionFunctions
 
+import com.example.models.JwtUserPrincipal
 import com.example.models.UserPrincipal
 import com.example.utils.ApiResponse
 import com.example.utils.Role
@@ -22,7 +23,9 @@ fun ApplicationCall.getUserId(): String {
 fun ApplicationCall.getUserRole(): Role {
     return this.principal<UserPrincipal>()?.role ?: throw AuthenticationException("Authentication went wrong")
 }
-
+fun ApplicationCall.getUserRoles(): List<Role> {
+    return this.principal<JwtUserPrincipal>()?.roles ?: throw AuthenticationException("Authentication went wrong")
+}
 suspend fun <T> ApplicationCall.respondSuccess(data: T, code: HttpStatusCode = HttpStatusCode.OK) {
     val response = ApiResponse.Success(data)
     this.respond(code, response)

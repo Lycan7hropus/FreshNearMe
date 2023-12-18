@@ -34,7 +34,7 @@ fun Route.userRoutes(
             call.respondSuccess(data = offersResponse)
         }
 
-        authenticate("auth-bearer") {
+        authenticate("auth-jwt") {
             get("/my_info") {
                 val userId = call.getUserId()
                 val user: DetailedUserDto = getUserInfoUseCase.getDetailedInfo(userId)

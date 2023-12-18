@@ -8,9 +8,14 @@ import com.example.features.offer.presentation.categoryRoutes
 import com.example.features.offer.presentation.offerRoutes
 import com.example.features.user.domain.usecases.*
 import com.example.features.user.presentation.userRoutes
+import com.example.models.JwtUserPrincipal
+import com.example.utils.Role
 import com.example.utils.extensionFunctions.respondSuccess
+import com.example.utils.extensionFunctions.withRole
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
+import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
 
@@ -54,8 +59,36 @@ fun Application.configureRouting() {
         )
 
         get("/hello_world"){
-
             call.respondSuccess("Hello world", HttpStatusCode.OK)
         }
+
+
+        authenticate("auth-jwt") {
+            withRole(Role.ADMIN){
+                get("/admin"){
+                    val principal = call.authentication
+                    if (principal != null) {
+                        call.respond(HttpStatusCode.OK)
+                    } else {
+                        call.respond(HttpStatusCode.Unauthorized)
+                    }
+                }
+
+            }
+            withRole(Role.USER){
+                get("/user"){
+                    call.respondSuccess("Hello user", HttpStatusCode.OK)
+                }
+            }
+
+            get("/oauth") {
+                val principal = call.principal<JwtUserPrincipal>()
+
+                // ...
+
+                call.respondText("${principal?.email}")
+            }
+        }
+
     }
 }
