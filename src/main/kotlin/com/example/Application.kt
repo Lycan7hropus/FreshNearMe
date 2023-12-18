@@ -1,11 +1,10 @@
 package com.example
 
 import com.example.di.initKoin
-import com.example.plugins.configureRouting
-import com.example.plugins.configureSecurity
-import com.example.plugins.configureSerialization
-import com.example.plugins.configureStatusPages
+import com.example.plugins.*
+import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.plugins.cors.routing.*
 
 fun main(args: Array<String>) {
     io.ktor.server.netty.EngineMain.main(args)
@@ -17,4 +16,6 @@ fun Application.module() {
     configureSerialization()
     configureStatusPages()
     configureRouting()
+    configureCORS()
+
 }

@@ -43,6 +43,9 @@ tasks.withType<Detekt>().configureEach {
 }
 
 dependencies {
+    //CORS
+    implementation("io.ktor:ktor-server-cors:$ktor_version")
+
     //GSON
     implementation("io.ktor:ktor-serialization-gson:$ktor_version")
     implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
