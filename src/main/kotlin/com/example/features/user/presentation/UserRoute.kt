@@ -27,7 +27,7 @@ fun Route.userRoutes(
             call.respondSuccess(data = user)
         }
 
-        // W ROUTE SPRAWDZASZ CZY COS NIE JEST NULLEM I CZY MA POPRAWNY FORMART, W USE CASE CZY DAME SA PRAWIDLOWE i robisz tam transformacje
+        // W ROUTE SPRAWDZASZ CZY COS NIE JEST NULLEM I CZY MA POPRAWNY FORMART, W USE CASE CZY DAME SA PRAWIDLOWE POD KĄTEM BIZNESOWYM i robisz tam transformacje
         get("/{userId}/offers") {
             val userId = call.parameters["userId"] ?: throw MissingRequestParameterException("userId")
             val offersResponse = getUserOffersUseCase.invoke(userId)

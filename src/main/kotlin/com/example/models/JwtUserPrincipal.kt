@@ -12,5 +12,6 @@ data class JwtUserPrincipal(
     val preferredUsername: String?, // preferred_username
     val name: String?,
     val emailVerified: Boolean?, // email_verified
-    val sid: String?
+    val sid: String?,
+    val sub: String?
 ) : Principal

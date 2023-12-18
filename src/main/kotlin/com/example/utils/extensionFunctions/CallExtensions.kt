@@ -12,7 +12,7 @@ import io.ktor.server.response.*
 
 
 fun ApplicationCall.getUserId(): String {
-    return this.principal<JwtUserPrincipal>()?.sid
+    return this.principal<JwtUserPrincipal>()?.sub
         ?: throw InvalidPrincipalException("User ID extraction failed: JWT token may be invalid or missing.")
 }
 

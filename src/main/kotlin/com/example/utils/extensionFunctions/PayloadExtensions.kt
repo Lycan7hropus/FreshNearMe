@@ -13,7 +13,8 @@ fun Payload.toJwtUserPrincipal() = JwtUserPrincipal(
     preferredUsername = getClaim("preferred_username").asString(),
     name = getClaim("name").asString(),
     emailVerified = getClaim("email_verified").asBoolean(),
-    sid = getClaim("sid").asString()
+    sid = getClaim("sid").asString(),
+    sub = getClaim("sub").asString(),
 )
 
 fun Payload.getRoles(): List<Role> {
