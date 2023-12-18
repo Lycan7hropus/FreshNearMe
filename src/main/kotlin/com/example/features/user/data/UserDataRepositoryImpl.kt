@@ -1,6 +1,5 @@
 package com.example.features.user.data
 
-import com.example.features.authentication.domain.model.GoogleUserInfo
 import com.example.features.offer.domain.Offer
 import com.example.features.user.domain.UserDataRepository
 import com.example.features.user.domain.models.User
@@ -44,12 +43,6 @@ class UserDataRepositoryImpl(private val usersCollection: CoroutineCollection<Us
     override suspend fun updateUser(user: User): Boolean {
         val result = usersCollection.updateOne(User::id eq user.id, user)
         return result.modifiedCount > 0
-    }
-
-    override suspend fun updateUserInfo(userInfo: GoogleUserInfo): User {
-        val user = findUserByGoogleId(userInfo.id)
-        val updatedUser = user.getUserWithUpdatedInfo(userInfo)
-        return saveUser(updatedUser)
     }
 
     override suspend fun findUserByGoogleId(googleId: String): User {
