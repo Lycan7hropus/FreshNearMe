@@ -1,7 +1,6 @@
 package com.example.utils.extensionFunctions
 
 import com.example.models.JwtUserPrincipal
-import com.example.models.UserPrincipal
 import com.example.utils.ApiResponse
 import com.example.utils.Role
 import com.example.utils.handleException
@@ -11,17 +10,13 @@ import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import javax.naming.AuthenticationException
 
-fun ApplicationCall.getBearerToken(): String {
-    return request.headers[HttpHeaders.Authorization]?.removePrefix("Bearer ")
-        ?: throw AuthenticationException("Invalid auth header")
-}
 
 fun ApplicationCall.getUserId(): String {
-    return this.principal<UserPrincipal>()?.userId ?: throw AuthenticationException("Authentication went wrong")
+    return this.principal<JwtUserPrincipal>()?.sid ?: throw AuthenticationException("Authentication went wrong")
 }
 
 fun ApplicationCall.getUserRole(): Role {
-    return this.principal<UserPrincipal>()?.role ?: throw AuthenticationException("Authentication went wrong")
+    return this.principal<JwtUserPrincipal>()?.roles?.first() ?: throw AuthenticationException("Authentication went wrong")
 }
 fun ApplicationCall.getUserRoles(): List<Role> {
     return this.principal<JwtUserPrincipal>()?.roles ?: throw AuthenticationException("Authentication went wrong")
