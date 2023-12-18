@@ -8,7 +8,7 @@ import com.example.utils.ResourceAccessDenied
 
 class UpdateOfferUseCase(private val offerRepository: OfferRepository, private val categoryService: CategoryService) {
     suspend operator fun invoke(offerId: String, userId : String, offerDto: OfferDto): Offer {
-        var sellerId = offerRepository.getOfferById(offerId).sellerId
+        val sellerId = offerRepository.getOfferById(offerId).sellerId
         if(sellerId != userId) throw ResourceAccessDenied("You cannot edit this offer")
         val category = categoryService.getCategoryById(offerDto.categoryId)
         val offer = offerDto.toDomainModel(category, sellerId).copy(id = offerId)

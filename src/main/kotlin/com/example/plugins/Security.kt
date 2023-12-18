@@ -14,10 +14,11 @@ import javax.naming.AuthenticationException
 
 fun Application.configureSecurity() {
     val myRealm = "fresh-near-me"
-    val issuer = "http://localhost:18080/realms/$myRealm"
+    val port = "18080"
+    val issuer = "http://localhost:$port/realms/$myRealm"
     val client = "fresh-near-me-client"
-    val audience = "account" // Adjusted to match the token's audience
-    val jwkProvider = "http://localhost:18080/realms/$myRealm/protocol/openid-connect/certs"
+    val audience = "account"
+    val jwkProvider = "http://localhost:$port/realms/$myRealm/protocol/openid-connect/certs"
 
     install(Authentication) {
         jwt("auth-jwt") {

@@ -108,6 +108,14 @@ fun handleException(e: Exception): ExceptionResponse {
             )
         )
 
+        is UnauthorizedAccessException -> ExceptionResponse(
+            status = HttpStatusCode.Forbidden,
+            error = ApiError(
+                type = "authorization-error",
+                message = e.message
+            )
+        )
+
         else -> ExceptionResponse(
             status = HttpStatusCode.InternalServerError,
             error = ApiError(

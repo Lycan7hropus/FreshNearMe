@@ -2,6 +2,7 @@ package com.example.utils.extensionFunctions
 
 import com.example.utils.ResourceAccessDenied
 import com.example.utils.Role
+import com.example.utils.UnauthorizedAccessException
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 
@@ -28,7 +29,7 @@ private fun Route.withRolesCheck(build: Route.() -> Unit, check: (List<Role>) ->
     roleSpecificRoute.intercept(ApplicationCallPipeline.Call) {
         val userRoles = call.getUserRoles()
         if (!check(userRoles)) {
-            call.respondError(ResourceAccessDenied("Access denied. User does not have the correct role(s)."))
+            call.respondError(UnauthorizedAccessException("Access denied. User does not have the correct role(s)."))
             finish()
         }
     }
