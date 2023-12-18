@@ -14,10 +14,6 @@ import javax.naming.AuthenticationException
 fun ApplicationCall.getUserId(): String {
     return this.principal<JwtUserPrincipal>()?.sid ?: throw AuthenticationException("Authentication went wrong")
 }
-
-fun ApplicationCall.getUserRole(): Role {
-    return this.principal<JwtUserPrincipal>()?.roles?.first() ?: throw AuthenticationException("Authentication went wrong")
-}
 fun ApplicationCall.getUserRoles(): List<Role> {
     return this.principal<JwtUserPrincipal>()?.roles ?: throw AuthenticationException("Authentication went wrong")
 }
