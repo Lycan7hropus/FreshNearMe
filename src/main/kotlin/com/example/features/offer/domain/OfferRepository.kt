@@ -9,4 +9,5 @@ interface OfferRepository {
     suspend fun saveOffer(offer: Offer): Offer
     suspend fun updateOffer(offer: Offer): Offer
     suspend fun deleteOffer(offerId: String): Boolean
+    suspend fun findOffersWithQuery(query: String): List<Offer>
 }

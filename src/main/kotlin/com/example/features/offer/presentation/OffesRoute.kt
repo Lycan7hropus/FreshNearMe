@@ -1,11 +1,7 @@
 package com.example.features.offer.presentation
 
-import com.example.features.offer.domain.usecases.CreateOfferUseCase
-import com.example.features.offer.domain.usecases.GetOfferByIdUseCase
-import com.example.features.offer.domain.usecases.GetOffersUseCase
-import com.example.features.offer.domain.usecases.UpdateOfferUseCase
+import com.example.features.offer.domain.usecases.*
 import com.example.features.offer.presentation.dto.OfferDto
-import com.example.models.Coordinates
 import com.example.utils.extensionFunctions.getUserId
 import com.example.utils.extensionFunctions.respondSuccess
 import com.example.utils.extensionFunctions.toCoordinates
@@ -19,8 +15,10 @@ fun Route.offerRoutes(
     createOfferUseCase: CreateOfferUseCase,
     getAllOffersUseCase: GetOffersUseCase,
     getOfferByIdUseCase: GetOfferByIdUseCase,
-    updateOfferUseCase: UpdateOfferUseCase
+    updateOfferUseCase: UpdateOfferUseCase,
+    getOffersByNameUseCase: GetOffersByNameUseCase
 ) {
+
     // Route for getting a list of all offers
     route("/offers"){
         get() {
@@ -32,6 +30,16 @@ fun Route.offerRoutes(
             call.respondSuccess(offersDto)
         }
 
+
+        get("/search") {
+            val name = call.request.queryParameters["name"]
+                ?: throw MissingRequestParameterException("offer name")
+
+            val offersDto = getOffersByNameUseCase(name)
+            call.respondSuccess(offersDto)
+        }
+
+
         // Route for getting a single offer by ID
         get("/{id}") {
             val id = call.parameters["id"] ?: throw MissingRequestParameterException("offer id")
@@ -40,7 +48,7 @@ fun Route.offerRoutes(
         }
 
         // Route for adding an offer
-        authenticate("auth-bearer") {
+        authenticate("auth-jwt") {
             post() {
                 val newOfferDto = call.receive<OfferDto>()
                 val userId = call.getUserId()
@@ -49,7 +57,7 @@ fun Route.offerRoutes(
                 call.respondSuccess(createdOffer)
             }
 
-            put("/{id}") {
+            put<OfferDto>("/{id}") {
                 val offerId = call.parameters["id"] ?: throw MissingRequestParameterException("offer id")
                 val offerToUpdateDto = call.receive<OfferDto>()
                 val userId = call.getUserId()

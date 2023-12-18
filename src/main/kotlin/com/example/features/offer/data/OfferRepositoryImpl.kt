@@ -68,4 +68,15 @@ class OfferRepositoryImpl(private val offersCollection: CoroutineCollection<Offe
     override suspend fun deleteOffer(offerId: String): Boolean {
         TODO("Not yet implemented")
     }
+
+    override suspend fun findOffersWithQuery(query: String): List<Offer> {
+        // Use a regular expression filter to perform a case-insensitive search
+        val regex = Filters.regex(Offer::name.name, ".*$query.*", "i")
+
+        return try {
+            offersCollection.find(regex).toList()
+        } catch (e: Exception) {
+            throw DatabaseOperationException("Error searching for offer with name: ${e.message}")
+        }
+    }
 }
