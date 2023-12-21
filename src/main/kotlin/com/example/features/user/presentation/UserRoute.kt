@@ -60,6 +60,7 @@ fun Route.userRoutes(
                 call.respondSuccess(data = postedOffersDTO)
             }
 
+
         }
     }
 
