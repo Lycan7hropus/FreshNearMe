@@ -1,5 +1,7 @@
 package com.example.features.auth.presentation.models
 
+import com.example.features.user.domain.models.User
+
 data class AuthEventDto(
     val id: String,
     val time: Long,
@@ -12,6 +14,10 @@ data class AuthEventDto(
     val error: String?,
     val details: Details
 ) {
+    fun toUser(): User {
+        TODO("Not yet implemented")
+    }
+
     data class Details(
         val auth_method: String,
         val auth_type: String,

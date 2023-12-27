@@ -1,5 +1,7 @@
 package com.example.plugins
 
+import com.example.features.auth.domain.AuthService
+import com.example.features.auth.presentation.authRoutes
 import com.example.features.category.domain.usecases.CreateCategoryUseCase
 import com.example.features.category.domain.usecases.GetCategoriesUseCase
 import com.example.features.category.domain.usecases.GetCategoryUseCase
@@ -57,6 +59,9 @@ fun Application.configureRouting() {
             saveUserUseCase,
             updateUserDataUseCase
         )
+
+        val authService: AuthService by inject()
+        authRoutes(authService)
 
         get("/hello_world"){
             call.respondSuccess("Hello world", HttpStatusCode.OK)

@@ -1,11 +1,19 @@
 package com.example.features.auth.domain
 
-class AuthServiceImpl: AuthService {
-    override fun handleUserRegistrationEvent() {
-        TODO("Not yet implemented")
+import com.example.features.auth.presentation.models.AuthEventDto
+import com.example.features.user.presentation.models.BasicUserDto
+
+class AuthServiceImpl(private val authRepository: AuthRepository): AuthService {
+
+    override fun handleUserRegistrationEvent(authEventDto: AuthEventDto):BasicUserDto {
+        val user = authEventDto.toUser()
+
+        return authRepository.saveUser(user).toBasicDTO()
     }
 
-    override fun handleUserLoginEvent() {
-        TODO("Not yet implemented")
+    override fun handleUserLoginEvent(authEventDto: AuthEventDto):BasicUserDto {
+        val user = authEventDto.toUser()
+
+        return authRepository.updateUser(user).toBasicDTO()
     }
 }

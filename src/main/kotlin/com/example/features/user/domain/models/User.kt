@@ -12,7 +12,8 @@ import java.util.*
 data class User(
     @BsonId
     val id: String = UUID.randomUUID().toString(),
-    val role: Role,
+    val email: String,
+    val username: String,
     @SerialName("wish_list") val wishlist: List<Offer>,
     @SerialName("posted_offers") val postedOffers: List<Offer>,
 ) {
