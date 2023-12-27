@@ -6,6 +6,8 @@ import com.example.features.category.domain.usecases.GetCategoryUseCase
 import com.example.features.offer.domain.usecases.*
 import com.example.features.offer.presentation.categoryRoutes
 import com.example.features.offer.presentation.offerRoutes
+import com.example.features.rating.domain.RatingService
+import com.example.features.rating.presentation.ratingRoutes
 import com.example.features.user.domain.usecases.*
 import com.example.features.user.presentation.userRoutes
 import com.example.models.JwtUserPrincipal
@@ -57,6 +59,13 @@ fun Application.configureRouting() {
             saveUserUseCase,
             updateUserDataUseCase
         )
+
+
+        val ratingService: RatingService by inject()
+        ratingRoutes(
+            ratingService = ratingService
+        )
+
 
         get("/hello_world"){
             call.respondSuccess("Hello world", HttpStatusCode.OK)
