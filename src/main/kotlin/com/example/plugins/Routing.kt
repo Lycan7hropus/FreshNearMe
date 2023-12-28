@@ -72,32 +72,5 @@ fun Application.configureRouting() {
         }
 
 
-        authenticate("auth-jwt") {
-            withRole(Role.ADMIN){
-                get("/admin"){
-                    val principal = call.authentication
-                    if (principal != null) {
-                        call.respond(HttpStatusCode.OK)
-                    } else {
-                        call.respond(HttpStatusCode.Unauthorized)
-                    }
-                }
-
-            }
-            withRole(Role.USER){
-                get("/user"){
-                    call.respondSuccess("Hello user", HttpStatusCode.OK)
-                }
-            }
-
-            get("/oauth") {
-                val principal = call.principal<JwtUserPrincipal>()
-
-                // ...
-
-                call.respondText("${principal?.email}")
-            }
-        }
-
     }
 }

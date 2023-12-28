@@ -11,5 +11,5 @@ import org.koin.dsl.module
 val ratingModule = module {
     single<RatingRepository> { RatingRepositoryImpl(get(named("RatingCollection"))) }
 
-    single { RatingServiceImpl(get()) }
+    single<RatingService> { RatingServiceImpl(get()) }
 }

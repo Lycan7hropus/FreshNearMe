@@ -1,18 +1,16 @@
 package com.example.features.rating.domain
 
 import com.example.features.rating.domain.models.Rating
+import com.example.features.rating.presentation.models.RatingDto
 
 interface RatingService {
 
-    fun addRating(rating: Rating): Rating
+    suspend fun addRating(rating: RatingDto): Rating
 
-    fun getRatingsForUser(userId: String): List<Rating>
+    suspend fun getRatingsForUser(userId: String): List<Rating>
 
-    fun getRatingsForProduct(productId: String): List<Rating>
-
-    fun calculateAverageRatingForUser(userId: String): Double
-
-    fun calculateAverageRatingForProduct(productId: String): Double
-    fun getGivenRatingsByUser(userId: String): Rating
-
+    suspend fun getGivenRatingsByUser(userId: String): List<Rating>
+    suspend fun getRatingById(ratingId: String): Rating
+    suspend fun editRating(rating: RatingDto): Rating
+    suspend fun deleteRating(ratingId: String)
 }

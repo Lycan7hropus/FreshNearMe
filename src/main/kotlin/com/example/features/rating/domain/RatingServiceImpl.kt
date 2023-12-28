@@ -1,30 +1,31 @@
 package com.example.features.rating.domain
 
 import com.example.features.rating.domain.models.Rating
+import com.example.features.rating.presentation.models.RatingDto
 
-class RatingServiceImpl(ratingRepository: RatingRepository): RatingService {
-    override fun addRating(rating: Rating): Rating {
-        TODO("Not yet implemented")
+class RatingServiceImpl(private val ratingRepository: RatingRepository): RatingService {
+    override suspend fun addRating(rating: RatingDto): Rating {
+        return ratingRepository.saveRating(rating.toEntity())
     }
 
-    override fun getRatingsForUser(userId: String): List<Rating> {
-        TODO("Not yet implemented")
+    override suspend fun getRatingsForUser(userId: String): List<Rating> {
+        return ratingRepository.getRatingsByRatedUserId(userId)
     }
 
-    override fun getRatingsForProduct(productId: String): List<Rating> {
-        TODO("Not yet implemented")
+    override suspend fun getGivenRatingsByUser(userId: String): List<Rating> {
+        return ratingRepository.getRatingByRatingUserId(userId)
     }
 
-    override fun calculateAverageRatingForUser(userId: String): Double {
-        TODO("Not yet implemented")
+    override suspend fun getRatingById(ratingId: String): Rating {
+        return ratingRepository.getRatingById(ratingId)
     }
 
-    override fun calculateAverageRatingForProduct(productId: String): Double {
-        TODO("Not yet implemented")
+    override suspend fun editRating(rating: RatingDto): Rating {
+        return ratingRepository.editRating(rating.toEntity())
     }
 
-    override fun getGivenRatingsByUser(userId: String): Rating {
-        TODO("Not yet implemented")
+    override suspend fun deleteRating(ratingId: String) {
+        ratingRepository.removeRatingById(ratingId)
     }
 
 

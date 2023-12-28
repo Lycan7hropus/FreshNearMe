@@ -2,6 +2,7 @@ package com.example.features.rating.presentation
 
 import com.example.features.rating.domain.RatingService
 import com.example.features.rating.domain.models.Rating
+import com.example.features.rating.presentation.models.RatingDto
 import com.example.utils.extensionFunctions.getUserId
 import com.example.utils.extensionFunctions.respondSuccess
 import io.ktor.server.application.*
@@ -11,9 +12,7 @@ import io.ktor.server.request.*
 import io.ktor.server.routing.*
 
 fun Route.ratingRoutes(ratingService: RatingService) {
-
     route("ratings"){
-
         get("/by-user/{userId}") {
             val userId = call.parameters["userId"]  ?: throw MissingRequestParameterException("userId")
             val ratings = ratingService.getRatingsForUser(userId)
@@ -22,20 +21,29 @@ fun Route.ratingRoutes(ratingService: RatingService) {
 
         get("/by-id/{ratingId}") {
             val ratingId = call.parameters["ratingId"]  ?: throw MissingRequestParameterException("ratingId")
-            //TODO
+            val rating = ratingService.getRatingById(ratingId)
+            call.respondSuccess(rating)
         }
 
-        authenticate {
+        authenticate("auth-jwt") {
             post() {
-                val rating = call.receive<Rating>()
+                val rating = call.receive<RatingDto>()
                 val addedRating = ratingService.addRating(rating)
                 call.respondSuccess(addedRating)
             }
 
             put("/by-id/{ratingId}") {
-               //TODO
+                val rating = call.receive<RatingDto>()
+                val ratingId = call.parameters["ratingId"]  ?: throw MissingRequestParameterException("ratingId")
+                val addedRating = ratingService.editRating(rating)
+                call.respondSuccess(addedRating)
             }
 
+            delete("/by-id/{ratingId}") {
+                val ratingId = call.parameters["ratingId"]  ?: throw MissingRequestParameterException("ratingId")
+                val addedRating = ratingService.deleteRating(ratingId)
+                call.respondSuccess(addedRating)
+            }
 
 
             get("/given") {

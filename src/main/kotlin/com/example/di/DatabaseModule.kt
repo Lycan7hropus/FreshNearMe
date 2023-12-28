@@ -24,7 +24,12 @@ val databaseModule = module {
     }
 
     single<CoroutineCollection<Rating>>(named("RatingCollection")) {
-        get<DatabaseProvider>().database.getCollection("ratings")
+        val ratingCollection: CoroutineCollection<Rating> = get<DatabaseProvider>().database.getCollection("ratings")
+        CoroutineScope(Dispatchers.IO).launch {
+            ratingCollection.createIndex(Indexes.ascending("rated_user_id"))
+            ratingCollection.createIndex(Indexes.ascending("rating_user_id"))
+        }
+        ratingCollection
     }
 
     single<CoroutineCollection<Offer>>(named("OfferCollection")) {
