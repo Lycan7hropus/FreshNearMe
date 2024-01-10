@@ -1,7 +1,7 @@
 package com.example.utils.models
 
-import com.example.utils.Role
 import io.ktor.server.auth.*
+import utils.Role
 
 data class JwtUserPrincipal(
     val exp: Long?,

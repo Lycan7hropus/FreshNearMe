@@ -1,9 +1,9 @@
 package com.example.features.user.presentation
 
 import com.example.features.user.domain.usecases.*
-import com.example.features.user.presentation.models.BasicUserDto
-import com.example.features.user.presentation.models.DetailedUserDto
-import com.example.features.user.presentation.models.WishlistDto
+import presentation.models.BasicUserDto
+import presentation.models.DetailedUserDto
+import presentation.models.WishlistDto
 import com.example.utils.extensionFunctions.getUserId
 import com.example.utils.extensionFunctions.respondSuccess
 import io.ktor.server.application.*

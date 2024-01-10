@@ -1,17 +1,18 @@
 package domain
 
-import com.example.features.category.domain.Category
-import com.example.models.GeoPoint
+
+import CategoryApiDto
+import com.example.utils.models.GeoPoint
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId
 
 @Serializable
-data class Offer(
+internal data class Offer(
     @BsonId
     val id: String,
     var name: String,
-    var category: Category,
+    var category: CategoryApiDto,
     var price: Double,
     var phoneNumber: String,
     var description: String,

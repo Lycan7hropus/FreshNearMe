@@ -2,7 +2,7 @@ package com.example.utils.extensionFunctions
 
 import com.auth0.jwt.interfaces.Payload
 import com.example.utils.models.JwtUserPrincipal
-import com.example.utils.Role
+import utils.Role
 
 fun Payload.toJwtUserPrincipal() = JwtUserPrincipal(
     exp = expiresAt?.time,
@@ -20,6 +20,6 @@ fun Payload.toJwtUserPrincipal() = JwtUserPrincipal(
 fun Payload.getRoles(): List<Role> {
     val rolesList = getClaim("realm_access").asMap()["roles"] as? List<String> ?: return emptyList()
     return rolesList.mapNotNull { roleName ->
-        com.example.utils.Role.fromRoleStr(roleName)
+        Role.fromRoleStr(roleName)
     }
 }

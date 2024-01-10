@@ -1,4 +1,4 @@
-package com.example.utils
+package utils
 
 enum class Role(val roleStr: String) {
     ADMIN("realm-admin"),

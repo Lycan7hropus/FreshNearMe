@@ -1,15 +1,11 @@
 package com.example.plugins
 
 import com.auth0.jwk.UrlJwkProvider
-import com.auth0.jwt.interfaces.Payload
-import com.example.models.JwtUserPrincipal
-import com.example.utils.Role
 import com.example.utils.extensionFunctions.toJwtUserPrincipal
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import java.net.URL
-import java.util.*
 import javax.naming.AuthenticationException
 
 fun Application.configureSecurity() {

@@ -1,5 +1,6 @@
-package com.example.features.user.presentation.models
+package presentation.models
 
-import com.example.features.offer.domain.Offer
+import com.example.OfferApiDto
 
-data class WishlistDto(val offers: List<Offer>)
+
+internal data class WishlistDto(val offers: List<OfferApiDto>)

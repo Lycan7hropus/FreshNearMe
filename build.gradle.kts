@@ -49,6 +49,27 @@ dependencies {
 
 subprojects {
     apply(plugin = "kotlin")
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "io.ktor.plugin")
+    apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
+    apply(plugin = "io.gitlab.arturbosch.detekt")
+
+    application {
+        mainClass.set("io.ktor.server.netty.EngineMain")
+
+        val isDevelopment: Boolean = project.ext.has("development")
+        applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+    }
+
+    tasks.withType<Detekt>().configureEach {
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+            txt.required.set(true)
+            sarif.required.set(true)
+            md.required.set(true)
+        }
+    }
 
     repositories {
         mavenCentral()

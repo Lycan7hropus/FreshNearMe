@@ -1,10 +1,9 @@
 package com.example.utils.extensionFunctions
 
-import com.example.utils.ResourceAccessDenied
-import com.example.utils.Role
 import com.example.utils.UnauthorizedAccessException
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
+import utils.Role
 
 fun Route.withRole(role: Role, build: Route.() -> Unit) =
     withRolesCheck(build) { userRoles -> userRoles.contains(role) }

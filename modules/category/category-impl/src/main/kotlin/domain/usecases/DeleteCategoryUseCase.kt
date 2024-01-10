@@ -1,8 +1,9 @@
 package domain.usecases
 
-import com.example.features.category.domain.CategoryRepository
+import domain.CategoryRepository
 
-class DeleteCategoryUseCase(private val categoryRepository: CategoryRepository) {
+
+internal class DeleteCategoryUseCase(private val categoryRepository: CategoryRepository) {
     suspend operator fun invoke(categoryId: String): Result<Boolean> {
         return try {
             val deletedCategory = categoryRepository.deleteCategory(categoryId)

@@ -1,12 +1,12 @@
 package data
 
-import com.example.features.category.domain.Category
-import com.example.features.category.domain.CategoryRepository
 import com.example.utils.DatabaseOperationException
+import domain.Category
+import domain.CategoryRepository
 import io.ktor.server.plugins.*
 import org.litote.kmongo.coroutine.CoroutineCollection
 
-class CategoryRepositoryImpl(private val categoryCollection: CoroutineCollection<Category>) : CategoryRepository {
+internal class CategoryRepositoryImpl(private val categoryCollection: CoroutineCollection<Category>) : CategoryRepository {
     override suspend fun saveCategory(category: Category): Category {
         val result = categoryCollection.insertOne(category)
         if (result.wasAcknowledged()) {

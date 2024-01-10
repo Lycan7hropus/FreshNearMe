@@ -1,9 +1,9 @@
 package com.example.features.user.domain.usecases
 
-import com.example.features.user.domain.UserDataRepository
-import com.example.features.user.domain.models.User
+import domain.UserDataRepository
+import domain.models.User
 
-class UpdateUserDataUseCase(private val userRepository: UserDataRepository) {
+internal class UpdateUserDataUseCase(private val userRepository: domain.UserDataRepository) {
     suspend fun invoke(updatedUser: User): Boolean {
         return userRepository.updateUser(updatedUser)
     }

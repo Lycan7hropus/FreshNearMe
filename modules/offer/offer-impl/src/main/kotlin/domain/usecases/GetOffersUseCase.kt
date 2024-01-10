@@ -1,17 +1,18 @@
 package domain.usecases
 
-import com.example.features.offer.domain.CategoryService
-import com.example.features.offer.domain.OfferRepository
-import presentation.dto.OffersDto
-import com.example.models.Coordinates
 
-class GetOffersUseCase(private val offerRepository: OfferRepository, private val categoryService: CategoryService) {
+import CategoryApi
+import com.example.utils.models.Coordinates
+import domain.OfferRepository
+import presentation.dto.OffersDto
+
+internal class GetOffersUseCase(private val offerRepository: OfferRepository, private val categoryApi: CategoryApi) {
     suspend operator fun invoke(
         categoryId: kotlin.String? = null,
         distance: kotlin.Double? = null,
         coordinates: Coordinates? = null
     ): OffersDto {
-        val category = categoryId?.let { categoryService.getCategoryById(it) }
+        val category = categoryId?.let { categoryApi.getCategoryById(it) }
         val offers = offerRepository.getOffers(category, distance, coordinates)
 
         return OffersDto(offers)

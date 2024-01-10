@@ -1,26 +1,27 @@
 package data
 
-import com.example.features.category.domain.Category
-import com.example.features.offer.domain.Offer
-import com.example.features.offer.domain.OfferRepository
-import com.example.models.Coordinates
+
+import CategoryApiDto
 import com.example.utils.DatabaseOperationException
 import com.example.utils.OfferCreationException
+import com.example.utils.models.Coordinates
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.geojson.Point
 import com.mongodb.client.model.geojson.Position
+import domain.Offer
+import domain.OfferRepository
 import io.ktor.server.plugins.*
 import org.bson.conversions.Bson
 import org.litote.kmongo.coroutine.CoroutineCollection
 
-class OfferRepositoryImpl(private val offersCollection: CoroutineCollection<Offer>) : OfferRepository {
-    override suspend fun getOffers(category: Category?, distance: Double?, coordinates: Coordinates?): List<Offer> {
+internal class OfferRepositoryImpl(private val offersCollection: CoroutineCollection<Offer>) : OfferRepository {
+    override suspend fun getOffers(category: CategoryApiDto?, distance: Double?, coordinates: Coordinates?): List<Offer> {
         val filters = mutableListOf<Bson>()
         val point = coordinates?.let { Point(Position(it.longitude, it.latitude)) }
 
         // Add category filter if category is not null
         category?.path?.let {
-            filters.add(Filters.regex(Offer::category.name + "." + Category::path.name, "^${Regex.escape(it)}"))
+            filters.add(Filters.regex(Offer::category.name + "." + CategoryApiDto::path.name, "^${Regex.escape(it)}"))
         }
 
         // Add location filter if geoPoint and distance are not null

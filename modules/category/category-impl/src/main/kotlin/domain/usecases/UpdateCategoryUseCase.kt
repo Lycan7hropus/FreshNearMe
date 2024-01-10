@@ -1,4 +1,4 @@
 package domain.usecases
 
-class UpdateCategoryUseCase {
+internal class UpdateCategoryUseCase {
 }

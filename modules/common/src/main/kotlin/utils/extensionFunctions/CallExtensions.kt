@@ -1,14 +1,14 @@
 package com.example.utils.extensionFunctions
 
-import com.example.utils.models.JwtUserPrincipal
 import com.example.utils.ApiResponse
 import com.example.utils.InvalidPrincipalException
-import com.example.utils.Role
 import com.example.utils.handleException
+import com.example.utils.models.JwtUserPrincipal
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.response.*
+import utils.Role
 
 
 fun ApplicationCall.getUserId(): String {

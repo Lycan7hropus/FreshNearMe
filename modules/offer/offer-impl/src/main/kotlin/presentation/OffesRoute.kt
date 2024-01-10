@@ -1,22 +1,24 @@
 package presentation
 
-import com.example.features.offer.domain.usecases.*
-import presentation.dto.OfferDto
+
 import com.example.utils.extensionFunctions.getUserId
 import com.example.utils.extensionFunctions.respondSuccess
-import com.example.utils.extensionFunctions.toCoordinates
+import domain.usecases.*
+import presentation.dto.OfferDto
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
+import org.koin.ktor.ext.getKoin
+import utils.extensionFunctions.toCoordinates
 
-fun Route.offerRoutes(
-    createOfferUseCase: CreateOfferUseCase,
-    getAllOffersUseCase: GetOffersUseCase,
-    getOfferByIdUseCase: GetOfferByIdUseCase,
-    updateOfferUseCase: UpdateOfferUseCase,
-    getOffersByNameUseCase: GetOffersByNameUseCase
+internal fun Route.offerRoutes(
+    createOfferUseCase: CreateOfferUseCase = getKoin().get(),
+    getAllOffersUseCase: GetOffersUseCase = getKoin().get(),
+    getOfferByIdUseCase: GetOfferByIdUseCase = getKoin().get(),
+    updateOfferUseCase: UpdateOfferUseCase = getKoin().get(),
+    getOffersByNameUseCase: GetOffersByNameUseCase = getKoin().get()
 ) {
 
     // Route for getting a list of all offers

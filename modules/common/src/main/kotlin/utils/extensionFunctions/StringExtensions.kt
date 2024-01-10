@@ -1,4 +1,4 @@
-package com.example.utils.extensionFunctions
+package utils.extensionFunctions
 
 import com.example.utils.models.Coordinates
 

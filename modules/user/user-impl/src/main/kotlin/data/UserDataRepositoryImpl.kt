@@ -1,25 +1,22 @@
-package com.example.features.user.data
+package data
 
-import com.example.features.offer.domain.Offer
-import com.example.features.user.domain.UserDataRepository
-import com.example.features.user.domain.models.User
-import com.example.utils.Role
-import com.example.utils.UserAlreadyExistsException
-import com.example.utils.UserSavingException
+
+import domain.UserDataRepository
 import com.mongodb.MongoWriteException
+import domain.models.User
 import org.litote.kmongo.coroutine.CoroutineCollection
 import org.litote.kmongo.eq
 import org.litote.kmongo.set
 import org.litote.kmongo.setTo
 
-class UserDataRepositoryImpl(private val usersCollection: CoroutineCollection<User>) : UserDataRepository {
+internal class UserDataRepositoryImpl(private val usersCollection: CoroutineCollection<User>) : UserDataRepository {
 
     override suspend fun getUser(userId: String): User {
         return usersCollection.findOne(User::id eq userId)
             ?: throw IllegalArgumentException("User with ID $userId not found.")
     }
 
-    override suspend fun getUserWishList(userId: String): List<Offer> {
+    override suspend fun getUserWishList(userId: String): List<OfferA> {
         val user = getUser(userId)
         return user.wishlist
     }

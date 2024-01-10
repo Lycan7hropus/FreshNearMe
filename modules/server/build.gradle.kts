@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    implementation(project(":modules:common"))
 }
 
 tasks.test {

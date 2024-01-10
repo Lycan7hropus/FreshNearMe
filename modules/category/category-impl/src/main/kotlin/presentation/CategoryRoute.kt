@@ -1,18 +1,20 @@
-package com.example.features.offer.presentation
+package presentation
 
-import com.example.features.category.domain.usecases.CreateCategoryUseCase
-import com.example.features.category.domain.usecases.GetCategoriesUseCase
-import com.example.features.category.domain.usecases.GetCategoryUseCase
+
 import presentation.dto.CategoryDto
-import com.example.utils.Role
 import com.example.utils.extensionFunctions.respondSuccess
 import com.example.utils.extensionFunctions.withRole
+import domain.usecases.CreateCategoryUseCase
+import domain.usecases.GetCategoriesUseCase
+import domain.usecases.GetCategoryUseCase
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
+import org.koin.ktor.ext.getKoin
+import utils.Role
 
-fun Route.categoryRoutes(createCategoryUseCase: CreateCategoryUseCase, getCategoryUseCase: GetCategoryUseCase, getCategoriesUseCase: GetCategoriesUseCase) {
+internal fun Route.categoryRoutes(createCategoryUseCase: CreateCategoryUseCase = getKoin().get(), getCategoryUseCase: GetCategoryUseCase = getKoin().get(), getCategoriesUseCase: GetCategoriesUseCase = getKoin().get()) {
 
     route("/categories"){
         withRole(Role.ADMIN){

@@ -11,7 +11,9 @@ repositories {
 
 dependencies {
     implementation(project(":modules:category:category-api"))
+    implementation(project(":modules:common"))
     testImplementation("org.jetbrains.kotlin:kotlin-test")
+
 }
 
 tasks.test {

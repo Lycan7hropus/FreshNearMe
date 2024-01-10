@@ -1,13 +1,13 @@
 package domain.usecases
 
-import com.example.features.offer.domain.CategoryService
-import com.example.features.offer.domain.Offer
-import com.example.features.offer.domain.OfferRepository
+import CategoryApi
+import domain.Offer
+import domain.OfferRepository
 import presentation.dto.OfferDto
 
-class CreateOfferUseCase(private val offerRepository: OfferRepository, private val categoryService: CategoryService) {
+internal class CreateOfferUseCase(private val offerRepository: OfferRepository, private val categoryApi: CategoryApi) {
     suspend operator fun invoke(offerDto: OfferDto, sellerId: String): Offer {
-        val category = categoryService.getCategoryById(offerDto.categoryId)
+        val category = categoryApi.getCategoryById(offerDto.categoryId)
 
         val offer = offerDto.toDomainModel(category, sellerId)
 

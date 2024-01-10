@@ -1,7 +1,8 @@
 package presentation.dto
 
-import com.example.features.category.domain.Category
+import domain.Category
 
-data class CategoriesDto(
+
+internal data class CategoriesDto(
     val categories: List<Category>
 )

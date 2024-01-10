@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId
 
 @Serializable
-data class Category(
+internal data class Category(
     @BsonId
     val id: String,
     val name: String,

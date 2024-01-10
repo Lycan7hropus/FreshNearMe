@@ -1,22 +1,22 @@
-package com.example.features.user.presentation.models
+package presentation.models
 
-import com.example.features.offer.domain.Offer
+import com.example.OfferApiDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class BasicUserDto(
+internal data class BasicUserDto(
     val id: String,
-    @SerialName("posted_offers") val postedOffers: List<Offer>,
+    @SerialName("posted_offers") val postedOffers: List<OfferApiDto>,
     @SerialName("given_name") val givenName: String,
     val picture: String,
 )
 
 @Serializable
-data class DetailedUserDto(
+internal data class DetailedUserDto(
     val id: String,
-    @SerialName("wish_list") val wishlist: List<Offer>,
-    @SerialName("posted_offers") val postedOffers: List<Offer>,
+    @SerialName("wish_list") val wishlist: List<OfferApiDto>,
+    @SerialName("posted_offers") val postedOffers: List<OfferApiDto>,
     val name: String,
     @SerialName("given_name") val givenName: String,
     @SerialName("family_name") val familyName: String,
