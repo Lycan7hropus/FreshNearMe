@@ -4,20 +4,21 @@ import com.example.features.user.domain.usecases.*
 import presentation.models.BasicUserDto
 import presentation.models.DetailedUserDto
 import presentation.models.WishlistDto
-import com.example.utils.extensionFunctions.getUserId
-import com.example.utils.extensionFunctions.respondSuccess
+import utils.extensionFunctions.getUserId
+import utils.extensionFunctions.respondSuccess
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
+import org.koin.ktor.ext.getKoin
 
-fun Route.userRoutes(
-    getUserOffersUseCase: GetUserOffersUseCase,
-    getUserInfoUseCase: GetUserInfoUseCase,
-    userWishlistUseCase: UserWishlistUseCase,
-    saveUserUseCase: SaveUserUseCase,
-    updateUserDataUseCase: UpdateUserDataUseCase
+internal fun Route.userRoutes(
+    getUserOffersUseCase: GetUserOffersUseCase = getKoin().get(),
+    getUserInfoUseCase: GetUserInfoUseCase = getKoin().get(),
+    userWishlistUseCase: UserWishlistUseCase = getKoin().get(),
+    saveUserUseCase: SaveUserUseCase = getKoin().get(),
+    updateUserDataUseCase: UpdateUserDataUseCase = getKoin().get(),
 ) {
 
     route("/user") {

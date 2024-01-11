@@ -1,5 +1,6 @@
-package com.example.database
+package database
 
+import database.DatabaseProvider
 import org.litote.kmongo.coroutine.CoroutineClient
 import org.litote.kmongo.coroutine.CoroutineDatabase
 import org.litote.kmongo.coroutine.coroutine

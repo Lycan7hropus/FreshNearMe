@@ -1,6 +1,6 @@
 package utils.extensionFunctions
 
-import com.example.utils.models.Coordinates
+import utils.models.Coordinates
 
 fun String.toCoordinates(): Coordinates? {
     val parts = this.split(',')

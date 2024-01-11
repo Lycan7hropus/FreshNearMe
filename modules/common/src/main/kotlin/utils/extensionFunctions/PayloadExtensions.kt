@@ -1,7 +1,7 @@
-package com.example.utils.extensionFunctions
+package utils.extensionFunctions
 
 import com.auth0.jwt.interfaces.Payload
-import com.example.utils.models.JwtUserPrincipal
+import utils.models.JwtUserPrincipal
 import utils.Role
 
 fun Payload.toJwtUserPrincipal() = JwtUserPrincipal(

@@ -2,8 +2,8 @@ package presentation
 
 
 import presentation.dto.CategoryDto
-import com.example.utils.extensionFunctions.respondSuccess
-import com.example.utils.extensionFunctions.withRole
+import utils.extensionFunctions.respondSuccess
+import utils.extensionFunctions.withRole
 import domain.usecases.CreateCategoryUseCase
 import domain.usecases.GetCategoriesUseCase
 import domain.usecases.GetCategoryUseCase

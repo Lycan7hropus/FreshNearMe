@@ -3,7 +3,7 @@ package domain.usecases
 
 import CategoryApi
 import presentation.dto.OfferDto
-import com.example.utils.ResourceAccessDenied
+import utils.ResourceAccessDenied
 import domain.Offer
 import domain.OfferRepository
 

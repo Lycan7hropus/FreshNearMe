@@ -2,7 +2,7 @@ package domain
 
 
 import CategoryApiDto
-import com.example.utils.models.GeoPoint
+import utils.models.GeoPoint
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId

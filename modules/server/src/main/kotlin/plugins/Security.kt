@@ -1,7 +1,7 @@
 package com.example.plugins
 
 import com.auth0.jwk.UrlJwkProvider
-import com.example.utils.extensionFunctions.toJwtUserPrincipal
+import utils.extensionFunctions.toJwtUserPrincipal
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*

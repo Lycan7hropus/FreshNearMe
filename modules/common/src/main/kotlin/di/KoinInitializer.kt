@@ -1,15 +1,15 @@
-package com.example.di
+package di
 
-import com.example.di.features.categoryModule
-import com.example.di.features.offerModule
-import com.example.di.features.userModule
+
+import di.appModule
+import di.databaseModule
 import io.ktor.server.application.*
 import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
 
-fun Application.initKoin() {
+fun Application.installKoin() {
     install(Koin) {
         slf4jLogger()
-        modules(listOf(appModule, databaseModule, categoryModule, offerModule, userModule, ))
+        modules(listOf(appModule, databaseModule))
     }
 }

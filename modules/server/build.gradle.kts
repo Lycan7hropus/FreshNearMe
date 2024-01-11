@@ -11,6 +11,9 @@ repositories {
 
 dependencies {
     implementation(project(":modules:common"))
+    implementation(project(":modules:category:category-impl"))
+    implementation(project(":modules:offer:offer-impl"))
+    implementation(project(":modules:offer:offer-api"))
 }
 
 tasks.test {

@@ -2,9 +2,9 @@ package data
 
 
 import CategoryApiDto
-import com.example.utils.DatabaseOperationException
-import com.example.utils.OfferCreationException
-import com.example.utils.models.Coordinates
+import utils.DatabaseOperationException
+import utils.OfferCreationException
+import utils.models.Coordinates
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.geojson.Point
 import com.mongodb.client.model.geojson.Position

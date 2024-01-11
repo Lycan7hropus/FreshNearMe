@@ -1,7 +1,7 @@
-package com.example.di
+package di
 
-import com.example.database.DatabaseProvider
-import com.example.database.MongoDatabaseProvider
+import database.DatabaseProvider
+import database.MongoDatabaseProvider
 import org.koin.dsl.module
 
 val databaseModule = module {

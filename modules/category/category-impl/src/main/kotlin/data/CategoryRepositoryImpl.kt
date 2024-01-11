@@ -1,6 +1,6 @@
 package data
 
-import com.example.utils.DatabaseOperationException
+import utils.DatabaseOperationException
 import domain.Category
 import domain.CategoryRepository
 import io.ktor.server.plugins.*

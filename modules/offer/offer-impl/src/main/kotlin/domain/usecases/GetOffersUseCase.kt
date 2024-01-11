@@ -2,7 +2,7 @@ package domain.usecases
 
 
 import CategoryApi
-import com.example.utils.models.Coordinates
+import utils.models.Coordinates
 import domain.OfferRepository
 import presentation.dto.OffersDto
 

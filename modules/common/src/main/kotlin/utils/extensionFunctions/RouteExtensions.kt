@@ -1,6 +1,6 @@
-package com.example.utils.extensionFunctions
+package utils.extensionFunctions
 
-import com.example.utils.UnauthorizedAccessException
+import utils.UnauthorizedAccessException
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import utils.Role

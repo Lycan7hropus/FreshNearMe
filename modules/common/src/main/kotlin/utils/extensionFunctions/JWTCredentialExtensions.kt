@@ -1,6 +1,6 @@
-package com.example.utils.extensionFunctions
+package utils.extensionFunctions
 
-import com.example.utils.models.JwtUserPrincipal
+import utils.models.JwtUserPrincipal
 import io.ktor.server.auth.jwt.*
 import java.util.*
 

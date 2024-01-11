@@ -1,7 +1,7 @@
 package domain
 
 import CategoryApiDto
-import com.example.utils.models.Coordinates
+import utils.models.Coordinates
 
 
 internal interface OfferRepository {

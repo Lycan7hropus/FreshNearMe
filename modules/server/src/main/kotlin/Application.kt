@@ -1,21 +1,24 @@
 package com.example
 
-import com.example.di.initKoin
+import di.installKoin
 import com.example.plugins.*
-import io.ktor.http.*
+import config.categoryConfig
+import config.offerConfig
 import io.ktor.server.application.*
-import io.ktor.server.plugins.cors.routing.*
 
 fun main(args: Array<String>) {
     io.ktor.server.netty.EngineMain.main(args)
 }
 
 fun Application.module() {
-    initKoin()
+    installKoin()
     configureSecurity()
     configureSerialization()
     configureStatusPages()
     configureRouting()
     configureCORS()
 
+
+    offerConfig()
+    categoryConfig()
 }

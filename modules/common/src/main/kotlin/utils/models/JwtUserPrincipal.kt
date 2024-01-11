@@ -1,4 +1,4 @@
-package com.example.utils.models
+package utils.models
 
 import io.ktor.server.auth.*
 import utils.Role

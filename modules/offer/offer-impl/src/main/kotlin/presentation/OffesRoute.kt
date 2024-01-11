@@ -1,8 +1,8 @@
 package presentation
 
 
-import com.example.utils.extensionFunctions.getUserId
-import com.example.utils.extensionFunctions.respondSuccess
+import utils.extensionFunctions.getUserId
+import utils.extensionFunctions.respondSuccess
 import domain.usecases.*
 import presentation.dto.OfferDto
 import io.ktor.server.application.*

@@ -1,4 +1,4 @@
-package com.example.utils
+package utils
 
 import io.ktor.http.*
 import io.ktor.server.plugins.*

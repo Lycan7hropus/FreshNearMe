@@ -2,8 +2,8 @@ package presentation.dto
 
 
 import CategoryApiDto
-import com.example.utils.models.Coordinates
-import com.example.utils.models.GeoPoint
+import utils.models.Coordinates
+import utils.models.GeoPoint
 import domain.Offer
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone

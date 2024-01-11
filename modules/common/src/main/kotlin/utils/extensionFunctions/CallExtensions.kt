@@ -1,9 +1,9 @@
-package com.example.utils.extensionFunctions
+package utils.extensionFunctions
 
-import com.example.utils.ApiResponse
-import com.example.utils.InvalidPrincipalException
-import com.example.utils.handleException
-import com.example.utils.models.JwtUserPrincipal
+import utils.ApiResponse
+import utils.InvalidPrincipalException
+import utils.handleException
+import utils.models.JwtUserPrincipal
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
