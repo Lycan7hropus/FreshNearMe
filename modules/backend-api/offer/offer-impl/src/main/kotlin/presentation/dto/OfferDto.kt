@@ -8,10 +8,10 @@ import domain.Offer
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import kotlinx.serialization.Serializable
+
 import java.util.*
 
-@Serializable
+
 internal data class OfferDto(
     val id: String?,
     val name: String,

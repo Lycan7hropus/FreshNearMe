@@ -1,6 +1,6 @@
 package domain
 
-interface CategoryRepository {
+internal interface CategoryRepository {
     suspend fun saveCategory(category: Category): Category
     suspend fun getCategoryById(id: String): Category
     suspend fun getCategoryPathById(id: String): String?

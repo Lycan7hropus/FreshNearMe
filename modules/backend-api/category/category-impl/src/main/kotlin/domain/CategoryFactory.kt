@@ -3,10 +3,10 @@ package domain
 import presentation.dto.CategoryDto
 import java.util.*
 
-class CategoryFactory(private val categoryRepository: CategoryRepository) {
+internal class CategoryFactory(private val categoryRepository: CategoryRepository) {
     suspend fun createCategoryFromDTO(categoryDTO: CategoryDto): Category {
         val parentPath = categoryDTO.parentId?.let {
-            categoryRepository.getCategoryById(it)?.path ?: ""
+            categoryRepository.getCategoryById(it).path ?: ""
         } ?: ""
 
         val path = if (parentPath.isEmpty()) {

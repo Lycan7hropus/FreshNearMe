@@ -4,10 +4,10 @@ package domain
 import CategoryApiDto
 import utils.models.GeoPoint
 import kotlinx.datetime.LocalDateTime
-import kotlinx.serialization.Serializable
+
 import org.bson.codecs.pojo.annotations.BsonId
 
-@Serializable
+
 internal data class Offer(
     @BsonId
     val id: String,

@@ -10,8 +10,10 @@ repositories {
 }
 
 dependencies {
-//    implementation(project(":modules:offer:offer-api"))
-//    implementation(project(":modules:common"))
+    implementation(project(":modules:backend-api::offer:offer-api"))
+    implementation(project(":modules:backend-api:common"))
+    implementation(project(":modules:shared"))
+
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 

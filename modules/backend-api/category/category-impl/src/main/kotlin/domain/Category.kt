@@ -1,9 +1,9 @@
 package domain
 
-import kotlinx.serialization.Serializable
+
 import org.bson.codecs.pojo.annotations.BsonId
 
-@Serializable
+
 internal data class Category(
     @BsonId
     val id: String,

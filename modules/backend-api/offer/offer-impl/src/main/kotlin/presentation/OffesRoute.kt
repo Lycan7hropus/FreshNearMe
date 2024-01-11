@@ -1,8 +1,7 @@
 package presentation
 
 
-import utils.extensionFunctions.getUserId
-import utils.extensionFunctions.respondSuccess
+
 import domain.usecases.*
 import presentation.dto.OfferDto
 import io.ktor.server.application.*
@@ -11,6 +10,8 @@ import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.getKoin
+import utils.extensionFunctions.getUserId
+import utils.extensionFunctions.respondSuccess
 import utils.extensionFunctions.toCoordinates
 
 internal fun Route.offerRoutes(
