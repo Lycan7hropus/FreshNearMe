@@ -1,5 +1,6 @@
-import org.bson.codecs.pojo.annotations.BsonId
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class CategoryApiDto(
     val id: String,
     val name: String,

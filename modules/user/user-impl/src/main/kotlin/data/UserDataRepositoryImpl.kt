@@ -1,6 +1,7 @@
 package data
 
 
+import com.example.OfferApiDto
 import domain.UserDataRepository
 import com.mongodb.MongoWriteException
 import domain.models.User
@@ -8,6 +9,9 @@ import org.litote.kmongo.coroutine.CoroutineCollection
 import org.litote.kmongo.eq
 import org.litote.kmongo.set
 import org.litote.kmongo.setTo
+import utils.Role
+import utils.UserAlreadyExistsException
+import utils.UserSavingException
 
 internal class UserDataRepositoryImpl(private val usersCollection: CoroutineCollection<User>) : UserDataRepository {
 
@@ -16,12 +20,12 @@ internal class UserDataRepositoryImpl(private val usersCollection: CoroutineColl
             ?: throw IllegalArgumentException("User with ID $userId not found.")
     }
 
-    override suspend fun getUserWishList(userId: String): List<OfferA> {
+    override suspend fun getUserWishList(userId: String): List<OfferApiDto> {
         val user = getUser(userId)
         return user.wishlist
     }
 
-    override suspend fun updateUserWishlist(userId: String, list: List<Offer>): List<Offer> {
+    override suspend fun updateUserWishlist(userId: String, list: List<OfferApiDto>): List<OfferApiDto> {
         val updateResult = usersCollection.updateOne(User::id eq userId, set(User::wishlist setTo list))
 
         if (updateResult.matchedCount.toInt() == 0) {
@@ -32,7 +36,7 @@ internal class UserDataRepositoryImpl(private val usersCollection: CoroutineColl
     }
 
 
-    override suspend fun getUserOffers(userId: String): List<Offer> {
+    override suspend fun getUserOffers(userId: String): List<OfferApiDto> {
         val user = getUser(userId)
         return user.postedOffers
     }
@@ -70,7 +74,7 @@ internal class UserDataRepositoryImpl(private val usersCollection: CoroutineColl
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateUserOffers(userId: String, offers: List<Offer>): List<Offer> {
+    override suspend fun updateUserOffers(userId: String, offers: List<OfferApiDto>): List<OfferApiDto> {
         TODO("Not yet implemented")
     }
 }
