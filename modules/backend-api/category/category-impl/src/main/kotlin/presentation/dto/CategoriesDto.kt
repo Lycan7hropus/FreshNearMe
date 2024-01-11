@@ -1,8 +1,8 @@
 package presentation.dto
 
-import domain.Category
+import domain.enitties.Category
 
 
-internal data class CategoriesDto(
-    val categories: List<Category>
+data class CategoriesDto(
+    val categories: List<CategoryDto>
 )

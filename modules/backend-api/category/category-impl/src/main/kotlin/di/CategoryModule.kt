@@ -3,7 +3,7 @@ package di
 
 import database.DatabaseProvider
 import data.CategoryRepositoryImpl
-import domain.Category
+import domain.enitties.Category
 import domain.CategoryRepository
 import domain.usecases.CreateCategoryUseCase
 import domain.usecases.DeleteCategoryUseCase

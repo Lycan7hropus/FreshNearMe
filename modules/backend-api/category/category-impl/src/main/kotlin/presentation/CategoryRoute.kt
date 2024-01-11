@@ -1,26 +1,23 @@
 package presentation
 
 
+import domain.CategoryService
 import presentation.dto.CategoryDto
 import utils.extensionFunctions.respondSuccess
 import utils.extensionFunctions.withRole
-import domain.usecases.CreateCategoryUseCase
-import domain.usecases.GetCategoriesUseCase
-import domain.usecases.GetCategoryUseCase
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
-import org.koin.ktor.ext.getKoin
 import utils.Role
 
-internal fun Route.categoryRoutes(createCategoryUseCase: CreateCategoryUseCase = getKoin().get(), getCategoryUseCase: GetCategoryUseCase = getKoin().get(), getCategoriesUseCase: GetCategoriesUseCase = getKoin().get()) {
+ fun Route.categoryRoutes(categoryService: CategoryService) {
 
     route("/categories"){
         withRole(Role.ADMIN){
             post() {
                 val categoryDTO = call.receive<CategoryDto>()
-                val category = createCategoryUseCase(categoryDTO)
+                val category = categoryService.createCategory(categoryDTO)
                 call.respondSuccess(category)
             }
 
@@ -30,13 +27,13 @@ internal fun Route.categoryRoutes(createCategoryUseCase: CreateCategoryUseCase =
             }
         }
         get() {
-            val category = getCategoriesUseCase()
+            val category = categoryService.getCategories()
             call.respondSuccess(category)
         }
 
         get("/{id}") {
             val categoryId = call.parameters["id"] ?: throw MissingRequestParameterException("category id")
-            val category = getCategoryUseCase(categoryId)
+            val category = categoryService.getCategory(categoryId)
             call.respondSuccess(category)
         }
 

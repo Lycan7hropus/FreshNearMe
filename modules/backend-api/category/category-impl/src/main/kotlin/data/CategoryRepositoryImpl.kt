@@ -1,7 +1,7 @@
 package data
 
 import utils.DatabaseOperationException
-import domain.Category
+import domain.enitties.Category
 import domain.CategoryRepository
 import io.ktor.server.plugins.*
 import org.litote.kmongo.coroutine.CoroutineCollection
@@ -16,7 +16,7 @@ internal class CategoryRepositoryImpl(private val categoryCollection: CoroutineC
         }
     }
 
-    override suspend fun getCategoryById(id: String): Category{
+    override suspend fun getCategoryById(id: String): Category {
         return categoryCollection.findOneById(id) ?: throw NotFoundException("Category not found")
     }
 

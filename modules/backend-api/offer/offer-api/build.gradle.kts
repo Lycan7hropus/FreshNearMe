@@ -10,7 +10,6 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":modules:backend-api::offer:offer-api"))
     implementation(project(":modules:backend-api:common"))
     implementation(project(":modules:shared"))
 

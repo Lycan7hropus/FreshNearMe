@@ -1,5 +1,6 @@
-package domain
+package domain.enitties
 
+import domain.CategoryRepository
 import presentation.dto.CategoryDto
 import java.util.*
 

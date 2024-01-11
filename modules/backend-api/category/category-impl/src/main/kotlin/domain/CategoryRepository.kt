@@ -1,5 +1,7 @@
 package domain
 
+import domain.enitties.Category
+
 internal interface CategoryRepository {
     suspend fun saveCategory(category: Category): Category
     suspend fun getCategoryById(id: String): Category

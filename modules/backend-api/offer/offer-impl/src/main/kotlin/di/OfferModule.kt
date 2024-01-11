@@ -20,7 +20,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.litote.kmongo.coroutine.CoroutineCollection
 
-internal val offerModule = module {
+val offerModule = module {
     single<CoroutineCollection<Offer>>(named("OfferCollection")) {
         val offerCollection: CoroutineCollection<Offer> = get<DatabaseProvider>().database.getCollection("offers")
         CoroutineScope(Dispatchers.IO).launch {
