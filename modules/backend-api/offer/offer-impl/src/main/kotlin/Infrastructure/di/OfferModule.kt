@@ -1,12 +1,12 @@
-package di
+package Infrastructure.di
 
 
 import com.example.OfferApi
 import database.DatabaseProvider
 import com.mongodb.client.model.Indexes
-import data.OfferRepositoryImpl
+import infra.OfferRepositoryImpl
 import domain.Offer
-import domain.OfferApiImpl
+import application.OfferApiImpl
 import domain.OfferRepository
 import domain.usecases.CreateOfferUseCase
 import domain.usecases.GetOfferByIdUseCase

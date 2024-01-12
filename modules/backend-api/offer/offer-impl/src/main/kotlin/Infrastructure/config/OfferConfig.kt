@@ -1,6 +1,6 @@
-package config
+package Infrastructure.config
 
-import di.offerModule
+import Infrastructure.di.offerModule
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.getKoin

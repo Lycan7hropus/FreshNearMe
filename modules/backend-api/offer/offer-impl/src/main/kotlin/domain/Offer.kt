@@ -1,7 +1,7 @@
 package domain
 
 
-import CategoryApiDto
+import dto.CategoryApiDto
 import utils.models.GeoPoint
 import kotlinx.datetime.LocalDateTime
 

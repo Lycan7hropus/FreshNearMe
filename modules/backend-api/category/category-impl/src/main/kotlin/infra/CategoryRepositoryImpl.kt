@@ -1,4 +1,4 @@
-package data
+package infra
 
 import utils.DatabaseOperationException
 import domain.enitties.Category

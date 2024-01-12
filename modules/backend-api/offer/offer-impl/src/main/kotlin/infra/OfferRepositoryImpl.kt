@@ -1,7 +1,7 @@
-package data
+package infra
 
 
-import CategoryApiDto
+import dto.CategoryApiDto
 import utils.DatabaseOperationException
 import utils.OfferCreationException
 import utils.models.Coordinates

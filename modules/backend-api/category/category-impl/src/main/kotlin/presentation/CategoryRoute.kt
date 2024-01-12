@@ -1,8 +1,8 @@
 package presentation
 
 
-import domain.CategoryService
-import presentation.dto.CategoryDto
+import application.CategoryService
+import dto.CategoryDto
 import utils.extensionFunctions.respondSuccess
 import utils.extensionFunctions.withRole
 import io.ktor.server.application.*

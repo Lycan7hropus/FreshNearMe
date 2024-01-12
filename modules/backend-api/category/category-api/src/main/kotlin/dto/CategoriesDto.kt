@@ -1,6 +1,4 @@
-package presentation.dto
-
-import domain.enitties.Category
+package dto
 
 
 data class CategoriesDto(

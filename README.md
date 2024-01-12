@@ -7,14 +7,14 @@ This Kotlin-based web application serves as an advanced platform for posting and
 
 - **Kotlin**: Primary programming language
 - **Ktor**: Asynchronous web framework used for building servers and clients in connected systems.
-- **MongoDB**: For flexible and scalable data storage.
+- **MongoDB**: For flexible and scalable infra storage.
 - **Google OAuth**: For secure authentication, integrating Google's reliable sign-in systems.
 - **Koin**: Lightweight dependency injection framework.
 
 ### Architectural Patterns and Key Design Choices
 
-- **Clean Architecture**: The application adheres to the principles of Clean Architecture, ensuring the separation of concerns and independence of different layers like data, domain, and presentation.
-- **Repository Pattern**: This pattern is evident in classes like `CategoryRepositoryImpl` and `OfferRepositoryImpl`, providing a clean abstraction layer over data access mechanisms.
+- **Clean Architecture**: The application adheres to the principles of Clean Architecture, ensuring the separation of concerns and independence of different layers like infra, domain, and presentation.
+- **Repository Pattern**: This pattern is evident in classes like `CategoryRepositoryImpl` and `OfferRepositoryImpl`, providing a clean abstraction layer over infra access mechanisms.
 - **Factory Pattern**: Used in classes like `CategoryFactory`, simplifying object creation and enhancing flexibility.
 - **Use Case/Interactor Pattern**: Each business logic operation is encapsulated in a use case (e.g., `CreateCategoryUseCase`, `GetUserOffersUseCase`), promoting a clean separation of concerns and making the code more readable and testable.
 
@@ -22,17 +22,17 @@ This Kotlin-based web application serves as an advanced platform for posting and
 
 1. **User Features**:
     - `UserRoute.kt` establishes endpoints for user-related actions.
-    - `UserDataRepositoryImpl` implements data handling operations, interfacing with the database.
+    - `UserDataRepositoryImpl` implements infra handling operations, interfacing with the database.
     - Use cases like `SaveUserUseCase` and `UpdateUserDataUseCase` encapsulate specific user-related operations.
 
 2. **Offer Features**:
     - `OfferRoute.kt` sets up routes for managing offers.
-    - `OfferRepositoryImpl` deals with offer data storage and retrieval.
+    - `OfferRepositoryImpl` deals with offer infra storage and retrieval.
     - Use cases such as `CreateOfferUseCase` and `UpdateOfferUseCase` handle individual aspects of offer management.
 
 3. **Category Features**:
     - `CategoryRoute.kt` manages endpoints for category operations.
-    - `CategoryService` and `CategoryRepository` provide business logic and data access functionalities.
+    - `CategoryService` and `CategoryRepository` provide business logic and infra access functionalities.
     - Use cases like `CreateCategoryUseCase` and `DeleteCategoryUseCase` focus on specific category operations.
 
 4. **Authentication and Security**:
@@ -40,6 +40,6 @@ This Kotlin-based web application serves as an advanced platform for posting and
     - Integration with Google OAuth ensures a reliable and secure sign-in process.
 
 5. **Database Integration and Management**:
-    - `MongoDatabaseProvider` orchestrates database connections and interactions, ensuring efficient data management.
+    - `MongoDatabaseProvider` orchestrates database connections and interactions, ensuring efficient infra management.
     - Modular database configurations are managed through files like `DatabaseModule.kt`, enhancing scalability and maintainability.
 

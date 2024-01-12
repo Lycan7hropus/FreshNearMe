@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation("dev.krud:shapeshift:0.8.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 

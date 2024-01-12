@@ -7,7 +7,7 @@ import com.example.features.user.domain.usecases.GetUserOffersUseCase
 import com.example.features.user.domain.usecases.SaveUserUseCase
 import com.example.features.user.domain.usecases.UpdateUserDataUseCase
 import com.example.features.user.domain.usecases.UserWishlistUseCase
-import data.UserDataRepositoryImpl
+import infra.UserDataRepositoryImpl
 import domain.UserDataRepository
 import domain.models.User
 import org.koin.core.qualifier.named

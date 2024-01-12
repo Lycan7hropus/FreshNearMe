@@ -2,7 +2,7 @@ package presentation
 
 
 
-import domain.usecases.*
+import domain.OfferService
 import presentation.dto.OfferDto
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -15,13 +15,8 @@ import utils.extensionFunctions.respondSuccess
 import utils.extensionFunctions.toCoordinates
 
 internal fun Route.offerRoutes(
-    createOfferUseCase: CreateOfferUseCase = getKoin().get(),
-    getAllOffersUseCase: GetOffersUseCase = getKoin().get(),
-    getOfferByIdUseCase: GetOfferByIdUseCase = getKoin().get(),
-    updateOfferUseCase: UpdateOfferUseCase = getKoin().get(),
-    getOffersByNameUseCase: GetOffersByNameUseCase = getKoin().get()
+    offerService: OfferService = getKoin().get(),
 ) {
-
     // Route for getting a list of all offers
     route("/offers"){
         get() {
@@ -29,7 +24,7 @@ internal fun Route.offerRoutes(
             val coordinates = call.request.queryParameters["coordinates"]?.toCoordinates()
             val distance = call.request.queryParameters["distance"]?.toDoubleOrNull()
 
-            val offersDto = getAllOffersUseCase(category, distance, coordinates)
+            val offersDto = offerService.getOffers(category, distance, coordinates)
             call.respondSuccess(offersDto)
         }
 
@@ -38,7 +33,7 @@ internal fun Route.offerRoutes(
             val name = call.request.queryParameters["name"]
                 ?: throw MissingRequestParameterException("offer name")
 
-            val offersDto = getOffersByNameUseCase(name)
+            val offersDto = offerService.getOffersByName(name)
             call.respondSuccess(offersDto)
         }
 
@@ -46,7 +41,7 @@ internal fun Route.offerRoutes(
         // Route for getting a single offer by ID
         get("/{id}") {
             val id = call.parameters["id"] ?: throw MissingRequestParameterException("offer id")
-            val offerDto = getOfferByIdUseCase(id)
+            val offerDto = offerService.getOfferById(id)
             call.respondSuccess(offerDto)
         }
 
@@ -56,7 +51,7 @@ internal fun Route.offerRoutes(
                 val newOfferDto = call.receive<OfferDto>()
                 val userId = call.getUserId()
 
-                val createdOffer = createOfferUseCase(newOfferDto, userId)
+                val createdOffer = offerService.createOffer(newOfferDto, userId)
                 call.respondSuccess(createdOffer)
             }
 
@@ -65,7 +60,7 @@ internal fun Route.offerRoutes(
                 val offerToUpdateDto = call.receive<OfferDto>()
                 val userId = call.getUserId()
 
-                val offer = updateOfferUseCase(offerId, userId, offerToUpdateDto)
+                val offer = offerService.updateOffer(offerId, userId, offerToUpdateDto)
 
                 call.respondSuccess(offer)
             }

@@ -1,4 +1,4 @@
-package data
+package infra
 
 
 import com.example.OfferApiDto

@@ -10,12 +10,12 @@ repositories {
 }
 
 dependencies {
+    implementation("dev.krud:shapeshift:0.8.0")
     implementation(project(":modules:backend-api:category:category-api"))
     implementation(project(":modules:backend-api:common"))
     implementation(project(":modules:shared"))
 
 
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
 
 }
 
