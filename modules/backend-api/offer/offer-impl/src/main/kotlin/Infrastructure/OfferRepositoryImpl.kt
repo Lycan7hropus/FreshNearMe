@@ -1,4 +1,4 @@
-package infra
+package Infrastructure
 
 
 import dto.CategoryApiDto

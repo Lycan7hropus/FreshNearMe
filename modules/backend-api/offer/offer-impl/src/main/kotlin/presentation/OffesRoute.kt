@@ -2,7 +2,7 @@ package presentation
 
 
 
-import domain.OfferService
+import application.OfferService
 import presentation.dto.OfferDto
 import io.ktor.server.application.*
 import io.ktor.server.auth.*

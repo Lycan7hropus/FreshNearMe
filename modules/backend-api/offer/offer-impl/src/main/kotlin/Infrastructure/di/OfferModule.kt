@@ -4,7 +4,7 @@ package Infrastructure.di
 import com.example.OfferApi
 import database.DatabaseProvider
 import com.mongodb.client.model.Indexes
-import infra.OfferRepositoryImpl
+import Infrastructure.OfferRepositoryImpl
 import domain.Offer
 import application.OfferApiImpl
 import domain.OfferRepository

@@ -3,7 +3,6 @@ package application
 import CategoryApi
 import domain.Offer
 import domain.OfferRepository
-import domain.OfferService
 import presentation.dto.OfferDto
 import presentation.dto.OffersDto
 import utils.ResourceAccessDenied

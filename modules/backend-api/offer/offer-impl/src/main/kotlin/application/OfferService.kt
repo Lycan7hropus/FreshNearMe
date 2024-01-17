@@ -1,4 +1,4 @@
-package domain
+package application
 
 import presentation.dto.OfferDto
 import presentation.dto.OffersDto
