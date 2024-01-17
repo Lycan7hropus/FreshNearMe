@@ -38,11 +38,7 @@ conventional food systems.
 
 ### Core Technologies and Frameworks
 
-<img alt="img_1.png" src="img_1.png" width="32"/>
-<img alt="img_4.png" src="img_4.png" width="32"/>
-<img alt="img_2.png" src="img_2.png" width="32"/>
-<img alt="img_5.png" src="img_5.png" width="32"/>
-<img alt="img_3.png" src="img_3.png" width="32"/>
+<img alt="img_1.png" src="img_1.png" width="32"/><img alt="img_4.png" src="img_4.png" width="32"/><img alt="img_2.png" src="img_2.png" width="32"/><img alt="img_5.png" src="img_5.png" width="32"/><img alt="img_3.png" src="img_3.png" width="32"/>
 
 - **Kotlin**: Primary programming language
 - **Ktor**: Asynchronous web framework used for building servers and clients in connected systems.
