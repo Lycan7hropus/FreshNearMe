@@ -2,9 +2,7 @@
 [<img alt="forthebadge" height="24" src="https://forthebadge.com/images/badges/works-on-my-machine.svg"/>](https://forthebadge.com)
 <img alt="version-badge.svg" height="24" src="assets/version-badge.svg"/>
 
-![freshood-back.png](assets%2Ffreshood-back.png)
-
-
+![fresh-back.png](assets%2Ffresh-back.png)
 ### Overview
 
 Goal of **Fresh Near Me** is to connect consumers directly with local producers, making it easy for everyone to access and enjoy fresh, locally-grown food. This platform is about supporting local communities and promoting healthier, sustainable food choices.
@@ -38,7 +36,7 @@ conventional food systems.
 
 ### Core Technologies and Frameworks
 
-<img alt="img_1.png" src="img_1.png" width="32"/><img alt="img_4.png" src="img_4.png" width="32"/><img alt="img_2.png" src="img_2.png" width="32"/><img alt="img_5.png" src="img_5.png" width="32"/><img alt="img_3.png" src="img_3.png" width="32"/>
+<img alt="assets/img_1.png" src="assets/img_1.png" width="32"/><img alt="assets/img_4.png" src="assets/img_4.png" width="32"/><img alt="assets/img_2.png" src="assets/img_2.png" width="32"/><img alt="assets/img_5.png" src="assets/img_5.png" width="32"/><img alt="assets/img_3.png" src="assets/img_3.png" width="32"/>
 
 - **Kotlin**: Primary programming language
 - **Ktor**: Asynchronous web framework used for building servers and clients in connected systems.
@@ -149,10 +147,12 @@ conventional food systems.
     - The Backend-API and chat service validate the token by sending it to the Keycloak server.
     - The server provides information about the user or returns a response if the token is invalid.
 
-![authflow.svg](assets%2Fauthflow.svg)
+   
+![authflow.drawio.svg](assets%2Fauthflow.drawio.svg)
+
 
 ### Installation
 
 Coming soon, but for now best I can do:
 
-<img alt="img.png" src="img.png" width="300"/>
+<img alt="img.png" src="assets/img.png" width="300"/>
