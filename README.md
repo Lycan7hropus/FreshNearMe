@@ -1,4 +1,8 @@
 
+For recent updates please see [develop_into_modules](https://github.com/Lycan7hropus/FreshNearMe/tree/develop_refactor_into_modules) branch
+
+
+
 ## Detailed Project Overview
 
 This Kotlin-based web application serves as an advanced platform for posting and managing offers. It allows users to create, manage, and interact with a wide range of offers, while also providing functionalities for user authentication and profile management.
