@@ -5,6 +5,8 @@ val kotlin_version: String by project
 val logback_version: String by project
 val koin_ktor: String = "3.5.1"
 
+ val project_version = "0.0.1"
+
 plugins {
     kotlin("jvm") version "1.9.20"
     id("io.ktor.plugin") version "2.3.6"
@@ -13,7 +15,7 @@ plugins {
 }
 
 group = "com.example"
-version = "0.0.1"
+version = project_version
 
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
