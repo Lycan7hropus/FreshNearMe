@@ -1,8 +1,11 @@
-[<img alt="forthebadge" height="24" src="https://forthebadge.com/images/featured/featured-contains-cat-gifs.svg"/>](https://forthebadge.com)
-[<img alt="forthebadge" height="24" src="https://forthebadge.com/images/badges/works-on-my-machine.svg"/>](https://forthebadge.com)
-<img alt="version-badge.svg" height="24" src="assets/version-badge.svg"/>
 
+
+[<img alt="forthebadge" height="24" src="https://forthebadge.com/images/featured/featured-contains-cat-gifs.svg"/>](https://forthebadge.com)[<img alt="forthebadge" height="24" src="https://forthebadge.com/images/badges/works-on-my-machine.svg"/>](https://forthebadge.com)<img alt="version-badge.svg" height="24" src="assets/version-badge.svg"/>
 ![fresh-back.png](assets%2Ffresh-back.png)
+
+
+### This project is still under development. Features and documentation are subject to change.
+
 ### Overview
 
 Goal of **Fresh Near Me** is to connect consumers directly with local producers, making it easy for everyone to access and enjoy fresh, locally-grown food. This platform is about supporting local communities and promoting healthier, sustainable food choices.
@@ -34,22 +37,19 @@ distribution than that of the medium- and small-scale production models.
 Typical **local vegetable production** produces **less than half the emissions** and use 10% of the water than that of
 conventional food systems.
 
-### Core Technologies and Frameworks
+---
+### Core Technologies
 
-<img alt="assets/img_1.png" src="assets/img_1.png" width="32"/><img alt="assets/img_4.png" src="assets/img_4.png" width="32"/><img alt="assets/img_2.png" src="assets/img_2.png" width="32"/><img alt="assets/img_5.png" src="assets/img_5.png" width="32"/><img alt="assets/img_3.png" src="assets/img_3.png" width="32"/>
-
-- **Kotlin**: Primary programming language
-- **Ktor**: Asynchronous web framework used for building servers and clients in connected systems.
-- **MongoDB**: For flexible and scalable infra storage.
-- **Koin**: Lightweight dependency injection framework.
-- **Keycloak**: Authentication service
-
+[![My Skills](https://skillicons.dev/icons?i=kotlin,ktor,idea,mongodb&theme=dark)](https://skillicons.dev)
+- **Kotlin** for robust backend development
+- **Ktor** for server and client connectivity
+- **MongoDB** for a flexible data layer
+- **Koin** for efficient dependency injection
+- **Keycloak** for secure authentication
 ### Architectural Patterns and Key Design Choices
-
 ![overall.svg](assets%2Foverall.svg)
 
-
-
+---
 ## Detailed Breakdown of Functionalities by Module
 
 ### User Module Functionalities
@@ -116,9 +116,24 @@ conventional food systems.
     - Triggered by Keycloak login events.
     - Updates existing user data in the database following a successful login.
 
+---
+### Chat service Features
 
-### Separate Chat Service
+The chat service uses **WebSocket** for seamless communication within the platform.
 
+#### Real-Time Messaging
+- Users can instantly message each other in real-time, providing an engaging and interactive chat experience.
+
+#### Conversation Rooms
+- Participants can create private conversation rooms linked to specific products, allowing for private discussions.
+
+- Users can retrieve the complete history of messages in any of their direct conversations.
+
+- Individuals can easily access all their direct conversations, streamlining communication and enabling quick transitions between multiple discussions.
+
+This service enables straightforward, direct, and private correspondence between users.
+
+---
 
 ## User Authentication Process
 
@@ -147,12 +162,10 @@ conventional food systems.
     - The Backend-API and chat service validate the token by sending it to the Keycloak server.
     - The server provides information about the user or returns a response if the token is invalid.
 
-   
 ![authflow.drawio.svg](assets%2Fauthflow.drawio.svg)
-
-
+---
 ### Installation
+Detailed installation instructions will be provided. Stay tuned for updates.
+![](https://media.tenor.com/0pfgtiySgtIAAAAM/endwork-cats-end-work.gif)
 
-Coming soon, but for now best I can do:
-
-<img alt="img.png" src="assets/img.png" width="300"/>
+![footer.png](assets%2Ffooter.png)
