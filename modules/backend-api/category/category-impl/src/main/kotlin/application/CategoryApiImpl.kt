@@ -3,7 +3,7 @@ package application
 import CategoryApi
 import domain.CategoryRepository
 import dto.CategoryApiDto
-import infra.transform
+import utils.transform
 
 internal class CategoryApiImpl(private val categoryRepository: CategoryRepository) :
     CategoryApi {

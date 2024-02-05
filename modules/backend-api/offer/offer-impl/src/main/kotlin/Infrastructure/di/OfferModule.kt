@@ -7,12 +7,9 @@ import com.mongodb.client.model.Indexes
 import Infrastructure.OfferRepositoryImpl
 import domain.Offer
 import application.OfferApiImpl
+import application.OfferService
+import application.OfferServiceImpl
 import domain.OfferRepository
-import domain.usecases.CreateOfferUseCase
-import domain.usecases.GetOfferByIdUseCase
-import domain.usecases.GetOffersByNameUseCase
-import domain.usecases.GetOffersUseCase
-import domain.usecases.UpdateOfferUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,11 +28,7 @@ val offerModule = module {
 
     single<OfferRepository> { OfferRepositoryImpl(get(named("OfferCollection"))) }
 
-    single { CreateOfferUseCase(get(), get()) }
-    single { GetOffersUseCase(get(), get()) }
-    single { GetOfferByIdUseCase(get()) }
-    single { UpdateOfferUseCase(get(), get()) }
-    single { GetOffersByNameUseCase(get()) }
+    single<OfferService> { OfferServiceImpl(get(), get()) }
 
     single<OfferApi> { OfferApiImpl() }
 }

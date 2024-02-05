@@ -9,5 +9,5 @@ interface CategoryService {
     suspend fun deleteCategory(categoryId: String): Result<Boolean>
     suspend fun getCategories(): CategoriesDto
     suspend fun getCategory(id: String): CategoryDto
-    suspend fun updateCategory(/* parameters */)
+    suspend fun updateCategory()
 }

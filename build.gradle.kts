@@ -78,6 +78,9 @@ subprojects {
     }
 
     dependencies {
+        //shapeshift
+        implementation("dev.krud:shapeshift:0.8.0")
+
         //CORS
         implementation("io.ktor:ktor-server-cors:$ktor_version")
 
