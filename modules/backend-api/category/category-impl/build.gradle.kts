@@ -13,7 +13,6 @@ dependencies {
 
     implementation(project(":modules:backend-api:category:category-api"))
     implementation(project(":modules:backend-api:common"))
-    implementation(project(":modules:shared"))
 
 
 
@@ -23,5 +22,5 @@ tasks.test {
     useJUnitPlatform()
 }
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(11)
 }
