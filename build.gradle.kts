@@ -1,7 +1,3 @@
-
-
-//import io.gitlab.arturbosch.detekt.Detekt
-
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
@@ -15,14 +11,8 @@ plugins {
     kotlin("kapt") version "1.9.0"
     id("io.ktor.plugin") version "2.3.6"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.0"
-
-    //kotlin("plugin.noarg") version "1.9.20"
 }
 
-//noArg {
-//    annotation("com.my.Annotation")
-//    invokeInitializers = true
-//}
 
 group = "com.example"
 version = project_version
@@ -94,23 +84,10 @@ subprojects {
         }
     }
 
-
-
-
     dependencies {
         //mapstruct
-
-//        implementation("org.mapstruct:mapstruct:1.5.3.Final")
-//        kapt("org.mapstruct:mapstruct-processor:1.5.3.Final")
-//        kapt("groupId:artifactId:version")
-
-
         implementation("org.mapstruct:mapstruct:$mapStructVersion")
         "kapt"("org.mapstruct:mapstruct-processor:$mapStructVersion")
-
-
-
-
 
         //CORS
         implementation("io.ktor:ktor-server-cors:$ktor_version")
