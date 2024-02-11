@@ -1,6 +1,6 @@
 package application
 
-import CategoryApi
+//import CategoryApi
 import domain.Offer
 import domain.OfferRepository
 import presentation.dto.OfferDto
