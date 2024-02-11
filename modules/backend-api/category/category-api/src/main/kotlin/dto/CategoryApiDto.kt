@@ -1,6 +1,4 @@
 package dto
-
-
 data class CategoryApiDto(
     val id: String,
     val name: String,
