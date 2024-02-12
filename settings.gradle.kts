@@ -5,7 +5,6 @@ rootProject.name = "com.example.freshnearme"
 
 include("modules")
 
-
 include("modules:chat-service")
 findProject(":modules:chat-service")?.name = "chat-service"
 

@@ -1,9 +1,9 @@
-//package application
-//
-//import CategoryApi
-//import domain.CategoryRepository
-//import dto.CategoryApiDto
-//
+package application
+
+import CategoryApi
+import domain.CategoryRepository
+import dto.CategoryApiDto
+
 //internal class CategoryApiImpl(private val categoryRepository: CategoryRepository) :
 //    CategoryApi {
 //    override suspend fun getCategoryById(id: String): CategoryApiDto {

@@ -1,4 +1,2 @@
-package dto
-
 interface MyKotlinInterface {
 }

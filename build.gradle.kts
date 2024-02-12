@@ -7,10 +7,10 @@ val mapStructVersion = "latest.release"
 val project_version = "0.0.1"
 
 plugins {
-    kotlin("jvm") version "1.9.0" // Use the appropriate Kotlin version
-    kotlin("kapt") version "1.9.0"
+    kotlin("jvm") version "1.9.22" // Use the appropriate Kotlin version
+    kotlin("kapt") version "1.9.22"
     id("io.ktor.plugin") version "2.3.6"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
 }
 
 

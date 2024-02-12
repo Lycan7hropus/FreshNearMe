@@ -10,10 +10,7 @@ repositories {
 }
 
 dependencies {
-
     implementation(project(":modules:backend-api:category:category-api"))
-    implementation(project(":modules:backend-api:common"))
-
     implementation(project(":modules:shared"))
 
 }
