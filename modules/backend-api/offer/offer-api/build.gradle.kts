@@ -11,7 +11,6 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":modules:backend-api:common"))
     implementation(project(":modules:shared"))
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")

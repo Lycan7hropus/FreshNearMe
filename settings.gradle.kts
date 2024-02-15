@@ -37,5 +37,4 @@ findProject(":modules:backend-api:user:user-impl")?.name = "user-impl"
 include("modules:backend-api:server")
 findProject(":modules:backend-api:server")?.name = "server"
 
-include("modules:backend-api:common")
-findProject(":modules:backend-api:common")?.name = "common"
+

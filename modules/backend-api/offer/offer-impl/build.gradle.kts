@@ -15,7 +15,6 @@ dependencies {
 
     implementation(project(":modules:backend-api:category:category-api"))
     implementation(project(":modules:backend-api:offer:offer-api"))
-    implementation(project(":modules:backend-api:common"))
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
