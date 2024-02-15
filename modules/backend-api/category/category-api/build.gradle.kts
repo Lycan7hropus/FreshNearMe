@@ -1,6 +1,6 @@
 plugins {
-kotlin("jvm")
-id("myproject.java-conventions")
+    kotlin("jvm")
+    id("myproject.java-conventions")
 }
 
 group = "com.example"
@@ -18,5 +18,5 @@ tasks.test {
     useJUnitPlatform()
 }
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(17)
 }

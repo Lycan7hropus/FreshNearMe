@@ -9,8 +9,7 @@ plugins {
     java
     checkstyle
 
-  kotlin("jvm")
-id("myproject.java-conventions")
+    kotlin("jvm")
     kotlin("kapt")
     id("io.ktor.plugin")
     id("org.jetbrains.kotlin.plugin.serialization")
