@@ -1,6 +1,9 @@
 package infra.di
 
 
+import CategoryApi
+import application.CategoryApiImpl
+import application.CategoryService
 import application.CategoryServiceImpl
 import database.DatabaseProvider
 import infra.CategoryRepositoryImpl
@@ -17,5 +20,7 @@ val categoryModule = module {
 
     single<CategoryRepository> { CategoryRepositoryImpl(get(named("CategoryCollection"))) }
 
-    single { CategoryServiceImpl(get()) }
+    single <CategoryService>{ CategoryServiceImpl(get()) }
+    single <CategoryApi>{ CategoryApiImpl(get()) }
+
 }
