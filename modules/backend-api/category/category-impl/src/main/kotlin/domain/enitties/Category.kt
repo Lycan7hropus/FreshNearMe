@@ -1,7 +1,6 @@
 package domain.enitties
 import org.bson.codecs.pojo.annotations.BsonId
 
-
 internal data class Category(
     @BsonId
     val id: String,

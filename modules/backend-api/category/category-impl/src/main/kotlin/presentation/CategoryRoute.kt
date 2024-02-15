@@ -9,9 +9,10 @@ import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
+import org.koin.ktor.ext.getKoin
 import utils.Role
 
- fun Route.categoryRoutes(categoryService: CategoryService) {
+ fun Route.categoryRoutes(categoryService: CategoryService = getKoin().get()) {
 
     route("/categories"){
         withRole(Role.ADMIN){

@@ -6,7 +6,7 @@ import dto.CategoryDto
 
 interface CategoryService {
     suspend fun createCategory(categoryDto: CategoryDto): CategoryDto
-    suspend fun deleteCategory(categoryId: String): Result<Boolean>
+    suspend fun deleteCategory(categoryId: String): Boolean
     suspend fun getCategories(): CategoriesDto
     suspend fun getCategory(id: String): CategoryDto
     suspend fun updateCategory()

@@ -9,8 +9,8 @@ interface DtoDomainConverter<T: Any, X: Any> {
     fun convertToModel(objDto: X): T
 }
 
-inline fun <reified T : Any, reified X:  Any> T.toDto(converterClass: Class<out DtoDomainConverter<T, X>>): X {
-    val converter = Mappers.getMapper(converterClass)
+inline fun <reified T : Any, reified X:  Any> T.toDto(converterClass: KClass<out DtoDomainConverter<T, X>>): X {
+    val converter = Mappers.getMapper(converterClass.java)
     return converter.convertToDto(this)
 }
 
