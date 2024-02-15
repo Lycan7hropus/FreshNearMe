@@ -1,10 +1,10 @@
-package Infrastructure.di
+package infrastructure.di
 
 
 import com.example.OfferApi
 import database.DatabaseProvider
 import com.mongodb.client.model.Indexes
-import Infrastructure.OfferRepositoryImpl
+import infrastructure.OfferRepositoryImpl
 import domain.Offer
 import application.OfferApiImpl
 import application.OfferService
@@ -28,7 +28,7 @@ val offerModule = module {
 
     single<OfferRepository> { OfferRepositoryImpl(get(named("OfferCollection"))) }
 
-    single<OfferService> { OfferServiceImpl(get()) }
+    single<OfferService> { OfferServiceImpl(get(), get()) }
 
     single<OfferApi> { OfferApiImpl() }
 }

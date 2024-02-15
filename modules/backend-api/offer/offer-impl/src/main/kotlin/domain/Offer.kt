@@ -31,3 +31,4 @@ internal data class Offer(
         // Add more validations as needed
     }
 }
+

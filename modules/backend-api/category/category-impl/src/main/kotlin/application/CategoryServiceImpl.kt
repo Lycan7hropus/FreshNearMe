@@ -31,7 +31,7 @@ internal class CategoryServiceImpl(private val categoryRepository: CategoryRepos
     }
 
     override suspend fun updateCategory() {
-        // Implementacja metody aktualizacji kategorii
+        //TODO Implement the updateCategory
     }
 }
 

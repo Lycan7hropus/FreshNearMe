@@ -3,7 +3,7 @@ package application
 import presentation.dto.CategoriesDto
 import presentation.dto.CategoryDto
 
-interface CategoryService {
+internal interface CategoryService {
     suspend fun createCategory(categoryDto: CategoryDto): CategoryDto
     suspend fun deleteCategory(categoryId: String): Boolean
     suspend fun getCategories(): CategoriesDto

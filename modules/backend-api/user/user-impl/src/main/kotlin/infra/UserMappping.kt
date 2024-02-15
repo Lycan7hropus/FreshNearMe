@@ -8,11 +8,9 @@ import infra.mappers.DetailedUserDtoConverter
 import utils.toDto
 
 internal fun User.toBasicDto(): BasicUserDto {
-    val dto = this.toDto(BasicUserDtoConverter::class)
-    return dto
+    return BasicUserDtoConverter.INSTANCE.convertToDto(this)
 }
 
 internal fun User.toDetailedDto(): DetailedUserDto {
-    val apiDto = this.toDto(DetailedUserDtoConverter::class)
-    return apiDto
+    return DetailedUserDtoConverter.INSTANCE.convertToDto(this)
 }

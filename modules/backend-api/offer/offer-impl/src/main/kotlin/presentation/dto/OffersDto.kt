@@ -4,4 +4,4 @@ import domain.Offer
 
 
 
-data class OffersDto(val offers: List<OfferDto> = listOf())
+internal data class OffersDto(val offers: List<OfferDto> = listOf())

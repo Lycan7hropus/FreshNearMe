@@ -12,7 +12,7 @@ import org.koin.ktor.ext.getKoin
 import presentation.dto.CategoryDto
 import utils.Role
 
- fun Route.categoryRoutes(categoryService: CategoryService = getKoin().get()) {
+ internal fun Route.categoryRoutes(categoryService: CategoryService = getKoin().get()) {
 
     route("/categories"){
         withRole(Role.ADMIN){
