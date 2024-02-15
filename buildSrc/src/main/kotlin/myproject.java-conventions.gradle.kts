@@ -36,7 +36,7 @@ dependencies {
 
     //mapstruct
     implementation("org.mapstruct:mapstruct:$mapStructVersion")
-    "kapt"("org.mapstruct:mapstruct-processor:$mapStructVersion")
+    annotationProcessor ("org.mapstruct:mapstruct-processor:$mapStructVersion")
 
     //CORS
     implementation("io.ktor:ktor-server-cors:$ktor_version")
