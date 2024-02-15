@@ -1,5 +1,7 @@
 plugins {
-    kotlin("jvm")
+kotlin("jvm")
+id("myproject.java-conventions")
+
 }
 
 group = "com.example"
@@ -10,7 +12,8 @@ repositories {
 }
 
 dependencies {
-    implementation("dev.krud:shapeshift:0.8.0")
+    implementation(project(":modules:shared"))
+
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
@@ -18,5 +21,5 @@ tasks.test {
     useJUnitPlatform()
 }
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(11)
 }

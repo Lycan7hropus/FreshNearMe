@@ -1,5 +1,6 @@
 plugins {
-    kotlin("jvm")
+kotlin("jvm")
+id("myproject.java-conventions")
 }
 
 group = "com.example"
@@ -12,7 +13,6 @@ repositories {
 dependencies {
     implementation(project(":modules:shared"))
 
-
     implementation(project(":modules:backend-api:category:category-api"))
     implementation(project(":modules:backend-api:offer:offer-api"))
     implementation(project(":modules:backend-api:common"))
@@ -23,5 +23,5 @@ tasks.test {
     useJUnitPlatform()
 }
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(11)
 }

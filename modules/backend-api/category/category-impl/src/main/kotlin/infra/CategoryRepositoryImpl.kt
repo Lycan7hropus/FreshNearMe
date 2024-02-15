@@ -35,12 +35,10 @@ internal class CategoryRepositoryImpl(private val categoryCollection: CoroutineC
             if (updateResult.wasAcknowledged() && updateResult.matchedCount > 0) {
                 return category
             } else {
-                // Logowanie dodatkowych informacji
                 val reason = if (updateResult.matchedCount.toInt() == 0) "Category not found with id: ${category.id}" else "Unknown reason"
                 throw DatabaseOperationException("Updating category failed: $reason")
             }
         } catch (e: Exception) {
-            // Logowanie wyjątku
             throw DatabaseOperationException("Updating category failed due to an exception: ${e.message}")
         }
     }

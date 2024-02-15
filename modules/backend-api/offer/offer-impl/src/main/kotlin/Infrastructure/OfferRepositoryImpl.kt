@@ -20,8 +20,8 @@ internal class OfferRepositoryImpl(private val offersCollection: CoroutineCollec
         val point = coordinates?.let { Point(Position(it.longitude, it.latitude)) }
 
         // Add category filter if category is not null
-        category?.path?.let {
-            filters.add(Filters.regex(Offer::category.name + "." + CategoryApiDto::path.name, "^${Regex.escape(it)}"))
+        category?.myPath?.let {
+            filters.add(Filters.regex(Offer::category.name + "." + CategoryApiDto::myPath.name, "^${Regex.escape(it)}"))
         }
 
         // Add location filter if geoPoint and distance are not null
