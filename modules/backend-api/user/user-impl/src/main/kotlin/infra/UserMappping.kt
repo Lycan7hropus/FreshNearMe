@@ -5,7 +5,6 @@ import presentation.models.BasicUserDto
 import presentation.models.DetailedUserDto
 import infra.mappers.BasicUserDtoConverter
 import infra.mappers.DetailedUserDtoConverter
-import utils.toDto
 
 internal fun User.toBasicDto(): BasicUserDto {
     return BasicUserDtoConverter.INSTANCE.convertToDto(this)

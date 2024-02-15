@@ -28,7 +28,7 @@ val offerModule = module {
 
     single<OfferRepository> { OfferRepositoryImpl(get(named("OfferCollection"))) }
 
-    single<OfferService> { OfferServiceImpl(get(), get()) }
+    single<OfferService> { OfferServiceImpl(get(), get(), get()) }
 
     single<OfferApi> { OfferApiImpl() }
 }
