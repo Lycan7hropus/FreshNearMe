@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm")
+    id("myproject.java-conventions")
 }
 
 group = "com.example"
@@ -10,7 +11,6 @@ repositories {
 }
 
 dependencies {
-
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 

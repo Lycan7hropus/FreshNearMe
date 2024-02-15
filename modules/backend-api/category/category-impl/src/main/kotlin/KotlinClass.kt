@@ -1,5 +1,4 @@
-import MyJavaInterface
-import dto.CategoryApiDto
+
 import dto.CategoryDto
 
 class KotlinClass {

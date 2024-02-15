@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm")
+    id("myproject.java-conventions")
 }
 
 group = "com.example"
