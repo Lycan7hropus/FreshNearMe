@@ -1,7 +1,7 @@
 package domain.enitties
 
 import domain.CategoryRepository
-import dto.CategoryDto
+import presentation.dto.CategoryDto
 import java.util.*
 
 internal class CategoryFactory(private val categoryRepository: CategoryRepository) {

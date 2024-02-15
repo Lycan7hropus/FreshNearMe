@@ -1,7 +1,7 @@
 package config
 
 
-import com.example.features.user.presentation.userRoutes
+import presentation.userRoutes
 import di.userModule
 import io.ktor.server.application.*
 import io.ktor.server.routing.*

@@ -2,11 +2,11 @@ package di
 
 
 import database.DatabaseProvider
-import com.example.features.user.domain.usecases.GetUserInfoUseCase
-import com.example.features.user.domain.usecases.GetUserOffersUseCase
-import com.example.features.user.domain.usecases.SaveUserUseCase
-import com.example.features.user.domain.usecases.UpdateUserDataUseCase
-import com.example.features.user.domain.usecases.UserWishlistUseCase
+import domain.usecases.GetUserInfoUseCase
+import domain.usecases.GetUserOffersUseCase
+import domain.usecases.SaveUserUseCase
+import domain.usecases.UpdateUserDataUseCase
+import domain.usecases.UserWishlistUseCase
 import infra.UserDataRepositoryImpl
 import domain.UserDataRepository
 import domain.models.User

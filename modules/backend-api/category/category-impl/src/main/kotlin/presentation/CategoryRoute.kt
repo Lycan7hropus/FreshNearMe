@@ -2,7 +2,6 @@ package presentation
 
 
 import application.CategoryService
-import dto.CategoryDto
 import utils.extensionFunctions.respondSuccess
 import utils.extensionFunctions.withRole
 import io.ktor.server.application.*
@@ -10,6 +9,7 @@ import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.getKoin
+import presentation.dto.CategoryDto
 import utils.Role
 
  fun Route.categoryRoutes(categoryService: CategoryService = getKoin().get()) {

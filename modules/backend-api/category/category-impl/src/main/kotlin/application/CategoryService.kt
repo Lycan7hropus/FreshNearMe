@@ -1,8 +1,7 @@
 package application
 
-import domain.enitties.Category
-import dto.CategoriesDto
-import dto.CategoryDto
+import presentation.dto.CategoriesDto
+import presentation.dto.CategoryDto
 
 interface CategoryService {
     suspend fun createCategory(categoryDto: CategoryDto): CategoryDto

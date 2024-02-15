@@ -1,4 +1,4 @@
-package com.example.features.user.domain.usecases
+package domain.usecases
 
 import domain.UserDataRepository
 import presentation.models.BasicUserDto

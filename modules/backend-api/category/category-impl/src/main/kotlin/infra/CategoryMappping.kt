@@ -2,7 +2,7 @@ package infra
 
 import domain.enitties.Category
 import dto.CategoryApiDto
-import dto.CategoryDto
+import presentation.dto.CategoryDto
 import infra.mappers.CategoryApiDtoConverter
 import infra.mappers.CategoryDtoConverter
 import utils.toDto
@@ -16,4 +16,3 @@ internal fun Category.toApiDto(): CategoryApiDto {
     val apiDto = this.toDto(CategoryApiDtoConverter::class)
     return apiDto
 }
-

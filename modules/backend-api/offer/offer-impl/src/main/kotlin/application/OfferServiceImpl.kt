@@ -1,6 +1,6 @@
 package application
 
-//import CategoryApi
+import CategoryApi
 import domain.Offer
 import domain.OfferRepository
 import presentation.dto.OfferDto
@@ -10,11 +10,11 @@ import utils.models.Coordinates
 
 internal class OfferServiceImpl(
     private val offerRepository: OfferRepository,
-//    private val categoryApi: CategoryApi
+    private val categoryApi: CategoryApi
 ) : OfferService {
 
     override suspend fun createOffer(offerDto: OfferDto, sellerId: String): OfferDto {
-//        val category = categoryApi.getCategoryById(offerDto.categoryId)
+        val category = categoryApi.getCategoryById(offerDto.categoryId)
         val offer = offerDto as Offer//TODO
         return offerRepository.saveOffer(offer) as OfferDto//TODO
     }

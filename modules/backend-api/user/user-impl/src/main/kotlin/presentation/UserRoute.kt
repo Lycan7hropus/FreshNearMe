@@ -1,6 +1,10 @@
-package com.example.features.user.presentation
+package presentation
 
-import com.example.features.user.domain.usecases.*
+import domain.usecases.GetUserInfoUseCase
+import domain.usecases.GetUserOffersUseCase
+import domain.usecases.SaveUserUseCase
+import domain.usecases.UpdateUserDataUseCase
+import domain.usecases.UserWishlistUseCase
 import presentation.models.BasicUserDto
 import presentation.models.DetailedUserDto
 import presentation.models.WishlistDto

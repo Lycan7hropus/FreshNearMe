@@ -3,7 +3,7 @@ package infra.mappers
 
 import domain.enitties.Category
 import dto.CategoryApiDto
-import dto.CategoryDto
+import presentation.dto.CategoryDto
 import org.mapstruct.Mapper
 import utils.DtoDomainConverter
 

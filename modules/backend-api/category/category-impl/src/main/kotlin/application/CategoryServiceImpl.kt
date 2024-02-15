@@ -2,8 +2,8 @@ package application
 
 import domain.CategoryRepository
 import domain.enitties.CategoryFactory
-import dto.CategoriesDto
-import dto.CategoryDto
+import presentation.dto.CategoriesDto
+import presentation.dto.CategoryDto
 import infra.toDto
 
 internal class CategoryServiceImpl(private val categoryRepository: CategoryRepository) : CategoryService {
