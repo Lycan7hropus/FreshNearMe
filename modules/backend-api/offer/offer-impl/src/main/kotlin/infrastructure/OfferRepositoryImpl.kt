@@ -15,7 +15,7 @@ import org.bson.conversions.Bson
 import org.litote.kmongo.coroutine.CoroutineCollection
 
 internal class OfferRepositoryImpl(private val offersCollection: CoroutineCollection<Offer>) : OfferRepository {
-    override suspend fun getOffers(category: CategoryApiDto?, distance: Double?, coordinates: Coordinates?): List<Offer> {
+    override suspend fun getOffers(category: CategoryApiDto?, distance: Double?, coordinates: Coordinates?, minPrice: Int?, maxPrice:Int?): List<Offer> {
         val filters = mutableListOf<Bson>()
         val point = coordinates?.let { Point(Position(it.longitude, it.latitude)) }
 
@@ -29,6 +29,13 @@ internal class OfferRepositoryImpl(private val offersCollection: CoroutineCollec
             filters.add(
                 Filters.near(Offer::geoPoint.name, point, distance * 1000, 0.0) // distance in meters
             )
+        }
+
+        minPrice?.let {
+            filters.add(Filters.gte(Offer::price.name, it))
+        }
+        maxPrice?.let {
+            filters.add(Filters.lte(Offer::price.name, it))
         }
 
         // Combine filters with 'and' if there are multiple filters

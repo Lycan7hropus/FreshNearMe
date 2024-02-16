@@ -16,7 +16,6 @@ internal class OfferServiceImpl(
 ) : OfferService {
 
     override suspend fun createOffer(offerDto: OfferDto, sellerId: String): OfferDto {
-        val category = categoryApi.getCategoryById(offerDto.categoryId)
         val offer = offerFactory.createOfferFromDTO(offerDto, sellerId)
         return offerRepository.saveOffer(offer).toDto()
     }
@@ -32,16 +31,15 @@ internal class OfferServiceImpl(
         }
     }
 
-    override suspend fun getOffers(categoryId: String?, distance: Double?, coordinates: Coordinates?): OffersDto {
+    override suspend fun getOffers(categoryId: String?, distance: Double?, coordinates: Coordinates?, minPrice: Int?, maxPrice: Int?): OffersDto {
         val category = categoryId?.let { categoryApi.getCategoryById(it) }
-        val offers = offerRepository.getOffers(category, distance, coordinates)
+        val offers = offerRepository.getOffers(category, distance, coordinates, minPrice, maxPrice)
         return OffersDto(offers.map { it.toDto() })
     }
 
     override suspend fun updateOffer(offerId: String, userId: String, offerDto: OfferDto): OfferDto {
         val sellerId = offerRepository.getOfferById(offerId).sellerId
         if (sellerId != userId) throw ResourceAccessDenied("You cannot edit this offer")
-        val category = categoryApi.getCategoryById(offerDto.categoryId)
         val offer = offerFactory.createOfferFromDTO(offerDto,userId)
         return offerRepository.updateOffer(offer).toDto()
     }

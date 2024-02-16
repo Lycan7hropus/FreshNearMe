@@ -5,7 +5,7 @@ import utils.models.Coordinates
 
 
 internal interface OfferRepository {
-    suspend fun getOffers(category: CategoryApiDto?, distance: Double?, coordinates: Coordinates?): List<Offer>
+    suspend fun getOffers(category: CategoryApiDto?, distance: Double?, coordinates: Coordinates?, minPrice: Int?, maxPrice: Int?): List<Offer>
     suspend fun getOfferById(offerId: String): Offer
     suspend fun saveOffer(offer: Offer): Offer
     suspend fun updateOffer(offer: Offer): Offer

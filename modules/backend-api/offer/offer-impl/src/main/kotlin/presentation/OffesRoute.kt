@@ -23,8 +23,10 @@ internal fun Route.offerRoutes(
             val category = call.request.queryParameters["category"]
             val coordinates = call.request.queryParameters["coordinates"]?.toCoordinates()
             val distance = call.request.queryParameters["distance"]?.toDoubleOrNull()
+            val minimumPrice = call.request.queryParameters["min_price"]?.toIntOrNull() //Price in CENTS
+            val maximumPrice = call.request.queryParameters["max_price"]?.toIntOrNull() //Price in CENTS
 
-            val offersDto = offerService.getOffers(category, distance, coordinates)
+            val offersDto = offerService.getOffers(category, distance, coordinates, minimumPrice, maximumPrice)
             call.respondSuccess(offersDto)
         }
 
