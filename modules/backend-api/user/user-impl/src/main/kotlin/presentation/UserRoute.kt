@@ -1,21 +1,19 @@
 package presentation
 
-import domain.usecases.GetUserInfoUseCase
-import domain.usecases.GetUserOffersUseCase
-import domain.usecases.SaveUserUseCase
-import domain.usecases.UpdateUserDataUseCase
-import domain.usecases.UserWishlistUseCase
-import presentation.models.BasicUserDto
-import presentation.models.DetailedUserDto
-import presentation.models.WishlistDto
-import utils.extensionFunctions.getUserId
-import utils.extensionFunctions.respondSuccess
+
+import domain.usecases.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.getKoin
+import presentation.models.BasicUserDto
+import presentation.models.DetailedUserDto
+import presentation.models.WishlistDto
+import utils.extensionFunctions.getUserId
+import utils.extensionFunctions.respondSuccess
+
 
 internal fun Route.userRoutes(
     getUserOffersUseCase: GetUserOffersUseCase = getKoin().get(),
@@ -24,7 +22,6 @@ internal fun Route.userRoutes(
     saveUserUseCase: SaveUserUseCase = getKoin().get(),
     updateUserDataUseCase: UpdateUserDataUseCase = getKoin().get(),
 ) {
-
     route("/user") {
         get("/{userId}") {
             val userId = call.parameters["userId"] ?: throw MissingRequestParameterException("userId")
@@ -60,6 +57,7 @@ internal fun Route.userRoutes(
             }
 
             put("/offers") {
+                 //TODO something is wrong here as hell
                 val userId = call.getUserId()
                 val postedOffersDTO = getUserOffersUseCase.invoke(userId)
                 call.respondSuccess(data = postedOffersDTO)

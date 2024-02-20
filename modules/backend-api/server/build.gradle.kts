@@ -1,7 +1,6 @@
 plugins {
-kotlin("jvm")
-id("myproject.java-conventions")
-
+    kotlin("jvm")
+    id("myproject.java-conventions")
 }
 
 group = "com.example"
@@ -15,8 +14,9 @@ dependencies {
     implementation(project(":modules:shared"))
 
     implementation(project(":modules:backend-api:category:category-impl"))
-    implementation(project(":modules:backend-api:offer:offer-impl"))
+    implementation(project(":modules:backend-api:auth:auth-impl"))
     implementation(project(":modules:backend-api:user:user-impl"))
+    implementation(project(":modules:backend-api:offer:offer-impl"))
 
 }
 

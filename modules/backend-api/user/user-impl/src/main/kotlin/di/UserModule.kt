@@ -1,6 +1,8 @@
 package di
 
 
+import UserApi
+import app.UserApiImpl
 import database.DatabaseProvider
 import domain.usecases.GetUserInfoUseCase
 import domain.usecases.GetUserOffersUseCase
@@ -20,6 +22,7 @@ val userModule = module {
     }
 
     single<UserDataRepository> { UserDataRepositoryImpl(get(named("UserCollection"))) }
+    single<UserApi> { UserApiImpl(get()) }
 
     single { GetUserOffersUseCase(get()) }
     single { GetUserInfoUseCase(get()) }

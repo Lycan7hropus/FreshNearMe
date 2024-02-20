@@ -36,5 +36,7 @@ findProject(":modules:backend-api:user:user-impl")?.name = "user-impl"
 
 include("modules:backend-api:server")
 findProject(":modules:backend-api:server")?.name = "server"
-
-
+include("modules:backend-api:auth")
+findProject(":modules:backend-api:auth")?.name = "auth"
+include("modules:backend-api:auth:auth-impl")
+findProject(":modules:backend-api:auth:auth-impl")?.name = "auth-impl"

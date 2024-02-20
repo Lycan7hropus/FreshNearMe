@@ -5,14 +5,11 @@ import dto.CategoryApiDto
 import presentation.dto.CategoryDto
 import infra.mappers.CategoryApiDtoConverter
 import infra.mappers.CategoryDtoConverter
-import utils.toDto
 
 internal fun Category.toDto(): CategoryDto {
-    val dto = this.toDto(CategoryDtoConverter::class)
-    return dto
+    return CategoryDtoConverter.INSTANCE.convertToDto(this)
 }
 
 internal fun Category.toApiDto(): CategoryApiDto {
-    val apiDto = this.toDto(CategoryApiDtoConverter::class)
-    return apiDto
+    return CategoryApiDtoConverter.INSTANCE.convertToDto(this)
 }

@@ -7,6 +7,7 @@ import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
+import io.ktor.server.response.*
 import javax.naming.AuthenticationException
 
 fun Application.configureStatusPages() {
@@ -25,7 +26,12 @@ fun Application.configureStatusPages() {
                     call.respondError(Exception("Undefined exception"))
                 }
             }
-        }
+
+            //TODO you probably should move your exception checks here
+//            exception<IllegalStateException> { cause ->
+//                call.respond(HttpStatusCode.InternalServerError, "Internal server error: ${cause.message}")
+//            }
+      }
         status(HttpStatusCode.NotFound) { call, _ ->
             val path = call.request.path()
             val method = call.request.httpMethod.value
@@ -36,6 +42,8 @@ fun Application.configureStatusPages() {
             val method = call.request.httpMethod.value
             call.respondError(AuthenticationException("To access the resource request needs to be authenticated"))
         }
+
+
 
     }
 }

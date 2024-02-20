@@ -1,7 +1,8 @@
 package com.example
 
-import infrastructure.config.offerConfig
+
 import com.example.plugins.*
+import config.authConfig
 import config.userConfig
 import infra.config.categoryConfig
 import io.ktor.server.application.*
@@ -17,9 +18,8 @@ fun Application.module() {
     configureStatusPages()
     configureCORS()
 
-
-    offerConfig()
     userConfig()
     categoryConfig()
+    authConfig()
 
 }
