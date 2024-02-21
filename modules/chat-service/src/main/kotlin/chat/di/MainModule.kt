@@ -36,6 +36,7 @@ val chatModule = module {
         val indexOptions = IndexOptions().background(true)
         val roomCollection: CoroutineCollection<Room> = get<DatabaseProvider>().database.getCollection("rooms")
         CoroutineScope(Dispatchers.IO).launch {
+            roomCollection.createIndex(Indexes.ascending("product_id"), indexOptions)
             roomCollection.createIndex(Indexes.ascending("user_ids"), indexOptions)
         }
         roomCollection

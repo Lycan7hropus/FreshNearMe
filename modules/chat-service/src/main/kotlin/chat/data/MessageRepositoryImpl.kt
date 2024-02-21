@@ -2,17 +2,21 @@ package com.example.chat.data
 
 import com.example.chat.domain.repositories.MessageRepository
 import com.example.chat.data.models.Message
+import com.mongodb.MongoWriteException
 import org.litote.kmongo.coroutine.CoroutineCollection
 import org.litote.kmongo.eq
 import org.litote.kmongo.`in`
+import utils.DatabaseOperationException
 
 class MessageRepositoryImpl(private val messagesCollection: CoroutineCollection<Message>): MessageRepository {
     override suspend fun getAllMessages(): List<Message> {
-        TODO("Not yet implemented")
+        return messagesCollection.find().toList()
     }
 
+
     override suspend fun insertMessage(message: Message) {
-        messagesCollection.insertOne(message)
+        val result = messagesCollection.insertOne(message)
+        if(!result.wasAcknowledged()) throw DatabaseOperationException("Couldnt save a meessage")
     }
 
     override suspend fun getMessageById(id: String): Message? {

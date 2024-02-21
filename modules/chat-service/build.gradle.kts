@@ -1,3 +1,4 @@
+
 plugins {
     kotlin("jvm")
     id("myproject.java-conventions")
@@ -11,6 +12,9 @@ repositories {
 }
 
 dependencies {
+
+    implementation ("io.mockk:mockk:1.13.9")
+
     implementation(project(":modules:shared"))
 
     implementation("io.ktor:ktor-server-websockets-jvm")

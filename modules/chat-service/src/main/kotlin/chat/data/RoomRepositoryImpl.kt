@@ -2,6 +2,7 @@ package com.example.chat.data
 
 import com.example.chat.data.models.Room
 import com.example.chat.domain.repositories.RoomRepository
+import io.ktor.server.plugins.*
 import org.litote.kmongo.contains
 import org.litote.kmongo.coroutine.CoroutineCollection
 import org.litote.kmongo.eq
@@ -15,8 +16,9 @@ class RoomRepositoryImpl (private val roomsCollection: CoroutineCollection<Room>
         TODO("Not yet implemented")
     }
 
-    override suspend fun getRoomById(id: String): Room? {
-        return roomsCollection.findOneById(id)
+
+    override suspend fun getRoomById(id: String): Room {
+        return roomsCollection.findOneById(id) ?: throw NotFoundException("No room with that id")
     }
 
     override suspend fun getRoomsByMemberId(id: String): List<Room> {

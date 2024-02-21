@@ -7,6 +7,7 @@ import com.example.chat.data.models.Message
 import io.ktor.websocket.*
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import utils.UnauthorizedAccessException
 
 class ChatService(
     private val roomRepository: RoomRepository,
@@ -26,10 +27,9 @@ class ChatService(
 
 
     suspend fun sendMessage(senderId: String, roomId: String, messageContent: String) {
-        //check if user can send a message in this room
-        val room = roomRepository.getRoomById(roomId) ?: throw Exception("Room not found")
+        val room = roomRepository.getRoomById(roomId)
         if (!room.userIds.contains(senderId)) {
-            throw Exception("User not in room")
+            throw Exception("User not in the room")
         }
 
         //create a message
@@ -40,18 +40,22 @@ class ChatService(
             timestamp = System.currentTimeMillis()
         )
         //save massage in db
-        messageRepository.insertMessage(message)
+       messageRepository.insertMessage(message)
 
         //notify the users
-        room.userIds.forEach {
-            val session = webSocketConnectionManager.getSession(it)
+        room.userIds.forEach { userId ->
+            val session = webSocketConnectionManager.getSession(userId)
             session?.send(Frame.Text(Json.encodeToString(message)))
         }
 
     }
 
-    suspend fun getRoomMessages(roomId: String): List<Message> {
-        return messageRepository.getMessagesByRoomId(roomId)
+    suspend fun getRoomMessages(roomId: String, userId: String): List<Message> {
+        return if(roomRepository.getRoomById(roomId).userIds.contains(userId)){
+            messageRepository.getMessagesByRoomId(roomId)
+        }else{
+            throw UnauthorizedAccessException("You don't have access to this conversation")
+        }
     }
 
     suspend fun getAllRooms(id: String): List<Room> {

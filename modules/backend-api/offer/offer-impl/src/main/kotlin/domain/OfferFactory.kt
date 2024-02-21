@@ -4,6 +4,7 @@ import CategoryApi
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.bson.types.ObjectId
 import presentation.dto.OfferDto
 import utils.models.GeoPoint
 import java.util.*
@@ -12,7 +13,7 @@ import java.util.*
 internal class OfferFactory(private val categoryApi: CategoryApi) {
     suspend fun createOfferFromDTO(offerDto: OfferDto, sellerId: String): Offer {
         return Offer(
-            id = offerDto.id ?: UUID.randomUUID().toString(),
+            id = offerDto.id ?: ObjectId().toString(),
             name = offerDto.name,
             category = categoryApi.getCategoryById(offerDto.categoryId),
             price = offerDto.price,
