@@ -1,5 +1,5 @@
 
-# For recent updates please see [develop_into_modules](https://github.com/Lycan7hropus/FreshNearMe/tree/develop_refactor_into_modules) branch
+# For recent updates please see https://github.com/Lycan7hropus/FreshNearMe/tree/develop
 
 
 ---
