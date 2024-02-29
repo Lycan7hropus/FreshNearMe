@@ -1,5 +1,7 @@
 plugins {
     kotlin("jvm")
+
+    application
     id("myproject.java-conventions")
 }
 
