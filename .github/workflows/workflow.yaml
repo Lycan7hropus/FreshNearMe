@@ -43,4 +43,4 @@ jobs:
           context: ./modules/backend-api/server
           file: ./modules/backend-api/server/Dockerfile
           push: true
-          tags: fresh-near-me-rest:latest
+          tags: zwo7ak/fresh-near-me-docker:latest
