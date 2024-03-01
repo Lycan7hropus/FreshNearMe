@@ -40,7 +40,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ../../modules/backend-api/server/
+          context: modules/backend-api/server
           file: Dockerfile
           push: true
           tags: fresh-near-me-rest:latest
