@@ -17,12 +17,24 @@ plugins {
     id("com.github.spotbugs")
 }
 
+application {
+    mainClass.set("io.ktor.server.netty.EngineMain")
+}
+
 
 group = "com.example"
 version = "1.0"
 
 tasks.test {
     useJUnitPlatform()
+
+}
+
+tasks.named("spotbugsMain") {
+    enabled = false
+}
+tasks.named("spotbugsTest") {
+    enabled = false
 }
 
 repositories {

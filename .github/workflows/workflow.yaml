@@ -1,0 +1,50 @@
+name: Java CI
+
+on:
+  push:
+    branches:
+      - develop_docker
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    environment: fresh-near-me-environment
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Set executable permissions for Gradle
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push backend rest api Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./modules/backend-api/server
+          file: ./modules/backend-api/server/Dockerfile
+          push: true
+          tags: zwo7ak/fresh-near-me-backend-rest:latest
+
+
+      - name: Build and push chat service Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./modules/chat-service
+          file: ./modules/chat-service/Dockerfile
+          push: true
+          tags: zwo7ak/fresh-near-me-chat-service:latest

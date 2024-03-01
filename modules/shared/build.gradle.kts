@@ -3,6 +3,8 @@ plugins {
     id("myproject.java-conventions")
 }
 
+
+
 group = "com.example"
 version = "1.0-SNAPSHOT"
 
@@ -17,6 +19,9 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+
+
 kotlin {
     jvmToolchain(17)
 }

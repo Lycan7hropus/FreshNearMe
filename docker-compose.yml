@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  fresh-near-me-rest:
+    container_name: fresh-near-me-rest-container
+    image: zwo7ak/fresh-near-me-backend-rest:latest
+    ports:
+      - "4040:4040"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/mydatabase
+    depends_on:
+      - mongodb
+
+  fresh-near-me-chat:
+    container_name: fresh-near-me-chat-container
+    image: zwo7ak/fresh-near-me-chat-service:latest
+    ports:
+      - "7070:7070"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/mydatabase
+    depends_on:
+      - mongodb
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+
+volumes:
+  mongodb-data:
