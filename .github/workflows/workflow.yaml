@@ -32,15 +32,19 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-#      - name: Build and push Docker image
-#        run: |
-#          docker build -t fresh-near-me-rest:latest -f ../../modules/backend-api/server/Dockerfile .
-#          docker push fresh-near-me-rest:latest
-
-      - name: Build and push Docker image
+      - name: Build and push backend rest api Docker image
         uses: docker/build-push-action@v2
         with:
           context: ./modules/backend-api/server
           file: ./modules/backend-api/server/Dockerfile
           push: true
-          tags: zwo7ak/fresh-near-me-docker:latest
+          tags: zwo7ak/fresh-near-me-backend-rest:latest
+
+
+      - name: Build and push chat service Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./modules/chat-service
+          file: ./modules/chat-service/Dockerfile
+          push: true
+          tags: zwo7ak/fresh-near-me-chat-service:latest
