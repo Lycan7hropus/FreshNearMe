@@ -1,19 +1,17 @@
 plugins {
     kotlin("jvm")
+
     application
     id("myproject.java-conventions")
 }
 
 group = "com.example"
-version = "0.0.1"
+version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
 }
 
-application{
-    mainClass.set("io.ktor.server.netty.EngineMain")
-}
 
 dependencies {
     implementation(project(":modules:shared"))

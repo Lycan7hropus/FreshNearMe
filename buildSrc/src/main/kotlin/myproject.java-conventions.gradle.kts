@@ -16,6 +16,9 @@ plugins {
 
     id("com.github.spotbugs")
 }
+application {
+    mainClass.set("io.ktor.server.netty.EngineMain")
+}
 
 
 group = "com.example"
