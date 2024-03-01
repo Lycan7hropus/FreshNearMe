@@ -34,6 +34,13 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t fresh-near-me-rest:latest .
+          docker build -t fresh-near-me-rest:latest -f ../../modules/backend-api/server/Dockerfile .
           docker push fresh-near-me-rest:latest
-        
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ../../
+          file: modules/backend-api/server/Dockerfile
+          push: true
+          tags: fresh-near-me-rest:latest
