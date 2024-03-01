@@ -3,7 +3,8 @@ name: Java CI
 on:
   push:
     branches:
-      - develop_docker
+      - develop
+      - main
 
 jobs:
   build:
