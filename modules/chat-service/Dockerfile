@@ -1,11 +1,15 @@
-FROM openjdk:11.0.16
-EXPOSE 7070:7070
+# Użyj obrazu bazowego Java JRE
+FROM openjdk:17-jdk
 
 
+# Ustaw katalog roboczy w kontenerze
+WORKDIR /app
 
-RUN mkdir /app
+# Skopiuj fat JAR do katalogu roboczego w kontenerze
+COPY build/libs/chat-service-all.jar /app/
 
-#WORKDIR /app
+# Otwórz port, na którym będzie nasłuchiwać aplikacja
+EXPOSE 7070
 
-COPY ./build/libs/*-all.jar /app/freshnearme.jar
-ENTRYPOINT ["java","-jar","/app/freshnearme.jar"]
+# Uruchom aplikację Java z pliku JAR
+CMD ["java", "-jar", "/app/chat-service-all.jar"]
