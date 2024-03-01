@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+
+
+  fresh-near-me-rest:  # Nazwa usługi dla Twojej aplikacji
+    container_name: fresh-near-me-rest-container  # Opcjonalnie: nazwa kontenera dla Twojej aplikacji
+    build:
+      context: ../  # Ścieżka do katalogu z Dockerfile Twojej aplikacji, dostosuj w razie potrzeby
+      dockerfile: Dockerfile  # Nazwa Dockerfile, jeśli używasz niestandardowej nazwy lub lokalizacji
+    ports:
+      - "4040:4040"  # Przekierowanie portu: host:kontener
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/mydatabase  # Ustawienie zmiennej środowiskowej dla połączenia z MongoDB
+    depends_on:
+      - mongodb  # Zależność od kontenera MongoDB
+
+  mongodb:  # Definicja usługi MongoDB
+    container_name: mongodb  # Opcjonalnie: nazwa kontenera dla MongoDB
+    image: mongo  # Używa oficjalnego obrazu MongoDB
+    ports:
+      - "27017:27017"  # Opcjonalnie: przekierowanie portu dla MongoDB, jeśli potrzebujesz dostępu z zewnątrz
+    volumes:
+      - mongodb-data:/data/db  # Przypisuje wolumin do przechowywania danych MongoDB
+
+volumes:
+  mongodb-data:  # Definicja woluminu dla danych MongoDB
