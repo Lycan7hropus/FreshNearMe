@@ -47,7 +47,7 @@ conventional food systems.
 - **Koin** for efficient dependency injection
 - **Keycloak** for secure authentication
 ### Architectural Patterns and Key Design Choices
-![overall.svg](assets%2Foverall.svg)
+![freshnearme.drawio.svg](assets%2Ffreshnearme.drawio.svg)
 
 ---
 ## Detailed Breakdown of Functionalities by Module
